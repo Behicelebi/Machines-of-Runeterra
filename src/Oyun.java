@@ -8,6 +8,7 @@ public class Oyun {
         insan = new Oyuncu(0,"Oyuncu",0);
         bilgisayar = new Oyuncu(1,"Bilgisayar",0);
         new Frame(Oyun.insan,Oyun.bilgisayar);
+        //Hello
     }
 
     public void SaldiriHesapla(){}
