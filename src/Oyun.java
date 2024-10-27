@@ -10,6 +10,7 @@ public class Oyun {
         new Frame(Oyun.insan,Oyun.bilgisayar);
         //Hello
         //Hello 41 merhaba
+        //i am me
     }
 
     public void SaldiriHesapla(){}
