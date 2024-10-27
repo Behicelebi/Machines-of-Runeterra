@@ -9,6 +9,7 @@ public class Oyun {
         bilgisayar = new Oyuncu(1,"Bilgisayar",0);
         new Frame(Oyun.insan,Oyun.bilgisayar);
         //Hello
+        //Hello 41 merhaba
     }
 
     public void SaldiriHesapla(){}
