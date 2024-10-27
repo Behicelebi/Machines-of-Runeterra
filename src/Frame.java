@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-class Frame extends JFrame implements ActionListener {
+public class Frame extends JFrame implements ActionListener {
     int WIDTH = 1000, HEIGHT = 700;
 
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -13,7 +13,7 @@ class Frame extends JFrame implements ActionListener {
     GamePanel gamePanel = new GamePanel(WIDTH,HEIGHT);
     Menu menu = new Menu(WIDTH,HEIGHT);
 
-    JButton button = new JButton("PLAY");;
+    JButton button = new JButton("PLAY");
 
     Frame(Oyuncu insan, Oyuncu bilgisayar){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
