@@ -22,10 +22,17 @@ public class GamePanel extends JPanel {
         g.setFont(new Font("Arial",Font.PLAIN,15));
         g.drawString(bilgisayar.oyuncuAdi, (WIDTH/2)-33,20);
         g.drawString(insan.oyuncuAdi,(WIDTH/2)-33,HEIGHT-10);
-        g.setColor(Color.red);
-        for (int i = 0; i < 6; i++) {
-            g.fillRect((i*170)+25,30,100,150);
+        for (int i = 0; i < insan.kartListesi.size(); i++) {
+            g.setColor(Color.red);
             g.fillRect((i*170)+25,HEIGHT-180,100,150);
+            g.setColor(Color.white);
+            g.drawString(insan.kartListesi.get(i).sinif(),(i*170)+25,HEIGHT-180);
+        }
+        for (int i = 0; i < bilgisayar.kartListesi.size(); i++) {
+            g.setColor(Color.red);
+            g.fillRect((i*170)+25,30,100,150);
+            g.setColor(Color.white);
+            g.drawString(bilgisayar.kartListesi.get(i).sinif(),(i*170)+25,30);
         }
     }
 }
