@@ -26,7 +26,7 @@ public class KFS extends KaraSinifi{
 
     @Override
     public int denizVurusAvantaji() {
-        return 0;
+        return 10;
     }
 
     public int havaVurusAvantaji() {
