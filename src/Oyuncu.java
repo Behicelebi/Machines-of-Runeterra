@@ -13,6 +13,12 @@ public class Oyuncu {
         this.skor = skor;
     }
 
+    Oyuncu(){
+        this.oyuncuAdi = "NULL";
+        this.oyuncuID = -1;
+        this.skor = 0;
+    }
+
     public void SkorGoster(){}
     public void kartSec(){}
 }

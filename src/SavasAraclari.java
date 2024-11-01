@@ -11,7 +11,6 @@ public abstract class SavasAraclari {
     public abstract int vurus();
     public abstract int dayaniklilik();
 
-
     abstract void KartPuaniGoster();
     abstract void DurumGuncelle();
 }
