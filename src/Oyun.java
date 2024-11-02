@@ -10,13 +10,13 @@ public class Oyun {
     public static void main(String[] args) {
         insan = new Oyuncu(1,"Oyuncu",0);
         bilgisayar = new Oyuncu(0,"Bilgisayar",0);
-        kartDagit(insan);
-        kartDagit(bilgisayar);
+        kartDagit(insan, 5);
+        kartDagit(bilgisayar, 3);
         new Frame(Oyun.insan,Oyun.bilgisayar);
     }
 
-    public static void kartDagit(Oyuncu oyuncu) {
-        for (int i = 1; i <= 6; i++) {
+    public static void kartDagit(Oyuncu oyuncu, int dagitmaAdedi) {
+        for (int i = 1; i <= dagitmaAdedi; i++) {
             int select;
             if (oyuncu.skor >= 20){ select = random.nextInt(6); }
             else { select = random.nextInt(3); }
