@@ -5,7 +5,7 @@ public class Oyuncu {
 
     public String oyuncuAdi;
     int oyuncuID, skor;
-    protected List<SavasAraclari> kartListesi = new ArrayList<>();
+    public List<SavasAraclari> kartListesi = new ArrayList<>();
 
     Oyuncu(int oyuncuID, String oyuncuAdi, int skor){
         this.oyuncuAdi = oyuncuAdi;

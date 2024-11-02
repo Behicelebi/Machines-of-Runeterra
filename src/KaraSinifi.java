@@ -1,27 +1,15 @@
 public abstract class KaraSinifi extends SavasAraclari{
 
-    String sinif;
-    public KaraSinifi(int seviyePuani, String sinif) {
+    public KaraSinifi(int seviyePuani) {
         super(seviyePuani);
-        this.sinif = sinif;
     }
 
     public abstract String altsinif();
     public abstract int denizVurusAvantaji();
-
-    @Override
-    public String sinif() {
-        return "";
-    }
-
-    @Override
-    public int vurus() {
-        return 0;
-    }
-
-    @Override
-    public int dayaniklilik() {
-        return 0;
+    public abstract int dayaniklilik();
+    public abstract int vurus();
+    public String sinif(){
+        return "Kara";
     }
 
     @Override

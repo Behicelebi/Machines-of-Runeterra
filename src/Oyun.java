@@ -24,28 +24,28 @@ public class Oyun {
             //Printler debug için eklendi.
             switch(select){
                 case 0:
-                    Select = new Ucak(0,"Hava");
-                    System.out.println("Ucak Hava");
+                    Select = new Ucak(0);
+//                    System.out.println("Ucak Hava");
                     break;
                 case 1:
-                    Select = new Obus(0,"Kara");
-                    System.out.println("Obus Kara");
+                    Select = new Obus(0);
+//                    System.out.println("Obus Kara");
                     break;
                 case 2:
-                    Select = new Firkateyn(0,"Deniz");
-                    System.out.println("Firkateyn Deniz");
+                    Select = new Firkateyn(0);
+//                    System.out.println("Firkateyn Deniz");
                     break;
                 case 3:
-                    Select = new Siha(0,"Hava");
-                    System.out.println("Siha Hava");
+                    Select = new Siha(0);
+//                    System.out.println("Siha Hava");
                     break;
                 case 4:
-                    Select = new KFS(0,"Kara");
-                    System.out.println("KFS Kara");
+                    Select = new KFS(0);
+//                    System.out.println("KFS Kara");
                     break;
                 case 5:
-                    Select = new Sida(0,"Deniz");
-                    System.out.println("Sida Deniz");
+                    Select = new Sida(0);
+//                    System.out.println("Sida Deniz");
                     break;
                 default:
                     break;

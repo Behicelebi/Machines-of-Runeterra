@@ -1,8 +1,7 @@
 public class Obus extends KaraSinifi{
 
-    public Obus(int seviyePuani, String sinif) {
-        super(seviyePuani,sinif);
-        sinif = "Kara";
+    public Obus(int seviyePuani) {
+        super(seviyePuani);
     }
 
     @Override
@@ -11,7 +10,7 @@ public class Obus extends KaraSinifi{
     }
 
     public String sinif() {
-        return "Kara";
+        return super.sinif();
     }
 
     @Override

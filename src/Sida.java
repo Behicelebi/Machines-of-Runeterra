@@ -1,8 +1,7 @@
 public class Sida extends DenizSinifi{
 
-    public Sida(int seviyePuani, String sinif) {
-        super(seviyePuani, sinif);
-        sinif = "Deniz";
+    public Sida(int seviyePuani) {
+        super(seviyePuani);
     }
 
     @Override
@@ -11,7 +10,7 @@ public class Sida extends DenizSinifi{
     }
 
     public String sinif() {
-        return "Deniz";
+        return super.sinif();
     }
 
     @Override

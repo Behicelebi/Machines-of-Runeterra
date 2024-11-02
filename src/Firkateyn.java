@@ -1,8 +1,7 @@
 public class Firkateyn extends DenizSinifi{
 
-    public Firkateyn(int seviyePuani, String sinif) {
-        super(seviyePuani, sinif);
-        sinif = "Deniz";
+    public Firkateyn(int seviyePuani) {
+        super(seviyePuani);
     }
 
     @Override
@@ -11,7 +10,7 @@ public class Firkateyn extends DenizSinifi{
     }
 
     public String sinif() {
-        return "Deniz";
+        return super.sinif();
     }
 
     @Override

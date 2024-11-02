@@ -1,8 +1,7 @@
 public class Siha extends HavaSinifi{
 
-    public Siha(int seviyePuani, String sinif) {
-        super(seviyePuani, sinif);
-        sinif = "Hava";
+    public Siha(int seviyePuani) {
+        super(seviyePuani);
     }
 
     @Override
@@ -11,7 +10,7 @@ public class Siha extends HavaSinifi{
     }
 
     public String sinif() {
-        return "Hava";
+        return super.sinif();
     }
 
     @Override

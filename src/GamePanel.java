@@ -26,13 +26,25 @@ public class GamePanel extends JPanel {
             g.setColor(Color.red);
             g.fillRect((i*170)+25,HEIGHT-180,100,150);
             g.setColor(Color.white);
-            g.drawString(insan.kartListesi.get(i).sinif(),(i*170)+25,HEIGHT-180);
+            if(insan.kartListesi.get(i) instanceof HavaSinifi temp){
+                g.drawString(temp.altsinif(),(i*170)+25,HEIGHT-180);
+            } else if (insan.kartListesi.get(i) instanceof KaraSinifi temp) {
+                g.drawString(temp.altsinif(),(i*170)+25,HEIGHT-180);
+            } else if (insan.kartListesi.get(i) instanceof DenizSinifi temp) {
+                g.drawString(temp.altsinif(),(i*170)+25,HEIGHT-180);
+            }
         }
         for (int i = 0; i < bilgisayar.kartListesi.size(); i++) {
             g.setColor(Color.red);
             g.fillRect((i*170)+25,30,100,150);
             g.setColor(Color.white);
-            g.drawString(bilgisayar.kartListesi.get(i).sinif(),(i*170)+25,30);
+            if(bilgisayar.kartListesi.get(i) instanceof HavaSinifi temp){
+                g.drawString(temp.altsinif(), (i*170)+25,30);
+            } else if (bilgisayar.kartListesi.get(i) instanceof KaraSinifi temp) {
+                g.drawString(temp.altsinif(),(i*170)+25,30);
+            } else if (bilgisayar.kartListesi.get(i) instanceof DenizSinifi temp) {
+                g.drawString(temp.altsinif(),(i*170)+25,30);
+            }
         }
     }
 }
