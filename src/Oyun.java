@@ -10,8 +10,8 @@ public class Oyun {
     public static void main(String[] args) {
         insan = new Oyuncu(1,"Oyuncu",0);
         bilgisayar = new Oyuncu(0,"Bilgisayar",0);
-        kartDagit(insan, 5);
-        kartDagit(bilgisayar, 3);
+        kartDagit(insan, 6);
+        kartDagit(bilgisayar, 6);
         new Frame(Oyun.insan,Oyun.bilgisayar);
     }
 
