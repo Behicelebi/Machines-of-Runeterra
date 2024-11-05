@@ -10,6 +10,9 @@ public class GamePanel extends JPanel {
     Oyuncu insan,bilgisayar;
     ArrayList<Rectangle> insan_kartlar = new ArrayList<>();
     ArrayList<Rectangle> bilgisayar_kartlar = new ArrayList<>();
+    ArrayList<Rectangle> play_boxes = new ArrayList<>();
+    ArrayList<Integer> box_placed = new ArrayList<>();
+    ArrayList<Point> temp_location = new ArrayList<>();
     int selectedRect = -1;
     Point dragOffset;
 
@@ -23,6 +26,8 @@ public class GamePanel extends JPanel {
         this.setFocusable(true);
         this.setLayout(null);
 
+        for (int i = 0; i < 3; i++) {box_placed.add(-1);}
+
         int bosluk, kartbosluk=150;
         bosluk = (WIDTH - (insan.kartListesi.size()*150 - 70))/2;
         if(bosluk<25){
@@ -32,6 +37,7 @@ public class GamePanel extends JPanel {
         for (int i = 0; i < insan.kartListesi.size(); i++) {
             Rectangle button = new Rectangle((i*kartbosluk)+bosluk,HEIGHT-150,80,120);
             insan_kartlar.add(button);
+            temp_location.add(new Point(button.x,button.y));
         }
 
         kartbosluk = 150;
@@ -43,6 +49,17 @@ public class GamePanel extends JPanel {
         for (int i = 0; i < bilgisayar.kartListesi.size(); i++) {
             Rectangle button = new Rectangle((i*kartbosluk)+bosluk,30,80,120);
             bilgisayar_kartlar.add(button);
+        }
+
+        kartbosluk = 150;
+        bosluk = (WIDTH - (3*150 - 70))/2;
+        if(bosluk<25){
+            bosluk=25;
+            while(25 + bilgisayar.kartListesi.size()*kartbosluk - (kartbosluk-80) >= WIDTH - 25){kartbosluk--;}
+        }
+        for (int i = 0; i < 6; i++) {
+            Rectangle button = new Rectangle(((i%3)*kartbosluk)+bosluk,(HEIGHT/2)-(150-(i/3*150)),80,120);
+            play_boxes.add(button);
         }
 
         JLabel bilgisayar_label = new JLabel(bilgisayar.oyuncuAdi);
@@ -74,6 +91,23 @@ public class GamePanel extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
+                for (int j=0; j<insan_kartlar.size(); j++) {
+                    for (int i=3; i<6; i++) {
+                        if (play_boxes.get(i).contains(e.getPoint()) && j==selectedRect && box_placed.get(i-3) == -1) {
+                            insan_kartlar.get(j).x = play_boxes.get(i).x;
+                            insan_kartlar.get(j).y = play_boxes.get(i).y;
+                            box_placed.set(i-3,j);
+                            break;
+                        }else if(j==selectedRect){
+                            insan_kartlar.get(j).x = temp_location.get(j).x;
+                            insan_kartlar.get(j).y = temp_location.get(j).y;
+                            for (int k = 0; k < 3; k++) {
+                                if(box_placed.get(k) == j){box_placed.set(i-3,-1);}
+                            }
+                        }
+                    }
+                }
+                repaint();
                 selectedRect = -1;
             }
         });
@@ -108,11 +142,11 @@ public class GamePanel extends JPanel {
             g.fillRect(insan_kartlar.get(i).x,insan_kartlar.get(i).y,insan_kartlar.get(i).width,insan_kartlar.get(i).height);
             g.setColor(Color.white);
             if(insan.kartListesi.get(i) instanceof HavaSinifi temp){
-                g.drawString(temp.altsinif(),(i*kartbosluk)+bosluk,HEIGHT-150);
+                g.drawString(temp.altsinif(),insan_kartlar.get(i).x,insan_kartlar.get(i).y);
             } else if (insan.kartListesi.get(i) instanceof KaraSinifi temp) {
-                g.drawString(temp.altsinif(),(i*kartbosluk)+bosluk,HEIGHT-150);
+                g.drawString(temp.altsinif(),insan_kartlar.get(i).x,insan_kartlar.get(i).y);
             } else if (insan.kartListesi.get(i) instanceof DenizSinifi temp) {
-                g.drawString(temp.altsinif(),(i*kartbosluk)+bosluk,HEIGHT-150);
+                g.drawString(temp.altsinif(),insan_kartlar.get(i).x,insan_kartlar.get(i).y);
             }
         }
         for (int i = 0; i < bilgisayar.kartListesi.size(); i++) {
@@ -125,12 +159,15 @@ public class GamePanel extends JPanel {
             g.fillRect(bilgisayar_kartlar.get(i).x,bilgisayar_kartlar.get(i).y,bilgisayar_kartlar.get(i).width,bilgisayar_kartlar.get(i).height);
             g.setColor(Color.white);
             if(bilgisayar.kartListesi.get(i) instanceof HavaSinifi temp){
-                g.drawString(temp.altsinif(), (i*kartbosluk)+bosluk,30);
+                g.drawString(temp.altsinif(), bilgisayar_kartlar.get(i).x,bilgisayar_kartlar.get(i).y);
             } else if (bilgisayar.kartListesi.get(i) instanceof KaraSinifi temp) {
-                g.drawString(temp.altsinif(),(i*kartbosluk)+bosluk,30);
+                g.drawString(temp.altsinif(),bilgisayar_kartlar.get(i).x,bilgisayar_kartlar.get(i).y);
             } else if (bilgisayar.kartListesi.get(i) instanceof DenizSinifi temp) {
-                g.drawString(temp.altsinif(),(i*kartbosluk)+bosluk,30);
+                g.drawString(temp.altsinif(),bilgisayar_kartlar.get(i).x,bilgisayar_kartlar.get(i).y);
             }
+        }
+        for (int i = 0; i < 6; i++) {
+            g.drawRect(play_boxes.get(i).x,play_boxes.get(i).y,play_boxes.get(i).width,play_boxes.get(i).height);
         }
     }
 }
