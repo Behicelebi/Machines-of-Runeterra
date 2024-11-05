@@ -1,11 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
+import java.awt.event.*;
 import java.util.ArrayList;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel implements ActionListener {
     int WIDTH,HEIGHT;
     Oyuncu insan,bilgisayar;
     ArrayList<Rectangle> insan_kartlar = new ArrayList<>();
@@ -13,7 +11,10 @@ public class GamePanel extends JPanel {
     ArrayList<Rectangle> play_boxes = new ArrayList<>();
     ArrayList<Integer> box_placed = new ArrayList<>();
     ArrayList<Point> temp_location = new ArrayList<>();
+    JButton ready;
     int selectedRect = -1;
+    boolean placed_error = false;
+    boolean tur = false;
     Point dragOffset;
 
     GamePanel(int WIDTH, int HEIGHT, Oyuncu insan, Oyuncu bilgisayar){
@@ -62,6 +63,12 @@ public class GamePanel extends JPanel {
             play_boxes.add(button);
         }
 
+        ready = new JButton("READY");
+        ready.setBounds(1100,320,80,30);
+        ready.setFocusable(false);
+        ready.addActionListener(this);
+        this.add(ready);
+
         JLabel bilgisayar_label = new JLabel(bilgisayar.oyuncuAdi);
         bilgisayar_label.setHorizontalAlignment(JLabel.CENTER);
         bilgisayar_label.setVerticalAlignment(JLabel.TOP);
@@ -82,7 +89,7 @@ public class GamePanel extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 for (int i=0; i<insan_kartlar.size(); i++) {
-                    if (insan_kartlar.get(i).contains(e.getPoint())) {
+                    if (insan_kartlar.get(i).contains(e.getPoint()) && !tur) {
                         selectedRect = i;
                         dragOffset = new Point(e.getX() - insan_kartlar.get(i).x, e.getY() - insan_kartlar.get(i).y);
                     }
@@ -96,6 +103,7 @@ public class GamePanel extends JPanel {
                         if (play_boxes.get(i).contains(e.getPoint()) && j==selectedRect && box_placed.get(i-3) == -1) {
                             insan_kartlar.get(j).x = play_boxes.get(i).x;
                             insan_kartlar.get(j).y = play_boxes.get(i).y;
+                            placed_error = false;
                             box_placed.set(i-3,j);
                             break;
                         }else if(j==selectedRect){
@@ -167,7 +175,26 @@ public class GamePanel extends JPanel {
             }
         }
         for (int i = 0; i < 6; i++) {
+            g.setColor(Color.white);
             g.drawRect(play_boxes.get(i).x,play_boxes.get(i).y,play_boxes.get(i).width,play_boxes.get(i).height);
+        }
+        if(placed_error){
+            g.setColor(Color.red);
+            g.drawString("You need to place 3 cards",900,340);
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource()==ready){
+            for (int i = 0; i < 3; i++) {
+                if(box_placed.get(i) == -1){
+                    placed_error=true;
+                    repaint();
+                }else{
+                    tur = true;
+                }
+            }
         }
     }
 }
