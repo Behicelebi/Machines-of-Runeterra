@@ -29,39 +29,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
         for (int i = 0; i < 3; i++) {box_placed.add(-1);}
 
-        int bosluk, kartbosluk=150;
-        bosluk = (WIDTH - (insan.kartListesi.size()*150 - 70))/2;
-        if(bosluk<25){
-            bosluk=25;
-            while(25 + insan.kartListesi.size()*kartbosluk - (kartbosluk-80) >= WIDTH - 25){kartbosluk--;}
-        }
-        for (int i = 0; i < insan.kartListesi.size(); i++) {
-            Rectangle button = new Rectangle((i*kartbosluk)+bosluk,HEIGHT-150,80,120);
-            insan_kartlar.add(button);
-            temp_location.add(new Point(button.x,button.y));
-        }
-
-        kartbosluk = 150;
-        bosluk = (WIDTH - (bilgisayar.kartListesi.size()*150 - 70))/2;
-        if(bosluk<25){
-            bosluk=25;
-            while(25 + bilgisayar.kartListesi.size()*kartbosluk - (kartbosluk-80) >= WIDTH - 25){kartbosluk--;}
-        }
-        for (int i = 0; i < bilgisayar.kartListesi.size(); i++) {
-            Rectangle button = new Rectangle((i*kartbosluk)+bosluk,30,80,120);
-            bilgisayar_kartlar.add(button);
-        }
-
-        kartbosluk = 150;
-        bosluk = (WIDTH - (3*150 - 70))/2;
-        if(bosluk<25){
-            bosluk=25;
-            while(25 + bilgisayar.kartListesi.size()*kartbosluk - (kartbosluk-80) >= WIDTH - 25){kartbosluk--;}
-        }
-        for (int i = 0; i < 6; i++) {
-            Rectangle button = new Rectangle(((i%3)*kartbosluk)+bosluk,(HEIGHT/2)-(150-(i/3*150)),80,120);
-            play_boxes.add(button);
-        }
+        setCardPositions();
 
         ready = new JButton("READY");
         ready.setBounds(1100,320,80,30);
@@ -184,16 +152,62 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
 
+    public void setCardPositions(){
+        int bosluk, kartbosluk=150;
+        bosluk = (WIDTH - (insan.kartListesi.size()*150 - 70))/2;
+        if(bosluk<25){
+            bosluk=25;
+            while(25 + insan.kartListesi.size()*kartbosluk - (kartbosluk-80) >= WIDTH - 25){kartbosluk--;}
+        }
+        for (int i = 0; i < insan.kartListesi.size(); i++) {
+            Rectangle button = new Rectangle((i*kartbosluk)+bosluk,HEIGHT-150,80,120);
+            insan_kartlar.add(button);
+            temp_location.add(new Point(button.x,button.y));
+        }
+
+        kartbosluk = 150;
+        bosluk = (WIDTH - (bilgisayar.kartListesi.size()*150 - 70))/2;
+        if(bosluk<25){
+            bosluk=25;
+            while(25 + bilgisayar.kartListesi.size()*kartbosluk - (kartbosluk-80) >= WIDTH - 25){kartbosluk--;}
+        }
+        for (int i = 0; i < bilgisayar.kartListesi.size(); i++) {
+            Rectangle button = new Rectangle((i*kartbosluk)+bosluk,30,80,120);
+            bilgisayar_kartlar.add(button);
+        }
+
+        kartbosluk = 150;
+        bosluk = (WIDTH - (3*150 - 70))/2;
+        if(bosluk<25){
+            bosluk=25;
+            while(25 + bilgisayar.kartListesi.size()*kartbosluk - (kartbosluk-80) >= WIDTH - 25){kartbosluk--;}
+        }
+        for (int i = 0; i < 6; i++) {
+            Rectangle button = new Rectangle(((i%3)*kartbosluk)+bosluk,(HEIGHT/2)-(150-(i/3*150)),80,120);
+            play_boxes.add(button);
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
+        ArrayList<SavasAraclari> toRemove = new ArrayList<>();
         if(e.getSource()==ready){
             for (int i = 0; i < 3; i++) {
                 if(box_placed.get(i) == -1){
                     placed_error=true;
                     repaint();
-                }else{
-                    tur = true;
                 }
+            }
+            if(!placed_error){
+                /*
+                for (int i = 0; i < 3; i++) {
+                    if(box_placed.get(i) != -1){
+                        insan_kartlar.remove(box_placed.get(i));
+                        insan.kartListesi.remove(box_placed.get(i));
+                    }
+                }*/
+                setCardPositions();
+                tur = true;
             }
         }
     }
