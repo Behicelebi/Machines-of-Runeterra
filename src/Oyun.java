@@ -15,6 +15,10 @@ public class Oyun {
         new Frame(Oyun.insan,Oyun.bilgisayar);
     }
 
+    public static int SaldiriHesapla(){
+        return random.nextInt();
+    }
+
     public static void kartDagit(Oyuncu oyuncu, int dagitmaAdedi) {
         for (int i = 1; i <= dagitmaAdedi; i++) {
             int select;

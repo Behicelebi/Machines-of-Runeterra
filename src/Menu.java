@@ -11,6 +11,13 @@ public class Menu extends JPanel{
         this.setBackground(Color.black);
         this.setFocusable(true);
         this.setLayout(null);
+        JLabel bilgisayar_label = new JLabel("Savaş Araçları Kart Oyunu");
+        bilgisayar_label.setHorizontalAlignment(JLabel.CENTER);
+        bilgisayar_label.setVerticalAlignment(JLabel.TOP);
+        bilgisayar_label.setForeground(Color.white);
+        bilgisayar_label.setFont(new Font("Arial",Font.PLAIN,30));
+        bilgisayar_label.setBounds(0,50,WIDTH,100);
+        this.add(bilgisayar_label);
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -19,6 +26,6 @@ public class Menu extends JPanel{
     public void draw(Graphics g){
         g.setColor(Color.white);
         g.setFont(new Font("Arial",Font.PLAIN,30));
-        g.drawString("Savaş Araçları Kart Oyunu",(WIDTH/2)-200,50);
+        //g.drawString("Savaş Araçları Kart Oyunu",(WIDTH/2)-200,50);
     }
 }

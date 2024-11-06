@@ -78,7 +78,7 @@ public class GamePanel extends JPanel implements ActionListener {
                             insan_kartlar.get(j).x = temp_location.get(j).x;
                             insan_kartlar.get(j).y = temp_location.get(j).y;
                             for (int k = 0; k < 3; k++) {
-                                if(box_placed.get(k) == j){box_placed.set(i-3,-1);}
+                                if(box_placed.get(k) == j){box_placed.set(k,-1);}
                             }
                         }
                     }
@@ -108,6 +108,10 @@ public class GamePanel extends JPanel implements ActionListener {
         g.setColor(Color.white);
         g.setFont(new Font("Arial",Font.PLAIN,15));
         int bosluk, kartbosluk=150;
+        for (int i = 0; i < 6; i++) {
+            g.setColor(Color.white);
+            g.drawRect(play_boxes.get(i).x,play_boxes.get(i).y,play_boxes.get(i).width,play_boxes.get(i).height);
+        }
         for (int i = 0; i < insan.kartListesi.size(); i++) {
             bosluk = (WIDTH - (insan.kartListesi.size()*150 - 70))/2;
             if(bosluk<25){
@@ -116,6 +120,8 @@ public class GamePanel extends JPanel implements ActionListener {
             }
             g.setColor(Color.red);
             g.fillRect(insan_kartlar.get(i).x,insan_kartlar.get(i).y,insan_kartlar.get(i).width,insan_kartlar.get(i).height);
+            g.setColor(Color.green);
+            g.drawRect(insan_kartlar.get(i).x,insan_kartlar.get(i).y,insan_kartlar.get(i).width,insan_kartlar.get(i).height);
             g.setColor(Color.white);
             if(insan.kartListesi.get(i) instanceof HavaSinifi temp){
                 g.drawString(temp.altsinif(),insan_kartlar.get(i).x,insan_kartlar.get(i).y);
@@ -133,6 +139,8 @@ public class GamePanel extends JPanel implements ActionListener {
             }
             g.setColor(Color.red);
             g.fillRect(bilgisayar_kartlar.get(i).x,bilgisayar_kartlar.get(i).y,bilgisayar_kartlar.get(i).width,bilgisayar_kartlar.get(i).height);
+            g.setColor(Color.green);
+            g.drawRect(bilgisayar_kartlar.get(i).x,bilgisayar_kartlar.get(i).y,bilgisayar_kartlar.get(i).width,bilgisayar_kartlar.get(i).height);
             g.setColor(Color.white);
             if(bilgisayar.kartListesi.get(i) instanceof HavaSinifi temp){
                 g.drawString(temp.altsinif(), bilgisayar_kartlar.get(i).x,bilgisayar_kartlar.get(i).y);
@@ -141,10 +149,6 @@ public class GamePanel extends JPanel implements ActionListener {
             } else if (bilgisayar.kartListesi.get(i) instanceof DenizSinifi temp) {
                 g.drawString(temp.altsinif(),bilgisayar_kartlar.get(i).x,bilgisayar_kartlar.get(i).y);
             }
-        }
-        for (int i = 0; i < 6; i++) {
-            g.setColor(Color.white);
-            g.drawRect(play_boxes.get(i).x,play_boxes.get(i).y,play_boxes.get(i).width,play_boxes.get(i).height);
         }
         if(placed_error){
             g.setColor(Color.red);

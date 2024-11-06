@@ -23,7 +23,7 @@ public class Frame extends JFrame implements ActionListener {
         this.setLocation(screenWidth,screenHeight);
         this.setSize(WIDTH,HEIGHT);
         this.add(menu);
-        button.setBounds((WIDTH/2)-50,200,80,30);
+        button.setBounds((WIDTH/2)-30,200,80,30);
         button.setFocusable(false);
         button.addActionListener(this);
         menu.add(button);
