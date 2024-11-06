@@ -29,8 +29,6 @@ public class Frame extends JFrame implements ActionListener {
         menu.add(button);
         this.pack();
         this.setVisible(true);
-        //gamePanel.insan = insan;
-        //gamePanel.bilgisayar = bilgisayar;
     }
 
     @Override

@@ -1,7 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class GamePanel extends JPanel implements ActionListener {
     int WIDTH,HEIGHT;
@@ -9,8 +13,8 @@ public class GamePanel extends JPanel implements ActionListener {
     ArrayList<Rectangle> insan_kartlar = new ArrayList<>();
     ArrayList<Rectangle> bilgisayar_kartlar = new ArrayList<>();
     ArrayList<Rectangle> play_boxes = new ArrayList<>();
-    ArrayList<Integer> box_placed = new ArrayList<>();
     ArrayList<Point> temp_location = new ArrayList<>();
+    ArrayList<Point> temp_location_pc = new ArrayList<>();
     JButton ready;
     int selectedRect = -1;
     boolean placed_error = false;
@@ -26,8 +30,6 @@ public class GamePanel extends JPanel implements ActionListener {
         this.setBackground(Color.black);
         this.setFocusable(true);
         this.setLayout(null);
-
-        for (int i = 0; i < 3; i++) {box_placed.add(-1);}
 
         setCardPositions();
 
@@ -68,17 +70,17 @@ public class GamePanel extends JPanel implements ActionListener {
             public void mouseReleased(MouseEvent e) {
                 for (int j=0; j<insan_kartlar.size(); j++) {
                     for (int i=3; i<6; i++) {
-                        if (play_boxes.get(i).contains(e.getPoint()) && j==selectedRect && box_placed.get(i-3) == -1) {
+                        if (play_boxes.get(i).contains(e.getPoint()) && j==selectedRect && insan.placed_cards.get(i-3) == -1) {
                             insan_kartlar.get(j).x = play_boxes.get(i).x;
                             insan_kartlar.get(j).y = play_boxes.get(i).y;
                             placed_error = false;
-                            box_placed.set(i-3,j);
+                            insan.kartSec(i-3,j);
                             break;
                         }else if(j==selectedRect){
                             insan_kartlar.get(j).x = temp_location.get(j).x;
                             insan_kartlar.get(j).y = temp_location.get(j).y;
                             for (int k = 0; k < 3; k++) {
-                                if(box_placed.get(k) == j){box_placed.set(k,-1);}
+                                if(insan.placed_cards.get(k) == j){insan.kartSec(k,-1);}
                             }
                         }
                     }
@@ -178,6 +180,7 @@ public class GamePanel extends JPanel implements ActionListener {
         for (int i = 0; i < bilgisayar.kartListesi.size(); i++) {
             Rectangle button = new Rectangle((i*kartbosluk)+bosluk,30,80,120);
             bilgisayar_kartlar.add(button);
+            temp_location_pc.add(new Point(button.x,button.y));
         }
 
         kartbosluk = 150;
@@ -192,26 +195,62 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
 
+    public void cardOldPos(){
+        for (int i = 0; i < bilgisayar_kartlar.size(); i++) {
+            bilgisayar_kartlar.get(i).x = temp_location_pc.get(i).x;
+            bilgisayar_kartlar.get(i).y = temp_location_pc.get(i).y;
+        }
+        for (int i = 0; i < insan_kartlar.size(); i++) {
+            insan_kartlar.get(i).x = temp_location.get(i).x;
+            insan_kartlar.get(i).y = temp_location.get(i).y;
+        }
+        repaint();
+    }
+
+    public void turn(){
+        bilgisayar.kartSec(0,0);
+        java.util.Timer timer = new Timer();
+        TimerTask task = new TimerTask(){
+            int finalI = -1;
+            @Override
+            public void run() {
+                if(finalI>=0){
+                    bilgisayar_kartlar.get(bilgisayar.placed_cards.get(finalI)).x = play_boxes.get(finalI).x;
+                    bilgisayar_kartlar.get(bilgisayar.placed_cards.get(finalI)).y = play_boxes.get(finalI).y;
+                }
+                if(finalI>=2){
+                    tur=false;
+                    for (int i = 0; i < 3; i++) {
+                        int insan_vurus = Oyun.SaldiriHesapla(insan.kartListesi.get(insan.placed_cards.get(i)),bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)));
+                        int bilgisayar_vurus = Oyun.SaldiriHesapla(bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)),insan.kartListesi.get(insan.placed_cards.get(i)));
+                        System.out.println(i + ": " + insan_vurus);
+                        System.out.println(i + ": " + bilgisayar_vurus);
+                        //insan.kartListesi.get(insan.placed_cards.get(i)).dayaniklilik() -= bilgisayar_vurus;
+                        //bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).dayaniklilik() -= insan_vurus;
+                    }
+                    //cardOldPos();
+                    timer.cancel();
+                }
+                finalI++;
+                repaint();
+            }
+        };
+        timer.scheduleAtFixedRate(task,0,1000);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         ArrayList<SavasAraclari> toRemove = new ArrayList<>();
         if(e.getSource()==ready){
             for (int i = 0; i < 3; i++) {
-                if(box_placed.get(i) == -1){
+                if(insan.placed_cards.get(i) == -1){
                     placed_error=true;
                     repaint();
                 }
             }
             if(!placed_error){
-                /*
-                for (int i = 0; i < 3; i++) {
-                    if(box_placed.get(i) != -1){
-                        insan_kartlar.remove(box_placed.get(i));
-                        insan.kartListesi.remove(box_placed.get(i));
-                    }
-                }*/
-                setCardPositions();
                 tur = true;
+                turn();
             }
         }
     }

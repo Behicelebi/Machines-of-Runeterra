@@ -15,8 +15,24 @@ public class Oyun {
         new Frame(Oyun.insan,Oyun.bilgisayar);
     }
 
-    public static int SaldiriHesapla(){
-        return random.nextInt();
+    public static int SaldiriHesapla(SavasAraclari A, SavasAraclari B){
+        if (A instanceof Siha temp && B instanceof DenizSinifi temp2){
+            return temp.vurus() + temp.denizVurusAvantaji();
+        } else if (A instanceof KFS temp && B instanceof HavaSinifi temp2) {
+            return temp.vurus() + temp.havaVurusAvantaji();
+        } else if (A instanceof Sida temp && B instanceof KaraSinifi temp2) {
+            return temp.vurus() + temp.karaVurusAvantaji();
+        }
+
+        if(A instanceof HavaSinifi temp && B instanceof KaraSinifi temp2){
+            return temp.vurus() + temp.karaVurusAvantaji();
+        } else if (A instanceof KaraSinifi temp && B instanceof DenizSinifi temp2) {
+            return temp.vurus() + temp.denizVurusAvantaji();
+        } else if (A instanceof DenizSinifi temp && B instanceof HavaSinifi temp2) {
+            return temp.vurus() + temp.havaVurusAvantaji();
+        }
+
+        return A.vurus();
     }
 
     public static void kartDagit(Oyuncu oyuncu, int dagitmaAdedi) {
