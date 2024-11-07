@@ -14,11 +14,11 @@ public class GamePanel extends JPanel implements ActionListener {
     ArrayList<Point> temp_location = new ArrayList<>();
     ArrayList<Point> temp_location_pc = new ArrayList<>();
     JButton ready;
-    JLabel roundNumber;
     int selectedRect = -1;
     int roundNum = 1;
     boolean placed_error = false;
     boolean tur = false;
+    boolean isAdded_insan = false,isAdded_pc = false;
     Point dragOffset;
 
     GamePanel(int WIDTH, int HEIGHT, Oyuncu insan, Oyuncu bilgisayar){
@@ -38,14 +38,6 @@ public class GamePanel extends JPanel implements ActionListener {
         ready.setFocusable(false);
         ready.addActionListener(this);
         this.add(ready);
-
-        roundNumber = new JLabel("ROUND " + roundNum);
-        roundNumber.setHorizontalAlignment(JLabel.LEFT);
-        roundNumber.setVerticalAlignment(JLabel.CENTER);
-        roundNumber.setForeground(Color.white);
-        roundNumber.setFont(new Font("Arial",Font.PLAIN,15));
-        roundNumber.setBounds(0,HEIGHT/2-10,WIDTH,20);
-        this.add(roundNumber);
 
         JLabel bilgisayar_label = new JLabel(bilgisayar.oyuncuAdi);
         bilgisayar_label.setHorizontalAlignment(JLabel.CENTER);
@@ -117,6 +109,7 @@ public class GamePanel extends JPanel implements ActionListener {
     public void draw(Graphics g){
         g.setColor(Color.white);
         g.setFont(new Font("Arial",Font.PLAIN,15));
+        g.drawString("ROUND " + roundNum,20,HEIGHT/2-10);
         int bosluk, kartbosluk=150;
         for (int i = 0; i < 6; i++) {
             g.setColor(Color.white);
@@ -255,7 +248,7 @@ public class GamePanel extends JPanel implements ActionListener {
                             }
                         }
                     }
-                    roundNumber.setText("ROUND " + (++roundNum));
+                    roundNum++;
                     for (int i = 0; i < 3; i++) {
                         insan.disabled_cards.set(insan.placed_cards.get(i),false);
                         bilgisayar.disabled_cards.set(bilgisayar.placed_cards.get(i),false);
@@ -263,28 +256,44 @@ public class GamePanel extends JPanel implements ActionListener {
                         bilgisayar.placed_cards.set(i, -1);
                     }
                     boolean test1=true;
+                    int number1 = 0;
                     for (int i = 0; i < insan.kartListesi.size(); i++) {
                         if (insan.disabled_cards.get(i)) {
                             test1 = false;
-                            break;
+                            number1++;
                         }
                     }
-                    if(test1){
+                    if(test1 || number1<3){
                         for (int i = 0; i < insan.disabled_cards.size(); i++) {
                             insan.disabled_cards.set(i,true);
                         }
                     }
+                    if(insan.kartListesi.size()<3){
+                        if(!isAdded_insan){
+                            if(insan.kartListesi.size()==1){Oyun.kartDagit(insan, 2);}
+                            else if(insan.kartListesi.size()==2){Oyun.kartDagit(insan, 1);}
+                            isAdded_insan = true;
+                        }
+                    }
                     Oyun.kartDagit(insan, 1);
                     boolean test2=true;
+                    int number2 = 0;
                     for (int i = 0; i < bilgisayar.kartListesi.size(); i++) {
                         if (bilgisayar.disabled_cards.get(i)) {
                             test2 = false;
-                            break;
+                            number2++;
                         }
                     }
-                    if(test2){
+                    if(test2 || number2<3){
                         for (int i = 0; i < bilgisayar.disabled_cards.size(); i++) {
                             bilgisayar.disabled_cards.set(i,true);
+                        }
+                    }
+                    if(bilgisayar.kartListesi.size()<3){
+                        if(!isAdded_pc){
+                            if(bilgisayar.kartListesi.size()==1){Oyun.kartDagit(bilgisayar, 2);}
+                            else if(bilgisayar.kartListesi.size()==2){Oyun.kartDagit(bilgisayar, 1);}
+                            isAdded_pc = true;
                         }
                     }
                     Oyun.kartDagit(bilgisayar, 1);
