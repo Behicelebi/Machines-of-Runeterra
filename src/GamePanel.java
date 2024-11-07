@@ -67,7 +67,7 @@ public class GamePanel extends JPanel implements ActionListener {
             @Override
             public void mousePressed(MouseEvent e) {
                 for (int i=0; i<insan_kartlar.size(); i++) {
-                    if (insan_kartlar.get(i).contains(e.getPoint()) && !tur) {
+                    if (insan_kartlar.get(i).contains(e.getPoint()) && !tur && insan.disabled_cards.get(i)) {
                         selectedRect = i;
                         dragOffset = new Point(e.getX() - insan_kartlar.get(i).x, e.getY() - insan_kartlar.get(i).y);
                     }
@@ -128,7 +128,8 @@ public class GamePanel extends JPanel implements ActionListener {
                 bosluk=25;
                 while(25 + insan.kartListesi.size()*kartbosluk - (kartbosluk-80) >= WIDTH - 25){kartbosluk--;}
             }
-            g.setColor(Color.red);
+            if(insan.disabled_cards.get(i)){g.setColor(Color.red);}
+            else{g.setColor(Color.gray);}
             g.fillRect(insan_kartlar.get(i).x,insan_kartlar.get(i).y,insan_kartlar.get(i).width,insan_kartlar.get(i).height);
             g.setColor(Color.green);
             g.drawRect(insan_kartlar.get(i).x,insan_kartlar.get(i).y,insan_kartlar.get(i).width,insan_kartlar.get(i).height);
@@ -147,7 +148,8 @@ public class GamePanel extends JPanel implements ActionListener {
                 bosluk=25;
                 while(25 + bilgisayar.kartListesi.size()*kartbosluk - (kartbosluk-80) >= WIDTH - 25){kartbosluk--;}
             }
-            g.setColor(Color.red);
+            if(bilgisayar.disabled_cards.get(i)){g.setColor(Color.red);}
+            else{g.setColor(Color.gray);}
             g.fillRect(bilgisayar_kartlar.get(i).x,bilgisayar_kartlar.get(i).y,bilgisayar_kartlar.get(i).width,bilgisayar_kartlar.get(i).height);
             g.setColor(Color.green);
             g.drawRect(bilgisayar_kartlar.get(i).x,bilgisayar_kartlar.get(i).y,bilgisayar_kartlar.get(i).width,bilgisayar_kartlar.get(i).height);
@@ -233,7 +235,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 }
                 if(finalI >= 3) {
                     for (int i = 0; i < 3; i++) {
-                        //I LITTERALY F*CKED THIS FUNCTION DON'T TOUCH IT
+                        //I LITERALLY F*CKED THIS FUNCTION DON'T TOUCH IT
                         if(insan.kartListesi.get(insan.placed_cards.get(i)).dayaniklilik <= 0){
                             insan.kartListesi.remove(insan.placed_cards.get(i).intValue());
                             insan_kartlar.remove(insan.placed_cards.get(i).intValue());
@@ -252,13 +254,42 @@ public class GamePanel extends JPanel implements ActionListener {
                                 }
                             }
                         }
+                    }
+                    roundNumber.setText("ROUND " + (++roundNum));
+                    for (int i = 0; i < 3; i++) {
+                        insan.disabled_cards.set(insan.placed_cards.get(i),false);
+                        bilgisayar.disabled_cards.set(bilgisayar.placed_cards.get(i),false);
                         insan.kartSec(i,-1);
                         bilgisayar.placed_cards.set(i, -1);
                     }
+                    boolean test1=true;
+                    for (int i = 0; i < insan.kartListesi.size(); i++) {
+                        if (insan.disabled_cards.get(i)) {
+                            test1 = false;
+                            break;
+                        }
+                    }
+                    if(test1){
+                        for (int i = 0; i < insan.disabled_cards.size(); i++) {
+                            insan.disabled_cards.set(i,true);
+                        }
+                    }
                     Oyun.kartDagit(insan, 1);
+                    boolean test2=true;
+                    for (int i = 0; i < bilgisayar.kartListesi.size(); i++) {
+                        if (bilgisayar.disabled_cards.get(i)) {
+                            test2 = false;
+                            break;
+                        }
+                    }
+                    if(test2){
+                        for (int i = 0; i < bilgisayar.disabled_cards.size(); i++) {
+                            bilgisayar.disabled_cards.set(i,true);
+                        }
+                    }
                     Oyun.kartDagit(bilgisayar, 1);
                     setCardPositions();
-                    roundNumber.setText("ROUND " + (++roundNum));
+                    ready.setEnabled(true);
                     timer.cancel();
                 }
                 finalI++;
@@ -270,7 +301,6 @@ public class GamePanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ArrayList<SavasAraclari> toRemove = new ArrayList<>();
         if(e.getSource()==ready){
             for (int i = 0; i < 3; i++) {
                 if(insan.placed_cards.get(i) == -1){
@@ -279,6 +309,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 }
             }
             if(!placed_error ){
+                ready.setEnabled(false);
                 tur = true;
                 turn();
             }

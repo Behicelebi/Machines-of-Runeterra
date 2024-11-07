@@ -8,6 +8,7 @@ public class Oyuncu {
     int oyuncuID, skor;
     public List<SavasAraclari> kartListesi = new ArrayList<>();
     public ArrayList<Integer> placed_cards = new ArrayList<>();
+    public ArrayList<Boolean> disabled_cards = new ArrayList<>();
     static Random random = new Random();
 
     Oyuncu(int oyuncuID, String oyuncuAdi, int skor){
@@ -32,6 +33,7 @@ public class Oyuncu {
                 while(true){
                     rand = random.nextInt(kartListesi.size());
                     if(rand==store1 || rand==store2){continue;}
+                    //if(!disabled_cards.get(i)){continue;}
                     break;
                 }
                 store2 = store1;

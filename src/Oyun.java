@@ -32,7 +32,7 @@ public class Oyun {
             return temp.vurus + temp.havaVurusAvantaji();
         }
 
-        return A.vurus; // BURAYA BAK ( BAKTIM )
+        return A.vurus;
     }
 
     public static void kartDagit(Oyuncu oyuncu, int dagitmaAdedi) {
@@ -71,6 +71,7 @@ public class Oyun {
                     break;
             }
             oyuncu.kartListesi.add(Select);
+            oyuncu.disabled_cards.add(true);
         }
     }
 }
