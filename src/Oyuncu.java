@@ -7,7 +7,7 @@ public class Oyuncu {
     public String oyuncuAdi;
     int oyuncuID, skor;
     public List<SavasAraclari> kartListesi = new ArrayList<>();
-    ArrayList<Integer> placed_cards = new ArrayList<>();
+    public ArrayList<Integer> placed_cards = new ArrayList<>();
     static Random random = new Random();
 
     Oyuncu(int oyuncuID, String oyuncuAdi, int skor){

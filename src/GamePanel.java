@@ -170,6 +170,7 @@ public class GamePanel extends JPanel implements ActionListener {
         insan_kartlar.clear();
         bilgisayar_kartlar.clear();
         temp_location.clear();
+        temp_location_pc.clear();
         int bosluk, kartbosluk=150;
         bosluk = (WIDTH - (insan.kartListesi.size()*150 - 70))/2;
         if(bosluk<25){
@@ -238,7 +239,7 @@ public class GamePanel extends JPanel implements ActionListener {
                             insan_kartlar.remove(insan.placed_cards.get(i).intValue());
                             for(int j = 0; j < 3; j++){
                                 if(insan.placed_cards.get(j) > insan.placed_cards.get(i)){
-                                    insan.placed_cards.set(j, insan.placed_cards.get(j)-1);
+                                    insan.kartSec(j, insan.placed_cards.get(j)-1);
                                 }
                             }
                         }
@@ -251,7 +252,7 @@ public class GamePanel extends JPanel implements ActionListener {
                                 }
                             }
                         }
-                        insan.placed_cards.set(i, -1);
+                        insan.kartSec(i,-1);
                         bilgisayar.placed_cards.set(i, -1);
                     }
                     Oyun.kartDagit(insan, 1);
