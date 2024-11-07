@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -211,12 +212,34 @@ public class GamePanel extends JPanel implements ActionListener {
                     tur=false;
                     System.out.println("ROUND " + roundNum + " Starting ------------------------------------------------------------");
                     for (int i = 0; i < 3; i++) {
-                        int insan_vurus = Oyun.SaldiriHesapla(insan.kartListesi.get(insan.placed_cards.get(i)),bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)));
-                        int bilgisayar_vurus = Oyun.SaldiriHesapla(bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)),insan.kartListesi.get(insan.placed_cards.get(i)));
-                        System.out.println((i+1) + ". Insan kartinin dayanikliligi " + insan.kartListesi.get(insan.placed_cards.get(i)).dayaniklilik + " den " + bilgisayar_vurus + " kadar hasar yiyerek " + (insan.kartListesi.get(insan.placed_cards.get(i)).dayaniklilik - bilgisayar_vurus) + " oldu.");
-                        System.out.println((i+1) + ". Bilgisayar kartinin dayanikliligi " + bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).dayaniklilik + " den " + insan_vurus + " kadar hasar yiyerek " + (bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).dayaniklilik - insan_vurus) + " oldu.");
-                        insan.kartListesi.get(insan.placed_cards.get(i)).dayaniklilik -= bilgisayar_vurus;
-                        bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).dayaniklilik -= insan_vurus;
+                        if(insan.kartListesi.get(insan.placed_cards.get(i)) instanceof Ucak temp){
+                            temp.DurumGuncelle(insan,bilgisayar,i);
+                        } else if(insan.kartListesi.get(insan.placed_cards.get(i)) instanceof Siha temp){
+                            temp.DurumGuncelle(insan,bilgisayar,i);
+                        } else if (insan.kartListesi.get(insan.placed_cards.get(i)) instanceof Obus temp) {
+                            temp.DurumGuncelle(insan,bilgisayar,i);
+                        } else if (insan.kartListesi.get(insan.placed_cards.get(i)) instanceof KFS temp) {
+                            temp.DurumGuncelle(insan,bilgisayar,i);
+                        } else if (insan.kartListesi.get(insan.placed_cards.get(i)) instanceof Firkateyn temp) {
+                            temp.DurumGuncelle(insan,bilgisayar,i);
+                        } else if (insan.kartListesi.get(insan.placed_cards.get(i)) instanceof Sida temp) {
+                            temp.DurumGuncelle(insan,bilgisayar,i);
+                        }
+                    }
+                    for (int i = 0; i < 3; i++) {
+                        if(bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)) instanceof Ucak temp){
+                            temp.DurumGuncelle(bilgisayar,insan,i);
+                        } else if(bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)) instanceof Siha temp){
+                            temp.DurumGuncelle(bilgisayar,insan,i);
+                        } else if (bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)) instanceof Obus temp) {
+                            temp.DurumGuncelle(bilgisayar,insan,i);
+                        } else if (bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)) instanceof KFS temp) {
+                            temp.DurumGuncelle(bilgisayar,insan,i);
+                        } else if (bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)) instanceof Firkateyn temp) {
+                            temp.DurumGuncelle(bilgisayar,insan,i);
+                        } else if (bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)) instanceof Sida temp) {
+                            temp.DurumGuncelle(bilgisayar,insan,i);
+                        }
                     }
                     System.out.println();
                 }

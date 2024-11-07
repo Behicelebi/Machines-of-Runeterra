@@ -15,5 +15,5 @@ public abstract class SavasAraclari {
 
     //Abstract Method
     abstract void KartPuaniGoster();
-    abstract void DurumGuncelle();
+    abstract void DurumGuncelle(Oyuncu insan, Oyuncu bilgisayar, int i);
 }

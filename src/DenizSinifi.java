@@ -16,7 +16,5 @@ public abstract class DenizSinifi extends SavasAraclari{
     }
 
     @Override
-    void DurumGuncelle() {
-        System.out.println("Guncellendi");
-    }
+    void DurumGuncelle(Oyuncu insan, Oyuncu bilgisayar, int i) {}
 }
