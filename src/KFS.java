@@ -1,21 +1,11 @@
 public class KFS extends KaraSinifi{
 
-    public KFS(int seviyePuani) {
-        super(seviyePuani);
-    }
-
-    @Override
-    public int dayaniklilik() {
-        return 10;
+    public KFS(int seviyePuani, int vurus, int dayaniklilik) {
+        super(seviyePuani, vurus, dayaniklilik);
     }
 
     public String sinif() {
         return super.sinif();
-    }
-
-    @Override
-    public int vurus() {
-        return 10;
     }
 
     @Override

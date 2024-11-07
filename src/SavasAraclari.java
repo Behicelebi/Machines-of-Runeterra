@@ -1,16 +1,19 @@
 public abstract class SavasAraclari {
 
     int seviyePuani;
+    int vurus;
+    int dayaniklilik;
 
-    public SavasAraclari(int seviyePuani){
+    public SavasAraclari(int seviyePuani, int vurus, int dayaniklilik){
         this.seviyePuani = seviyePuani;
+        this.vurus = vurus;
+        this.dayaniklilik = dayaniklilik;
     }
 
     //Abstract Property
     public abstract String sinif();
-    public abstract int vurus();
-    public abstract int dayaniklilik();
 
+    //Abstract Method
     abstract void KartPuaniGoster();
     abstract void DurumGuncelle();
 }

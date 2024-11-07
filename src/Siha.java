@@ -1,21 +1,11 @@
 public class Siha extends HavaSinifi{
 
-    public Siha(int seviyePuani) {
-        super(seviyePuani);
-    }
-
-    @Override
-    public int dayaniklilik() {
-        return 15;
+    public Siha(int seviyePuani, int vurus, int dayaniklilik) {
+        super(seviyePuani, vurus, dayaniklilik);
     }
 
     public String sinif() {
         return super.sinif();
-    }
-
-    @Override
-    public int vurus() {
-        return 10;
     }
 
     @Override

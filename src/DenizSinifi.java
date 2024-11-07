@@ -1,13 +1,11 @@
 public abstract class DenizSinifi extends SavasAraclari{
 
-    public DenizSinifi(int seviyePuani) {
-        super(seviyePuani);
+    public DenizSinifi(int seviyePuani, int vurus, int dayaniklilik) {
+        super(seviyePuani, vurus, dayaniklilik);
     }
 
     public abstract String altsinif();
     public abstract int havaVurusAvantaji();
-    public abstract int dayaniklilik();
-    public abstract int vurus();
     public String sinif(){
         return "Deniz";
     }

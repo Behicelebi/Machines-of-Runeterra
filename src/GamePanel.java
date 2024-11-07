@@ -1,9 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -16,7 +14,9 @@ public class GamePanel extends JPanel implements ActionListener {
     ArrayList<Point> temp_location = new ArrayList<>();
     ArrayList<Point> temp_location_pc = new ArrayList<>();
     JButton ready;
+    JLabel roundNumber;
     int selectedRect = -1;
+    int roundNum = 1;
     boolean placed_error = false;
     boolean tur = false;
     Point dragOffset;
@@ -38,6 +38,14 @@ public class GamePanel extends JPanel implements ActionListener {
         ready.setFocusable(false);
         ready.addActionListener(this);
         this.add(ready);
+
+        roundNumber = new JLabel("ROUND " + roundNum);
+        roundNumber.setHorizontalAlignment(JLabel.LEFT);
+        roundNumber.setVerticalAlignment(JLabel.CENTER);
+        roundNumber.setForeground(Color.white);
+        roundNumber.setFont(new Font("Arial",Font.PLAIN,15));
+        roundNumber.setBounds(0,HEIGHT/2-10,WIDTH,20);
+        this.add(roundNumber);
 
         JLabel bilgisayar_label = new JLabel(bilgisayar.oyuncuAdi);
         bilgisayar_label.setHorizontalAlignment(JLabel.CENTER);
@@ -159,6 +167,9 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void setCardPositions(){
+        insan_kartlar.clear();
+        bilgisayar_kartlar.clear();
+        temp_location.clear();
         int bosluk, kartbosluk=150;
         bosluk = (WIDTH - (insan.kartListesi.size()*150 - 70))/2;
         if(bosluk<25){
@@ -195,18 +206,6 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
 
-    public void cardOldPos(){
-        for (int i = 0; i < bilgisayar_kartlar.size(); i++) {
-            bilgisayar_kartlar.get(i).x = temp_location_pc.get(i).x;
-            bilgisayar_kartlar.get(i).y = temp_location_pc.get(i).y;
-        }
-        for (int i = 0; i < insan_kartlar.size(); i++) {
-            insan_kartlar.get(i).x = temp_location.get(i).x;
-            insan_kartlar.get(i).y = temp_location.get(i).y;
-        }
-        repaint();
-    }
-
     public void turn(){
         bilgisayar.kartSec(0,0);
         java.util.Timer timer = new Timer();
@@ -214,28 +213,58 @@ public class GamePanel extends JPanel implements ActionListener {
             int finalI = -1;
             @Override
             public void run() {
-                if(finalI>=0){
+                if(finalI>=0 && finalI != 3){
                     bilgisayar_kartlar.get(bilgisayar.placed_cards.get(finalI)).x = play_boxes.get(finalI).x;
                     bilgisayar_kartlar.get(bilgisayar.placed_cards.get(finalI)).y = play_boxes.get(finalI).y;
                 }
-                if(finalI>=2){
+                if(finalI>=2 && finalI != 3){
                     tur=false;
+                    System.out.println("ROUND " + roundNum + " Starting ------------------------------------------------------------");
                     for (int i = 0; i < 3; i++) {
                         int insan_vurus = Oyun.SaldiriHesapla(insan.kartListesi.get(insan.placed_cards.get(i)),bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)));
                         int bilgisayar_vurus = Oyun.SaldiriHesapla(bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)),insan.kartListesi.get(insan.placed_cards.get(i)));
-                        System.out.println(i + ": " + insan_vurus);
-                        System.out.println(i + ": " + bilgisayar_vurus);
-                        //insan.kartListesi.get(insan.placed_cards.get(i)).dayaniklilik() -= bilgisayar_vurus;
-                        //bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).dayaniklilik() -= insan_vurus;
+                        System.out.println((i+1) + ". Insan kartinin dayanikliligi " + insan.kartListesi.get(insan.placed_cards.get(i)).dayaniklilik + " den " + bilgisayar_vurus + " kadar hasar yiyerek " + (insan.kartListesi.get(insan.placed_cards.get(i)).dayaniklilik - bilgisayar_vurus) + " oldu.");
+                        System.out.println((i+1) + ". Bilgisayar kartinin dayanikliligi " + bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).dayaniklilik + " den " + insan_vurus + " kadar hasar yiyerek " + (bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).dayaniklilik - insan_vurus) + " oldu.");
+                        insan.kartListesi.get(insan.placed_cards.get(i)).dayaniklilik -= bilgisayar_vurus;
+                        bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).dayaniklilik -= insan_vurus;
                     }
-                    //cardOldPos();
+                    System.out.println();
+                }
+                if(finalI >= 3) {
+                    for (int i = 0; i < 3; i++) {
+                        //I LITTERALY F*CKED THIS FUNCTION DON'T TOUCH IT
+                        if(insan.kartListesi.get(insan.placed_cards.get(i)).dayaniklilik <= 0){
+                            insan.kartListesi.remove(insan.placed_cards.get(i).intValue());
+                            insan_kartlar.remove(insan.placed_cards.get(i).intValue());
+                            for(int j = 0; j < 3; j++){
+                                if(insan.placed_cards.get(j) > insan.placed_cards.get(i)){
+                                    insan.placed_cards.set(j, insan.placed_cards.get(j)-1);
+                                }
+                            }
+                        }
+                        if(bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).dayaniklilik <= 0) {
+                            bilgisayar.kartListesi.remove(bilgisayar.placed_cards.get(i).intValue());
+                            bilgisayar_kartlar.remove(bilgisayar.placed_cards.get(i).intValue());
+                            for(int j = 0; j < 3; j++){
+                                if(bilgisayar.placed_cards.get(j) > bilgisayar.placed_cards.get(i)){
+                                    bilgisayar.placed_cards.set(j, bilgisayar.placed_cards.get(j)-1);
+                                }
+                            }
+                        }
+                        insan.placed_cards.set(i, -1);
+                        bilgisayar.placed_cards.set(i, -1);
+                    }
+                    Oyun.kartDagit(insan, 1);
+                    Oyun.kartDagit(bilgisayar, 1);
+                    setCardPositions();
+                    roundNumber.setText("ROUND " + (++roundNum));
                     timer.cancel();
                 }
                 finalI++;
                 repaint();
             }
         };
-        timer.scheduleAtFixedRate(task,0,1000);
+        timer.scheduleAtFixedRate(task, 0, 1000);
     }
 
     @Override
@@ -248,7 +277,7 @@ public class GamePanel extends JPanel implements ActionListener {
                     repaint();
                 }
             }
-            if(!placed_error){
+            if(!placed_error ){
                 tur = true;
                 turn();
             }
