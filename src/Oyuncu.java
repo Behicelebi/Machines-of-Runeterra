@@ -32,8 +32,7 @@ public class Oyuncu {
                 int rand;
                 while(true){
                     rand = random.nextInt(kartListesi.size());
-                    if(rand==store1 || rand==store2){continue;}
-                    //if(!disabled_cards.get(i)){continue;}
+                    if(rand==store1 || rand==store2 || !disabled_cards.get(rand)){continue;}
                     break;
                 }
                 store2 = store1;
