@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -21,6 +20,7 @@ public class GamePanel extends JPanel implements ActionListener {
     boolean tur = false;
     boolean isAdded_insan = false,isAdded_pc = false, gameOver=false;
     Point dragOffset;
+    JLabel oyuncu_label,bilgisayar_label;
 
     GamePanel(int WIDTH, int HEIGHT, Oyuncu insan, Oyuncu bilgisayar){
         this.insan = insan;
@@ -40,7 +40,7 @@ public class GamePanel extends JPanel implements ActionListener {
         ready.addActionListener(this);
         this.add(ready);
 
-        JLabel bilgisayar_label = new JLabel(bilgisayar.oyuncuAdi);
+        bilgisayar_label = new JLabel(bilgisayar.oyuncuAdi);
         bilgisayar_label.setHorizontalAlignment(JLabel.CENTER);
         bilgisayar_label.setVerticalAlignment(JLabel.TOP);
         bilgisayar_label.setForeground(Color.white);
@@ -48,7 +48,7 @@ public class GamePanel extends JPanel implements ActionListener {
         bilgisayar_label.setBounds(0,0,WIDTH,20);
         this.add(bilgisayar_label);
 
-        JLabel oyuncu_label = new JLabel(insan.oyuncuAdi);
+        oyuncu_label = new JLabel(insan.oyuncuAdi);
         oyuncu_label.setHorizontalAlignment(JLabel.CENTER);
         oyuncu_label.setVerticalAlignment(JLabel.TOP);
         oyuncu_label.setForeground(Color.white);

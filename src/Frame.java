@@ -11,11 +11,12 @@ public class Frame extends JFrame implements ActionListener {
     int screenHeight = (int)screenSize.getHeight()/2-(HEIGHT/2);
 
     GamePanel gamePanel;
-    Menu menu = new Menu(WIDTH,HEIGHT);
+    Menu menu;
 
     JButton button = new JButton("PLAY");
 
     Frame(Oyuncu insan, Oyuncu bilgisayar){
+        menu = new Menu(WIDTH,HEIGHT,insan,bilgisayar);
         gamePanel = new GamePanel(WIDTH,HEIGHT,insan,bilgisayar);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Savaş Araçları Kart Oyunu");
@@ -35,6 +36,8 @@ public class Frame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Frame frame = this;
         if(e.getSource()==button){
+            gamePanel.insan.oyuncuAdi = menu.insan.oyuncuAdi;
+            gamePanel.oyuncu_label.setText(menu.insan.oyuncuAdi);
             frame.getContentPane().remove(menu);
             frame.getContentPane().add(gamePanel);
             frame.getContentPane().revalidate();
