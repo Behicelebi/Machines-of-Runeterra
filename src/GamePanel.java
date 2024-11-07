@@ -123,11 +123,20 @@ public class GamePanel extends JPanel implements ActionListener {
             g.drawRect(insan_kartlar.get(i).x,insan_kartlar.get(i).y,insan_kartlar.get(i).width,insan_kartlar.get(i).height);
             g.setColor(Color.white);
             if(insan.kartListesi.get(i) instanceof HavaSinifi temp){
+                g.setFont(new Font("Arial",Font.PLAIN,15));
                 g.drawString(temp.altsinif(),insan_kartlar.get(i).x,insan_kartlar.get(i).y);
+                g.setFont(new Font("Arial",Font.PLAIN,10));
+                g.drawString("Seviye Puani: " + temp.seviyePuani, insan_kartlar.get(i).x,insan_kartlar.get(i).y+130);
             } else if (insan.kartListesi.get(i) instanceof KaraSinifi temp) {
+                g.setFont(new Font("Arial",Font.PLAIN,15));
                 g.drawString(temp.altsinif(),insan_kartlar.get(i).x,insan_kartlar.get(i).y);
+                g.setFont(new Font("Arial",Font.PLAIN,10));
+                g.drawString("Seviye Puani: " + temp.seviyePuani, insan_kartlar.get(i).x,insan_kartlar.get(i).y+130);
             } else if (insan.kartListesi.get(i) instanceof DenizSinifi temp) {
+                g.setFont(new Font("Arial",Font.PLAIN,15));
                 g.drawString(temp.altsinif(),insan_kartlar.get(i).x,insan_kartlar.get(i).y);
+                g.setFont(new Font("Arial",Font.PLAIN,10));
+                g.drawString("Seviye Puani: " + temp.seviyePuani, insan_kartlar.get(i).x,insan_kartlar.get(i).y+130);
             }
         }
         for (int i = 0; i < bilgisayar.kartListesi.size(); i++) {
@@ -138,11 +147,20 @@ public class GamePanel extends JPanel implements ActionListener {
             g.drawRect(bilgisayar_kartlar.get(i).x,bilgisayar_kartlar.get(i).y,bilgisayar_kartlar.get(i).width,bilgisayar_kartlar.get(i).height);
             g.setColor(Color.white);
             if(bilgisayar.kartListesi.get(i) instanceof HavaSinifi temp){
+                g.setFont(new Font("Arial",Font.PLAIN,15));
                 g.drawString(temp.altsinif(), bilgisayar_kartlar.get(i).x,bilgisayar_kartlar.get(i).y);
+                g.setFont(new Font("Arial",Font.PLAIN,10));
+                g.drawString("Seviye Puani: " + temp.seviyePuani, bilgisayar_kartlar.get(i).x,bilgisayar_kartlar.get(i).y+130);
             } else if (bilgisayar.kartListesi.get(i) instanceof KaraSinifi temp) {
+                g.setFont(new Font("Arial",Font.PLAIN,15));
                 g.drawString(temp.altsinif(),bilgisayar_kartlar.get(i).x,bilgisayar_kartlar.get(i).y);
+                g.setFont(new Font("Arial",Font.PLAIN,10));
+                g.drawString("Seviye Puani: " + temp.seviyePuani, bilgisayar_kartlar.get(i).x,bilgisayar_kartlar.get(i).y+130);
             } else if (bilgisayar.kartListesi.get(i) instanceof DenizSinifi temp) {
+                g.setFont(new Font("Arial",Font.PLAIN,15));
                 g.drawString(temp.altsinif(),bilgisayar_kartlar.get(i).x,bilgisayar_kartlar.get(i).y);
+                g.setFont(new Font("Arial",Font.PLAIN,10));
+                g.drawString("Seviye Puani: " + temp.seviyePuani, bilgisayar_kartlar.get(i).x,bilgisayar_kartlar.get(i).y+130);
             }
         }
         if(placed_error){

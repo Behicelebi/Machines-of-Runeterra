@@ -36,5 +36,7 @@ public class Ucak extends HavaSinifi{
     }
 
     @Override
-    void KartPuaniGoster(){}
+    void KartPuaniGoster(){
+        System.out.println(seviyePuani);
+    }
 }
