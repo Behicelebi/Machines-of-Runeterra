@@ -18,7 +18,7 @@ public class GamePanel extends JPanel implements ActionListener {
     int roundNum = 1;
     boolean placed_error = false;
     boolean tur = false;
-    boolean isAdded_insan = false,isAdded_pc = false;
+    boolean isAdded_insan = false,isAdded_pc = false, gameOver=false;
     Point dragOffset;
 
     GamePanel(int WIDTH, int HEIGHT, Oyuncu insan, Oyuncu bilgisayar){
@@ -59,7 +59,7 @@ public class GamePanel extends JPanel implements ActionListener {
             @Override
             public void mousePressed(MouseEvent e) {
                 for (int i=0; i<insan_kartlar.size(); i++) {
-                    if (insan_kartlar.get(i).contains(e.getPoint()) && !tur && insan.disabled_cards.get(i)) {
+                    if (insan_kartlar.get(i).contains(e.getPoint()) && !tur && insan.disabled_cards.get(i) && !gameOver) {
                         selectedRect = i;
                         dragOffset = new Point(e.getX() - insan_kartlar.get(i).x, e.getY() - insan_kartlar.get(i).y);
                     }
@@ -110,17 +110,11 @@ public class GamePanel extends JPanel implements ActionListener {
         g.setColor(Color.white);
         g.setFont(new Font("Arial",Font.PLAIN,15));
         g.drawString("ROUND " + roundNum,20,HEIGHT/2-10);
-        int bosluk, kartbosluk=150;
         for (int i = 0; i < 6; i++) {
             g.setColor(Color.white);
             g.drawRect(play_boxes.get(i).x,play_boxes.get(i).y,play_boxes.get(i).width,play_boxes.get(i).height);
         }
         for (int i = 0; i < insan.kartListesi.size(); i++) {
-            bosluk = (WIDTH - (insan.kartListesi.size()*150 - 70))/2;
-            if(bosluk<25){
-                bosluk=25;
-                while(25 + insan.kartListesi.size()*kartbosluk - (kartbosluk-80) >= WIDTH - 25){kartbosluk--;}
-            }
             if(insan.disabled_cards.get(i)){g.setColor(Color.red);}
             else{g.setColor(Color.gray);}
             g.fillRect(insan_kartlar.get(i).x,insan_kartlar.get(i).y,insan_kartlar.get(i).width,insan_kartlar.get(i).height);
@@ -136,11 +130,6 @@ public class GamePanel extends JPanel implements ActionListener {
             }
         }
         for (int i = 0; i < bilgisayar.kartListesi.size(); i++) {
-            bosluk = (WIDTH - (bilgisayar.kartListesi.size()*150 - 70))/2;
-            if(bosluk<25){
-                bosluk=25;
-                while(25 + bilgisayar.kartListesi.size()*kartbosluk - (kartbosluk-80) >= WIDTH - 25){kartbosluk--;}
-            }
             if(bilgisayar.disabled_cards.get(i)){g.setColor(Color.red);}
             else{g.setColor(Color.gray);}
             g.fillRect(bilgisayar_kartlar.get(i).x,bilgisayar_kartlar.get(i).y,bilgisayar_kartlar.get(i).width,bilgisayar_kartlar.get(i).height);
@@ -158,6 +147,11 @@ public class GamePanel extends JPanel implements ActionListener {
         if(placed_error){
             g.setColor(Color.red);
             g.drawString("You need to place 3 cards",900,340);
+        }
+        if(gameOver){
+            g.setColor(Color.red);
+            g.setFont(new Font("Arial",Font.PLAIN,45));
+            g.drawString("GAME OVER",WIDTH-300,(HEIGHT/2)-50);
         }
     }
 
@@ -248,6 +242,7 @@ public class GamePanel extends JPanel implements ActionListener {
                             }
                         }
                     }
+                    if(roundNum == Oyun.toplamHamleSayisi){gameOver=true;}
                     roundNum++;
                     for (int i = 0; i < 3; i++) {
                         insan.disabled_cards.set(insan.placed_cards.get(i),false);
@@ -268,14 +263,13 @@ public class GamePanel extends JPanel implements ActionListener {
                             insan.disabled_cards.set(i,true);
                         }
                     }
+                    Oyun.kartDagit(insan, 1);
                     if(insan.kartListesi.size()<3){
                         if(!isAdded_insan){
-                            if(insan.kartListesi.size()==1){Oyun.kartDagit(insan, 2);}
-                            else if(insan.kartListesi.size()==2){Oyun.kartDagit(insan, 1);}
+                            if(insan.kartListesi.size()==2){Oyun.kartDagit(insan, 1);}
                             isAdded_insan = true;
                         }
                     }
-                    Oyun.kartDagit(insan, 1);
                     boolean test2=true;
                     int number2 = 0;
                     for (int i = 0; i < bilgisayar.kartListesi.size(); i++) {
@@ -289,16 +283,15 @@ public class GamePanel extends JPanel implements ActionListener {
                             bilgisayar.disabled_cards.set(i,true);
                         }
                     }
+                    Oyun.kartDagit(bilgisayar, 1);
                     if(bilgisayar.kartListesi.size()<3){
                         if(!isAdded_pc){
-                            if(bilgisayar.kartListesi.size()==1){Oyun.kartDagit(bilgisayar, 2);}
-                            else if(bilgisayar.kartListesi.size()==2){Oyun.kartDagit(bilgisayar, 1);}
+                            if(bilgisayar.kartListesi.size()==2){Oyun.kartDagit(bilgisayar, 1);}
                             isAdded_pc = true;
                         }
                     }
-                    Oyun.kartDagit(bilgisayar, 1);
                     setCardPositions();
-                    ready.setEnabled(true);
+                    if(!gameOver){ready.setEnabled(true);}
                     timer.cancel();
                 }
                 finalI++;
@@ -317,7 +310,7 @@ public class GamePanel extends JPanel implements ActionListener {
                     repaint();
                 }
             }
-            if(!placed_error ){
+            if(!placed_error){
                 ready.setEnabled(false);
                 tur = true;
                 turn();

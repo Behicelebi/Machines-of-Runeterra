@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class Oyun {
 
-    public int toplamHamleSayisi = 5;
+    public static int toplamHamleSayisi = 5;
     public static Oyuncu insan;
     public static Oyuncu bilgisayar;
     static Random random = new Random();
