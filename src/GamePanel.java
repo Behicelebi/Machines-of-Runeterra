@@ -20,8 +20,6 @@ public class GamePanel extends JPanel implements ActionListener {
     boolean tur = false;
     boolean isAdded_insan = false,isAdded_pc = false, gameOver=false;
     Point dragOffset;
-    JLabel oyuncu_label,bilgisayar_label;
-
 
     GamePanel(int WIDTH, int HEIGHT, Oyuncu insan, Oyuncu bilgisayar){
         this.insan = insan;
@@ -41,22 +39,6 @@ public class GamePanel extends JPanel implements ActionListener {
         ready.addActionListener(this);
         ready.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
         this.add(ready);
-
-        bilgisayar_label = new JLabel(bilgisayar.oyuncuAdi);
-        bilgisayar_label.setHorizontalAlignment(JLabel.CENTER);
-        bilgisayar_label.setVerticalAlignment(JLabel.TOP);
-        bilgisayar_label.setForeground(Color.white);
-        bilgisayar_label.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
-        bilgisayar_label.setBounds(0,0,WIDTH,20);
-        this.add(bilgisayar_label);
-
-        oyuncu_label = new JLabel(insan.oyuncuAdi);
-        oyuncu_label.setHorizontalAlignment(JLabel.CENTER);
-        oyuncu_label.setVerticalAlignment(JLabel.TOP);
-        oyuncu_label.setForeground(Color.white);
-        oyuncu_label.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
-        oyuncu_label.setBounds(0,HEIGHT-20,WIDTH,20);
-        this.add(oyuncu_label);
 
         addMouseListener(new MouseAdapter() {
             @Override
@@ -105,17 +87,16 @@ public class GamePanel extends JPanel implements ActionListener {
             }
         });
     }
+
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         draw(g);
     }
-
     public void drawTextsUcak(Ucak temp, int i, Graphics g, ArrayList<Rectangle> cards){
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
         g.drawString(temp.altsinif(),cards.get(i).x,cards.get(i).y);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
         g.drawString("SP: " + temp.seviyePuani, cards.get(i).x + 20,cards.get(i).y+75);
-        g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
         g.drawString("HP: " + temp.dayaniklilik, cards.get(i).x + 20,cards.get(i).y+55);
     }
     public void drawTextsSiha(Siha temp, int i, Graphics g, ArrayList<Rectangle> cards){
@@ -123,7 +104,6 @@ public class GamePanel extends JPanel implements ActionListener {
         g.drawString(temp.altsinif(),cards.get(i).x,cards.get(i).y);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
         g.drawString("SP: " + temp.seviyePuani, cards.get(i).x + 20,cards.get(i).y+75);
-        g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
         g.drawString("HP: " + temp.dayaniklilik, cards.get(i).x + 20,cards.get(i).y+55);
     }
     public void drawTextsObus(Obus temp, int i, Graphics g, ArrayList<Rectangle> cards){
@@ -131,7 +111,6 @@ public class GamePanel extends JPanel implements ActionListener {
         g.drawString(temp.altsinif(),cards.get(i).x,cards.get(i).y);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
         g.drawString("SP: " + temp.seviyePuani, cards.get(i).x + 20,cards.get(i).y+75);
-        g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
         g.drawString("HP: " + temp.dayaniklilik, cards.get(i).x + 20,cards.get(i).y+55);
     }
     public void drawTextsKFS(KFS temp, int i, Graphics g, ArrayList<Rectangle> cards){
@@ -139,7 +118,6 @@ public class GamePanel extends JPanel implements ActionListener {
         g.drawString(temp.altsinif(),cards.get(i).x,cards.get(i).y);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
         g.drawString("SP: " + temp.seviyePuani, cards.get(i).x + 20,cards.get(i).y+75);
-        g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
         g.drawString("HP: " + temp.dayaniklilik, cards.get(i).x + 20,cards.get(i).y+55);
     }
     public void drawTextsFirkateyn(Firkateyn temp, int i, Graphics g, ArrayList<Rectangle> cards){
@@ -147,7 +125,6 @@ public class GamePanel extends JPanel implements ActionListener {
         g.drawString(temp.altsinif(),cards.get(i).x,cards.get(i).y);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
         g.drawString("SP: " + temp.seviyePuani, cards.get(i).x + 20,cards.get(i).y+75);
-        g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
         g.drawString("HP: " + temp.dayaniklilik, cards.get(i).x + 20,cards.get(i).y+55);
     }
     public void drawTextsSida(Sida temp, int i, Graphics g, ArrayList<Rectangle> cards){
@@ -155,19 +132,15 @@ public class GamePanel extends JPanel implements ActionListener {
         g.drawString(temp.altsinif(),cards.get(i).x,cards.get(i).y);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
         g.drawString("SP: " + temp.seviyePuani, cards.get(i).x + 20,cards.get(i).y+75);
-        g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
         g.drawString("HP: " + temp.dayaniklilik, cards.get(i).x + 20,cards.get(i).y+55);
     }
-
     public void draw(Graphics g){
         g.setColor(Color.white);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
         g.drawString(bilgisayar.oyuncuAdi + " : " + bilgisayar.skor,20,HEIGHT/2-140);
-        g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
         g.drawString(insan.oyuncuAdi + " : " + insan.skor,20,HEIGHT/2+150);
         if(roundNum <= Oyun.toplamHamleSayisi){
             g.drawString("ROUND " + roundNum,20,HEIGHT/2+5);
-            g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
         }
         for (int i = 0; i < 6; i++) {
             g.setColor(Color.white);
@@ -207,7 +180,6 @@ public class GamePanel extends JPanel implements ActionListener {
             g.drawString("You need to place 3 cards",840,355);
         }
         if(gameOver){
-
             Font endGameText = new Font("Copperplate Gothic Bold",Font.PLAIN,45);
             FontMetrics metrics = g.getFontMetrics(endGameText);
             int x = (WIDTH - metrics.stringWidth(insan.oyuncuAdi + " WINS !")) / 2;

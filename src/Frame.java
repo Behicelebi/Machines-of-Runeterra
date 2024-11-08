@@ -37,8 +37,7 @@ public class Frame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Frame frame = this;
         if(e.getSource()==button){
-            gamePanel.insan.oyuncuAdi = menu.insan.oyuncuAdi;
-            gamePanel.oyuncu_label.setText(menu.insan.oyuncuAdi);
+            gamePanel.insan.oyuncuAdi = menu.textField.getText();
             frame.getContentPane().remove(menu);
             frame.getContentPane().add(gamePanel);
             frame.getContentPane().revalidate();

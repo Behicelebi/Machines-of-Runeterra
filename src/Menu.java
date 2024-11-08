@@ -1,14 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class Menu extends JPanel implements ActionListener {
+public class Menu extends JPanel{
     int WIDTH,HEIGHT;
-    JButton submit = new JButton("SUBMIT");
     JTextField textField = new JTextField();
     Oyuncu insan, bilgisayar;
-    JLabel background;
 
     Menu(int WIDTH, int HEIGHT, Oyuncu insan, Oyuncu bilgisayar){
         this.WIDTH = WIDTH;
@@ -28,17 +24,11 @@ public class Menu extends JPanel implements ActionListener {
         bilgisayar_label.setBounds(0,50,WIDTH,100);
         this.add(bilgisayar_label);
 
-        submit.addActionListener(this);
-        submit.setBounds(WIDTH/2 - 45,400,110,30);
-        submit.setFocusable(false);
-        submit.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,14));
-        this.add(submit);
-
         textField.setPreferredSize(new Dimension(10,300));
         textField.setHorizontalAlignment(JTextField.CENTER);
         textField.setBounds(WIDTH/2-115,300,250,30);
         textField.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
-        textField.setText("Player");
+        textField.setText(insan.oyuncuAdi);
         this.add(textField);
     }
     public void paintComponent(Graphics g){
@@ -49,12 +39,5 @@ public class Menu extends JPanel implements ActionListener {
         g.setColor(Color.white);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
         g.drawString("Enter a player name !", WIDTH/2 - 80,280);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==submit){
-            insan.oyuncuAdi = textField.getText();
-        }
     }
 }
