@@ -348,6 +348,14 @@ public class GamePanel extends JPanel implements ActionListener {
                         insan.disabled_cards.set(insan.placed_cards.get(i),false);
                         bilgisayar.disabled_cards.set(bilgisayar.placed_cards.get(i),false);
                     }
+                    if(bilgisayar.disable_reset){
+                        for (int i = 0; i < bilgisayar.disabled_cards.size(); i++) {bilgisayar.disabled_cards.set(i,true);}
+                        bilgisayar.disable_reset = false;
+                    }
+                    if(insan.disable_reset){
+                        for (int i = 0; i < insan.disabled_cards.size(); i++) {insan.disabled_cards.set(i,true);}
+                        insan.disable_reset = false;
+                    }
 
                     for (int i = 0; i < 3; i++) {
                         //I LITERALLY F*CKED THIS FUNCTION DON'T TOUCH IT
@@ -394,6 +402,7 @@ public class GamePanel extends JPanel implements ActionListener {
                             insan.temp_disabled_cards.set(i,insan.disabled_cards.get(i));
                         }
                     }
+
                     Oyun.kartDagit(insan, 1);
                     if(insan.kartListesi.size()<3){
                         if(!isAdded_insan){
@@ -401,6 +410,9 @@ public class GamePanel extends JPanel implements ActionListener {
                             isAdded_insan = true;
                         }
                     }
+                    number1 = 0;
+                    for (int i = 0; i < insan.disabled_cards.size(); i++) {if (insan.disabled_cards.get(i)) {number1++;}}
+                    if(number1<=3){insan.disable_reset = true;}
 
                     int number2 = 0;
                     for (int i = 0; i < bilgisayar.disabled_cards.size(); i++) {
@@ -421,6 +433,9 @@ public class GamePanel extends JPanel implements ActionListener {
                             isAdded_pc = true;
                         }
                     }
+                    number2 = 0;
+                    for (int i = 0; i < bilgisayar.disabled_cards.size(); i++) {if (bilgisayar.disabled_cards.get(i)) {number2++;}}
+                    if(number2<=3){bilgisayar.disable_reset = true;}
 
                     setCardPositions();
                     if(!gameOver){ready.setEnabled(true);}

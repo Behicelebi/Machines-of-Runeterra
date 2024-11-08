@@ -11,6 +11,7 @@ public class Oyuncu {
     public ArrayList<Boolean> disabled_cards = new ArrayList<>();
     public ArrayList<Boolean> temp_disabled_cards = new ArrayList<>();
     static Random random = new Random();
+    boolean disable_reset = false;
 
     Oyuncu(int oyuncuID, String oyuncuAdi, int skor){
         this.oyuncuAdi = oyuncuAdi;
