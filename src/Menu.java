@@ -8,6 +8,7 @@ public class Menu extends JPanel implements ActionListener {
     JButton submit = new JButton("SUBMIT");
     JTextField textField = new JTextField();
     Oyuncu insan, bilgisayar;
+    JLabel background;
 
     Menu(int WIDTH, int HEIGHT, Oyuncu insan, Oyuncu bilgisayar){
         this.WIDTH = WIDTH;
@@ -15,27 +16,29 @@ public class Menu extends JPanel implements ActionListener {
         this.insan = insan;
         this.bilgisayar = bilgisayar;
         this.setPreferredSize(new Dimension(this.WIDTH,this.HEIGHT));
-        this.setBackground(Color.black);
+        this.setBackground(Color.BLACK);
         this.setFocusable(true);
         this.setLayout(null);
 
-        JLabel bilgisayar_label = new JLabel("Savaş Araçları Kart Oyunu");
+        JLabel bilgisayar_label = new JLabel("Machines of Runeterra");
         bilgisayar_label.setHorizontalAlignment(JLabel.CENTER);
         bilgisayar_label.setVerticalAlignment(JLabel.TOP);
         bilgisayar_label.setForeground(Color.white);
-        bilgisayar_label.setFont(new Font("Arial",Font.PLAIN,30));
+        bilgisayar_label.setFont(new Font("Copperplate Gothic Bold",Font.ITALIC,70));
         bilgisayar_label.setBounds(0,50,WIDTH,100);
         this.add(bilgisayar_label);
 
         submit.addActionListener(this);
-        submit.setBounds(300,300,90,30);
+        submit.setBounds(WIDTH/2 - 45,400,110,30);
         submit.setFocusable(false);
+        submit.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,14));
         this.add(submit);
 
         textField.setPreferredSize(new Dimension(10,300));
-        textField.setBounds(10,300,250,30);
-        textField.setFont(new Font("Arial",Font.PLAIN,15));
-        textField.setText("Oyuncu");
+        textField.setHorizontalAlignment(JTextField.CENTER);
+        textField.setBounds(WIDTH/2-115,300,250,30);
+        textField.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
+        textField.setText("Player");
         this.add(textField);
     }
     public void paintComponent(Graphics g){
@@ -44,8 +47,8 @@ public class Menu extends JPanel implements ActionListener {
     }
     public void draw(Graphics g){
         g.setColor(Color.white);
-        g.setFont(new Font("Arial",Font.PLAIN,15));
-        g.drawString("Enter a username: ", 10,280);
+        g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
+        g.drawString("Enter a player name !", WIDTH/2 - 80,280);
     }
 
     @Override

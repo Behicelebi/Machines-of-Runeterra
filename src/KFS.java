@@ -23,7 +23,7 @@ public class KFS extends KaraSinifi{
     }
 
     @Override
-    void DurumGuncelle(Oyuncu insan, Oyuncu bilgisayar, int i){
+    public void DurumGuncelle(Oyuncu insan, Oyuncu bilgisayar, int i){
         int bilgisayar_vurus = Oyun.SaldiriHesapla(bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)),insan.kartListesi.get(insan.placed_cards.get(i)));
         System.out.println((i+1) + ". kutuda olan " + insan.oyuncuAdi + "'nun KFS kartinin dayanikliligi " + insan.kartListesi.get(insan.placed_cards.get(i)).dayaniklilik + " den " + bilgisayar_vurus + " kadar hasar yiyerek " + (insan.kartListesi.get(insan.placed_cards.get(i)).dayaniklilik - bilgisayar_vurus) + " oldu.");
         insan.kartListesi.get(insan.placed_cards.get(i)).dayaniklilik -= bilgisayar_vurus;
@@ -36,9 +36,10 @@ public class KFS extends KaraSinifi{
                 bilgisayar.skor += insan.kartListesi.get(insan.placed_cards.get(i)).seviyePuani;
             }
         }
-        System.out.println("KFS Guncellendi");
     }
 
     @Override
-    void KartPuaniGoster(){}
+    public void KartPuaniGoster(){
+        System.out.println("Bu KFS kartinin seviye puani: " + seviyePuani + "\n");
+    }
 }

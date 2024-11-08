@@ -19,12 +19,13 @@ public class Frame extends JFrame implements ActionListener {
         menu = new Menu(WIDTH,HEIGHT,insan,bilgisayar);
         gamePanel = new GamePanel(WIDTH,HEIGHT,insan,bilgisayar);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setTitle("Savaş Araçları Kart Oyunu");
+        this.setTitle("Machines of Runeterra");
         this.setResizable(false);
         this.setLocation(screenWidth,screenHeight);
         this.setSize(WIDTH,HEIGHT);
         this.add(menu);
-        button.setBounds((WIDTH/2)-30,200,80,30);
+        button.setFont(new Font("Copperplate Gothic Bold",Font.BOLD,14));
+        button.setBounds((WIDTH/2)-30,600,80,30);
         button.setFocusable(false);
         button.addActionListener(this);
         menu.add(button);

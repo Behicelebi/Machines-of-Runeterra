@@ -11,10 +11,10 @@ public abstract class KaraSinifi extends SavasAraclari{
     }
 
     @Override
-    void KartPuaniGoster() {
+    public void KartPuaniGoster() {
         System.out.println(seviyePuani);
     }
 
     @Override
-    void DurumGuncelle(Oyuncu insan, Oyuncu bilgisayar, int i) {}
+    public void DurumGuncelle(Oyuncu insan, Oyuncu bilgisayar, int i) {}
 }
