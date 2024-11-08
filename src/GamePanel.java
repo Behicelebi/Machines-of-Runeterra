@@ -345,6 +345,11 @@ public class GamePanel extends JPanel implements ActionListener {
                 }
                 if(finalI >= 3) {
                     for (int i = 0; i < 3; i++) {
+                        insan.disabled_cards.set(insan.placed_cards.get(i),false);
+                        bilgisayar.disabled_cards.set(bilgisayar.placed_cards.get(i),false);
+                    }
+
+                    for (int i = 0; i < 3; i++) {
                         //I LITERALLY F*CKED THIS FUNCTION DON'T TOUCH IT
                         if(insan.kartListesi.get(insan.placed_cards.get(i)).dayaniklilik <= 0){
                             insan.kartListesi.remove(insan.placed_cards.get(i).intValue());
@@ -373,8 +378,6 @@ public class GamePanel extends JPanel implements ActionListener {
                     roundNum++;
 
                     for (int i = 0; i < 3; i++) {
-                        insan.disabled_cards.set(insan.placed_cards.get(i),false);
-                        bilgisayar.disabled_cards.set(bilgisayar.placed_cards.get(i),false);
                         insan.kartSec(i,-1);
                         bilgisayar.placed_cards.set(i, -1);
                     }
