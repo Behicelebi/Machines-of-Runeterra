@@ -9,6 +9,7 @@ public class Oyuncu {
     public List<SavasAraclari> kartListesi = new ArrayList<>();
     public ArrayList<Integer> placed_cards = new ArrayList<>();
     public ArrayList<Boolean> disabled_cards = new ArrayList<>();
+    public ArrayList<Boolean> temp_disabled_cards = new ArrayList<>();
     static Random random = new Random();
 
     Oyuncu(int oyuncuID, String oyuncuAdi, int skor){
@@ -29,9 +30,31 @@ public class Oyuncu {
         if(oyuncuID==0){
             int store1=-1, store2=-1;
             for (int i = 0; i < 3; i++) {
-                int rand;
+                int rand = -1;
                 while(true){
-                    rand = random.nextInt(kartListesi.size());
+                    ArrayList<Integer> enabled_cards = new ArrayList<>();
+                    for (int j = 0; j < disabled_cards.size(); j++) {if(disabled_cards.get(j)){enabled_cards.add(j);}}
+
+                    if(enabled_cards.size()>=3){rand = random.nextInt(kartListesi.size());}
+                    else if(enabled_cards.size()==2){
+                        if(store1==-1){
+                            rand = random.nextInt(2);
+                            rand = enabled_cards.get(rand);
+                        }else{
+                            for (int j = 0; j < enabled_cards.size(); j++) {
+                                if(enabled_cards.get(j)!=store1){
+                                    rand = enabled_cards.get(j);
+                                    for (int k = 0; k < disabled_cards.size(); k++) {disabled_cards.set(k,true);}
+                                    break;
+                                }
+                            }
+                        }
+                        break;
+                    } else {
+                        rand = enabled_cards.get(0);
+                        for (int j = 0; j < disabled_cards.size(); j++) {disabled_cards.set(j,true);}
+                    }
+
                     if(rand==store1 || rand==store2 || !disabled_cards.get(rand)){continue;}
                     break;
                 }

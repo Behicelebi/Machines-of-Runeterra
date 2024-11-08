@@ -72,6 +72,7 @@ public class Oyun {
             }
             oyuncu.kartListesi.add(Select);
             oyuncu.disabled_cards.add(true);
+            oyuncu.temp_disabled_cards.add(true);
         }
     }
 }
