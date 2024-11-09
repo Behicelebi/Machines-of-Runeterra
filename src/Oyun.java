@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
 
 public class Oyun {
@@ -10,6 +12,11 @@ public class Oyun {
     public static void main(String[] args) {
         insan = new Oyuncu(1,"Player",0);
         bilgisayar = new Oyuncu(0,"Computer",0);
+        try{
+            FileWriter writer = new FileWriter("sonuc.txt");
+            writer.write("-----------\nOYUN LOGU\n-----------\n");
+            writer.close();
+        }catch (IOException e){e.printStackTrace();}
         kartDagit(insan, 6);
         kartDagit(bilgisayar, 6);
         new Frame(Oyun.insan,Oyun.bilgisayar);
@@ -45,27 +52,27 @@ public class Oyun {
             switch(select){
                 case 0:
                     Select = new Ucak(0, 10, 20);
-//                    System.out.println("Ucak Hava");
+                    dosyaYaz("\n" + oyuncu.oyuncuAdi + " verilen kart: Ucak\n");
                     break;
                 case 1:
                     Select = new Obus(0, 10, 20);
-//                    System.out.println("Obus Kara");
+                    dosyaYaz("\n" + oyuncu.oyuncuAdi + " verilen kart: Obüs\n");
                     break;
                 case 2:
                     Select = new Firkateyn(0, 10, 25);
-//                    System.out.println("Firkateyn Deniz");
+                    dosyaYaz("\n" + oyuncu.oyuncuAdi + " verilen kart: Fırkateyn\n");
                     break;
                 case 3:
                     Select = new Siha(0, 10, 15);
-//                    System.out.println("Siha Hava");
+                    dosyaYaz("\n" + oyuncu.oyuncuAdi + " verilen kart: Siha\n");
                     break;
                 case 4:
                     Select = new KFS(0, 10, 10);
-//                    System.out.println("KFS Kara");
+                    dosyaYaz("\n" + oyuncu.oyuncuAdi + " verilen kart: KFS\n");
                     break;
                 case 5:
                     Select = new Sida(0, 10, 15);
-//                    System.out.println("Sida Deniz");
+                    dosyaYaz("\n" + oyuncu.oyuncuAdi + " verilen kart: Sida\n");
                     break;
                 default:
                     break;
@@ -73,6 +80,15 @@ public class Oyun {
             oyuncu.kartListesi.add(Select);
             oyuncu.disabled_cards.add(true);
             oyuncu.temp_disabled_cards.add(true);
+        }
+    }
+
+    public static void dosyaYaz(String content){
+        try (FileWriter fileWriter = new FileWriter("sonuc.txt", true)) {
+            fileWriter.write(content);
+        } catch (IOException e) {
+            System.out.println("Dosyaya yazarken hata olustu");
+            e.printStackTrace();
         }
     }
 }

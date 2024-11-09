@@ -460,6 +460,14 @@ public class GamePanel extends JPanel implements ActionListener {
             if(!placed_error){
                 gonnaSetTrue = false;
                 ready.setEnabled(false);
+                for (int i = 1; i <= insan.placed_cards.size(); i++) {
+                    if(insan.kartListesi.get(insan.placed_cards.get(i-1)) instanceof Ucak){Oyun.dosyaYaz("\n" + insan.oyuncuAdi + " koydugu " + i + ". kart: Ucak");}
+                    else if(insan.kartListesi.get(insan.placed_cards.get(i-1)) instanceof Siha){Oyun.dosyaYaz("\n" + insan.oyuncuAdi + " koydugu " + i + ". kart: Siha");}
+                    else if(insan.kartListesi.get(insan.placed_cards.get(i-1)) instanceof Obus){Oyun.dosyaYaz("\n" + insan.oyuncuAdi + " koydugu " + i + ". kart: Obus");}
+                    else if(insan.kartListesi.get(insan.placed_cards.get(i-1)) instanceof KFS){Oyun.dosyaYaz("\n" + insan.oyuncuAdi + " koydugu " + i + ". kart: KFS");}
+                    else if(insan.kartListesi.get(insan.placed_cards.get(i-1)) instanceof Firkateyn){Oyun.dosyaYaz("\n" + insan.oyuncuAdi + " koydugu " + i + ". kart: Firkateyn");}
+                    else if(insan.kartListesi.get(insan.placed_cards.get(i-1)) instanceof Sida){Oyun.dosyaYaz("\n" + insan.oyuncuAdi + " koydugu " + i + ". kart: Sida");}
+                }
                 tur = true;
                 turn();
             }
