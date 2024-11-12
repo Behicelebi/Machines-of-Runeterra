@@ -16,7 +16,6 @@ public class GamePanel extends JPanel implements ActionListener {
     ArrayList<Point> temp_location_pc = new ArrayList<>();
     JButton ready;
     int selectedRect = -1;
-    int roundNum = 1;
     boolean placed_error = false;
     boolean tur = false;
     boolean isAdded_insan = false,isAdded_pc = false,gameOver=false,gonnaSetTrue=false,gonnaSetTrue_pc=false;
@@ -188,10 +187,10 @@ public class GamePanel extends JPanel implements ActionListener {
     public void draw(Graphics g){
         g.setColor(Color.white);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
-        g.drawString(bilgisayar.oyuncuAdi + " : " + bilgisayar.skor,20,HEIGHT/2-140);
-        g.drawString(insan.oyuncuAdi + " : " + insan.skor,20,HEIGHT/2+150);
-        if(roundNum <= Oyun.toplamHamleSayisi){
-            g.drawString("ROUND " + roundNum,20,HEIGHT/2+5);
+        g.drawString(bilgisayar.oyuncuAdi + " : " + bilgisayar.skor,20,HEIGHT/2-140); //BURASI
+        g.drawString(insan.oyuncuAdi + " : " + insan.skor,20,HEIGHT/2+150);           //BURASI
+        if(Oyun.roundNum <= Oyun.toplamHamleSayisi){
+            g.drawString("ROUND " + Oyun.roundNum,20,HEIGHT/2+5);
         }
         for (int i = 0; i < 6; i++) {
             g.setColor(Color.white);
@@ -233,14 +232,42 @@ public class GamePanel extends JPanel implements ActionListener {
         if(gameOver){
             Font endGameText = new Font("Copperplate Gothic Bold",Font.PLAIN,45);
             FontMetrics metrics = g.getFontMetrics(endGameText);
-            int x = (WIDTH - metrics.stringWidth(insan.oyuncuAdi + " WINS !")) / 2;
-            int y = ((HEIGHT - metrics.getHeight()) / 2) + metrics.getAscent();
             g.setColor(Color.RED);
             g.setFont(endGameText);
-            if(insan.skor > bilgisayar.skor)
-                g.drawString(insan.oyuncuAdi + " WINS !", x, y);
-            else
-                g.drawString(bilgisayar.oyuncuAdi + " WINS !", x, y);
+            if(insan.skor == bilgisayar.skor){
+                int insan_toplam = 0;
+                int bilgisayar_toplam = 0;
+                for(int i = 0; i<insan.kartListesi.size(); i++)
+                    insan_toplam += insan.kartListesi.get(i).dayaniklilik;
+                for(int i = 0; i<bilgisayar.kartListesi.size(); i++)
+                    bilgisayar_toplam += bilgisayar.kartListesi.get(i).dayaniklilik;
+                if(insan_toplam > bilgisayar_toplam) {
+                    int x = (WIDTH - metrics.stringWidth(insan.oyuncuAdi + " WINS !")) / 2;
+                    int y = ((HEIGHT - metrics.getHeight()) / 2) + metrics.getAscent();
+                    g.drawString(insan.oyuncuAdi + " WINS !", x, y);
+                }
+                else if(insan_toplam == bilgisayar_toplam) {
+                    int x = (WIDTH - metrics.stringWidth("DRAW !")) / 2;
+                    int y = ((HEIGHT - metrics.getHeight()) / 2) + metrics.getAscent();
+                    g.drawString(" WINS !", x, y);
+                }
+                else {
+                    int x = (WIDTH - metrics.stringWidth(bilgisayar.oyuncuAdi + " WINS !")) / 2;
+                    int y = ((HEIGHT - metrics.getHeight()) / 2) + metrics.getAscent();
+                    g.drawString("DRAW !", x, y);
+                }
+            }else {
+                if (insan.skor > bilgisayar.skor) {
+                    int x = (WIDTH - metrics.stringWidth(insan.oyuncuAdi + " WINS !")) / 2;
+                    int y = ((HEIGHT - metrics.getHeight()) / 2) + metrics.getAscent();
+                    g.drawString(insan.oyuncuAdi + " WINS !", x, y);
+                }
+                else {
+                    int x = (WIDTH - metrics.stringWidth(bilgisayar.oyuncuAdi + " WINS !")) / 2;
+                    int y = ((HEIGHT - metrics.getHeight()) / 2) + metrics.getAscent();
+                    g.drawString(bilgisayar.oyuncuAdi + " WINS !", x, y);
+                }
+            }
         }
     }
 
@@ -298,7 +325,8 @@ public class GamePanel extends JPanel implements ActionListener {
                 }
                 if(finalI>=2 && finalI != 3){
                     tur=false;
-                    System.out.println("ROUND " + roundNum + " Starting ------------------------------------------------------------------------------\n");
+                    System.out.println("ROUND " + Oyun.roundNum + " Starting ------------------------------------------------------------------------------\n");
+                    Oyun.dosyaYaz("\nROUND " + Oyun.roundNum + " Starting ------------------------------------------------------------------------------\n\n");
                     for (int i = 0; i < 3; i++) {
                         if(insan.kartListesi.get(insan.placed_cards.get(i)) instanceof Ucak temp){
                             temp.DurumGuncelle(insan,bilgisayar,i);
@@ -358,7 +386,6 @@ public class GamePanel extends JPanel implements ActionListener {
                     }
 
                     for (int i = 0; i < 3; i++) {
-                        //I LITERALLY F*CKED THIS FUNCTION DON'T TOUCH IT
                         if(insan.kartListesi.get(insan.placed_cards.get(i)).dayaniklilik <= 0){
                             insan.kartListesi.remove(insan.placed_cards.get(i).intValue());
                             insan_kartlar.remove(insan.placed_cards.get(i).intValue());
@@ -382,19 +409,33 @@ public class GamePanel extends JPanel implements ActionListener {
                             }
                         }
                     }
-                    if(roundNum == Oyun.toplamHamleSayisi){gameOver=true;}
-                    roundNum++;
-
                     for (int i = 0; i < 3; i++) {
                         insan.kartSec(i,-1);
                         bilgisayar.placed_cards.set(i, -1);
                     }
 
+                    //Oyun round sınırı geldiğinde oyunu bitirir.
+                    if(Oyun.roundNum == Oyun.toplamHamleSayisi){
+                        gameOver = true;
+                        timer.cancel();
+                    }
+
+                    //Ekstra kart ekleme durumuna göre oyunu bitirir.
+                    if(isAdded_pc || isAdded_insan) {
+                        gameOver = true;
+                        timer.cancel();
+                    }
+
+                    //İnsan tarafının kart sayısına göre oyunu bitirme.
                     int number1 = 0;
                     for (int i = 0; i < insan.disabled_cards.size(); i++) {
                         if (insan.disabled_cards.get(i)) {
                             number1++;
                         }
+                    }
+                    if(number1 == 0){
+                        gameOver=true;
+                        timer.cancel();
                     }
                     if(number1<2){
                         gonnaSetTrue = true;
@@ -403,22 +444,16 @@ public class GamePanel extends JPanel implements ActionListener {
                         }
                     }
 
-                    Oyun.kartDagit(insan, 1);
-                    if(insan.kartListesi.size()<3){
-                        if(!isAdded_insan){
-                            if(insan.kartListesi.size()==2){Oyun.kartDagit(insan, 1);}
-                            isAdded_insan = true;
-                        }
-                    }
-                    number1 = 0;
-                    for (int i = 0; i < insan.disabled_cards.size(); i++) {if (insan.disabled_cards.get(i)) {number1++;}}
-                    if(number1<=3){insan.disable_reset = true;}
-
+                    //Bilgisayar tarafının kart sayısına göre oyunu bitirme.
                     int number2 = 0;
                     for (int i = 0; i < bilgisayar.disabled_cards.size(); i++) {
                         if (bilgisayar.disabled_cards.get(i)) {
                             number2++;
                         }
+                    }
+                    if(number2 == 0){
+                        gameOver=true;
+                        timer.cancel();
                     }
                     if(number2<2){
                         gonnaSetTrue_pc = true;
@@ -426,20 +461,40 @@ public class GamePanel extends JPanel implements ActionListener {
                             bilgisayar.temp_disabled_cards.set(i,bilgisayar.disabled_cards.get(i));
                         }
                     }
-                    Oyun.kartDagit(bilgisayar, 1);
-                    if(bilgisayar.kartListesi.size()<3){
-                        if(!isAdded_pc){
-                            if(bilgisayar.kartListesi.size()==2){Oyun.kartDagit(bilgisayar, 1);}
-                            isAdded_pc = true;
-                        }
-                    }
-                    number2 = 0;
-                    for (int i = 0; i < bilgisayar.disabled_cards.size(); i++) {if (bilgisayar.disabled_cards.get(i)) {number2++;}}
-                    if(number2<=3){bilgisayar.disable_reset = true;}
 
+                    if(!gameOver){
+                        Oyun.roundNum++;
+                        Oyun.kartDagit(insan, 1);
+                        if(insan.kartListesi.size()<3){
+                            if(insan.kartListesi.size()==2){
+                                Oyun.kartDagit(insan, 1);
+                                System.out.println("Bu son round oyuncu tarafi ekstradan kart aldı!");
+                                Oyun.dosyaYaz("Bu son round oyuncu tarafi ekstradan kart aldı!\n");
+                                isAdded_insan = true;
+                            }
+                        }
+                        number1 = 0;
+                        for (int i = 0; i < insan.disabled_cards.size(); i++) {if (insan.disabled_cards.get(i)) {number1++;}}
+                        if(number1<=3){insan.disable_reset = true;}
+
+
+                        Oyun.kartDagit(bilgisayar, 1);
+                        if(bilgisayar.kartListesi.size()<3){
+                            if(bilgisayar.kartListesi.size()==2){
+                                Oyun.kartDagit(bilgisayar, 1);
+                                System.out.println("Bu son round bilgisayar tarafi ekstradan kart aldı!");
+                                Oyun.dosyaYaz("");
+                                isAdded_pc = true;
+                            }
+                        }
+                        number2 = 0;
+                        for (int i = 0; i < bilgisayar.disabled_cards.size(); i++) {if (bilgisayar.disabled_cards.get(i)) {number2++;}}
+                        if(number2<=3){bilgisayar.disable_reset = true;}
+
+                        ready.setEnabled(true);
+                        timer.cancel();
+                    }
                     setCardPositions();
-                    if(!gameOver){ready.setEnabled(true);}
-                    timer.cancel();
                 }
                 finalI++;
                 repaint();
@@ -460,14 +515,14 @@ public class GamePanel extends JPanel implements ActionListener {
             if(!placed_error){
                 gonnaSetTrue = false;
                 ready.setEnabled(false);
-                for (int i = 1; i <= insan.placed_cards.size(); i++) {
+                /*for (int i = 1; i <= insan.placed_cards.size(); i++) {
                     if(insan.kartListesi.get(insan.placed_cards.get(i-1)) instanceof Ucak){Oyun.dosyaYaz("\n" + insan.oyuncuAdi + " koydugu " + i + ". kart: Ucak");}
                     else if(insan.kartListesi.get(insan.placed_cards.get(i-1)) instanceof Siha){Oyun.dosyaYaz("\n" + insan.oyuncuAdi + " koydugu " + i + ". kart: Siha");}
                     else if(insan.kartListesi.get(insan.placed_cards.get(i-1)) instanceof Obus){Oyun.dosyaYaz("\n" + insan.oyuncuAdi + " koydugu " + i + ". kart: Obus");}
                     else if(insan.kartListesi.get(insan.placed_cards.get(i-1)) instanceof KFS){Oyun.dosyaYaz("\n" + insan.oyuncuAdi + " koydugu " + i + ". kart: KFS");}
                     else if(insan.kartListesi.get(insan.placed_cards.get(i-1)) instanceof Firkateyn){Oyun.dosyaYaz("\n" + insan.oyuncuAdi + " koydugu " + i + ". kart: Firkateyn");}
                     else if(insan.kartListesi.get(insan.placed_cards.get(i-1)) instanceof Sida){Oyun.dosyaYaz("\n" + insan.oyuncuAdi + " koydugu " + i + ". kart: Sida");}
-                }
+                }*/
                 tur = true;
                 turn();
             }

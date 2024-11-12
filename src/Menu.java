@@ -7,7 +7,7 @@ public class Menu extends JPanel implements ActionListener {
     int WIDTH,HEIGHT;
     JTextField textField = new JTextField();
     Oyuncu insan, bilgisayar;
-    JButton up_button = new JButton("▲"), down_button = new JButton("▼"), default_button = new JButton("Set Default");
+    JButton up_button = new JButton(">"), down_button = new JButton("<"), default_button = new JButton("Set Default");
 
     Menu(int WIDTH, int HEIGHT, Oyuncu insan, Oyuncu bilgisayar){
         this.WIDTH = WIDTH;
@@ -34,20 +34,22 @@ public class Menu extends JPanel implements ActionListener {
         textField.setText(insan.oyuncuAdi);
         this.add(textField);
 
-        up_button.setBounds(WIDTH/2 - 110,400,30,20);
-        up_button.setFont(new Font("Calibri",Font.BOLD,5));
+        up_button.setBounds(WIDTH/2 + 95,420,40,25);
+        up_button.setFont(new Font("Copperplate Gothic Bold",Font.BOLD,10));
+        up_button.setHorizontalAlignment(SwingConstants.CENTER);
         up_button.setFocusable(false);
         up_button.addActionListener(this);
         this.add(up_button);
 
-        down_button.setBounds(WIDTH/2 - 110,425,30,20);
-        down_button.setFont(new Font("Calibri",Font.BOLD,5));
+        down_button.setBounds(WIDTH/2 - 115,420,40,25);
+        down_button.setFont(new Font("Copperplate Gothic Bold",Font.BOLD,10));
+        down_button.setHorizontalAlignment(SwingConstants.CENTER);
         down_button.setFocusable(false);
         down_button.addActionListener(this);
         this.add(down_button);
 
-        default_button.setBounds(WIDTH/2 + 50,425,140,30);
-        default_button.setFont(new Font("Copperplate Gothic Bold",Font.BOLD,14));
+        default_button.setBounds(WIDTH/2-50,420,120,25);
+        default_button.setFont(new Font("Copperplate Gothic Bold",Font.BOLD,12));
         default_button.setFocusable(false);
         default_button.addActionListener(this);
         this.add(default_button);
@@ -60,9 +62,9 @@ public class Menu extends JPanel implements ActionListener {
         g.setColor(Color.white);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
         g.drawString("Enter a player name !", WIDTH/2 - 80,280);
-        g.drawString("Total move amount: ",WIDTH/2 - 80,400);
+        g.drawString("Total round amount",WIDTH/2 - 75,360);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,20));
-        g.drawString("" + Oyun.toplamHamleSayisi,WIDTH/2 - 70,430);
+        g.drawString("" + (Oyun.toplamHamleSayisi+00),WIDTH/2-5 ,400);
     }
 
     @Override

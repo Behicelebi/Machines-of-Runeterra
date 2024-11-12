@@ -5,6 +5,7 @@ import java.util.Random;
 public class Oyun {
 
     public static int toplamHamleSayisi = 5;
+    public static int roundNum = 1;
     public static Oyuncu insan;
     public static Oyuncu bilgisayar;
     static Random random = new Random();
@@ -23,19 +24,19 @@ public class Oyun {
     }
 
     public static int SaldiriHesapla(SavasAraclari A, SavasAraclari B){
-        if (A instanceof Siha temp && B instanceof DenizSinifi temp2){
+        if (A instanceof Siha temp && B instanceof DenizSinifi){
             return temp.vurus + temp.denizVurusAvantaji();
-        } else if (A instanceof KFS temp && B instanceof HavaSinifi temp2) {
+        } else if (A instanceof KFS temp && B instanceof HavaSinifi) {
             return temp.vurus + temp.havaVurusAvantaji();
-        } else if (A instanceof Sida temp && B instanceof KaraSinifi temp2) {
+        } else if (A instanceof Sida temp && B instanceof KaraSinifi) {
             return temp.vurus + temp.karaVurusAvantaji();
         }
 
-        if(A instanceof HavaSinifi temp && B instanceof KaraSinifi temp2){
+        if(A instanceof HavaSinifi temp && B instanceof KaraSinifi){
             return temp.vurus + temp.karaVurusAvantaji();
-        } else if (A instanceof KaraSinifi temp && B instanceof DenizSinifi temp2) {
+        } else if (A instanceof KaraSinifi temp && B instanceof DenizSinifi) {
             return temp.vurus + temp.denizVurusAvantaji();
-        } else if (A instanceof DenizSinifi temp && B instanceof HavaSinifi temp2) {
+        } else if (A instanceof DenizSinifi temp && B instanceof HavaSinifi) {
             return temp.vurus + temp.havaVurusAvantaji();
         }
 
@@ -52,27 +53,33 @@ public class Oyun {
             switch(select){
                 case 0:
                     Select = new Ucak(0, 10, 20);
-                    dosyaYaz("\n" + oyuncu.oyuncuAdi + " verilen kart: Ucak\n");
+                    if(roundNum != 1)
+                        dosyaYaz("\n" + oyuncu.oyuncuAdi + "'a verilen kart: Ucak\n");
                     break;
                 case 1:
                     Select = new Obus(0, 10, 20);
-                    dosyaYaz("\n" + oyuncu.oyuncuAdi + " verilen kart: Obüs\n");
+                    if(roundNum != 1)
+                        dosyaYaz("\n" + oyuncu.oyuncuAdi + "'a verilen kart: Obüs\n");
                     break;
                 case 2:
                     Select = new Firkateyn(0, 10, 25);
-                    dosyaYaz("\n" + oyuncu.oyuncuAdi + " verilen kart: Fırkateyn\n");
+                    if(roundNum != 1)
+                        dosyaYaz("\n" + oyuncu.oyuncuAdi + "'a verilen kart: Fırkateyn\n");
                     break;
                 case 3:
                     Select = new Siha(0, 10, 15);
-                    dosyaYaz("\n" + oyuncu.oyuncuAdi + " verilen kart: Siha\n");
+                    if(roundNum != 1)
+                        dosyaYaz("\n" + oyuncu.oyuncuAdi + "'a verilen kart: Siha\n");
                     break;
                 case 4:
                     Select = new KFS(0, 10, 10);
-                    dosyaYaz("\n" + oyuncu.oyuncuAdi + " verilen kart: KFS\n");
+                    if(roundNum != 1)
+                        dosyaYaz("\n" + oyuncu.oyuncuAdi + "'a verilen kart: KFS\n");
                     break;
                 case 5:
                     Select = new Sida(0, 10, 15);
-                    dosyaYaz("\n" + oyuncu.oyuncuAdi + " verilen kart: Sida\n");
+                    if(roundNum != 1)
+                        dosyaYaz("\n" + oyuncu.oyuncuAdi + "'a verilen kart: Sida\n");
                     break;
                 default:
                     break;
