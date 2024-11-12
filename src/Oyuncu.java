@@ -62,12 +62,6 @@ public class Oyuncu {
                 store2 = store1;
                 store1 = rand;
                 placed_cards.set(i, rand);
-                /*if(kartListesi.get(placed_cards.get(i)) instanceof Ucak){Oyun.dosyaYaz("\n" + oyuncuAdi + " koydugu " + (i+1) + ". kart: Ucak");}
-                else if(kartListesi.get(placed_cards.get(i)) instanceof Siha){Oyun.dosyaYaz("\n" + oyuncuAdi + " koydugu " + (i+1) + ". kart: Siha");}
-                else if(kartListesi.get(placed_cards.get(i)) instanceof Obus){Oyun.dosyaYaz("\n" + oyuncuAdi + " koydugu " + (i+1) + ". kart: Obus");}
-                else if(kartListesi.get(placed_cards.get(i)) instanceof KFS){Oyun.dosyaYaz("\n" + oyuncuAdi + " koydugu " + (i+1) + ". kart: KFS");}
-                else if(kartListesi.get(placed_cards.get(i)) instanceof Firkateyn){Oyun.dosyaYaz("\n" + oyuncuAdi + " koydugu " + (i+1) + ". kart: Firkateyn");}
-                else if(kartListesi.get(placed_cards.get(i)) instanceof Sida){Oyun.dosyaYaz("\n" + oyuncuAdi + " koydugu " + (i+1) + ". kart: Sida");}*/
             }
         }
         else if(oyuncuID==1){

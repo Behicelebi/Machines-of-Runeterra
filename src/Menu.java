@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Menu extends JPanel implements ActionListener {
     int WIDTH,HEIGHT;
@@ -34,18 +36,52 @@ public class Menu extends JPanel implements ActionListener {
         textField.setText(insan.oyuncuAdi);
         this.add(textField);
 
+        Timer up_holdTimer = new Timer(100, e -> {
+            Oyun.toplamHamleSayisi++;
+            repaint();
+        });
+        up_holdTimer.setInitialDelay(500);
         up_button.setBounds(WIDTH/2 + 95,420,40,25);
         up_button.setFont(new Font("Copperplate Gothic Bold",Font.BOLD,10));
         up_button.setHorizontalAlignment(SwingConstants.CENTER);
         up_button.setFocusable(false);
         up_button.addActionListener(this);
+        up_button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (!up_holdTimer.isRunning()) {up_holdTimer.start();}
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                up_holdTimer.stop();
+            }
+        });
         this.add(up_button);
 
+        Timer down_holdTimer = new Timer(100, e -> {
+            if(Oyun.toplamHamleSayisi>1){
+                Oyun.toplamHamleSayisi--;
+                repaint();
+            }
+        });
+        down_holdTimer.setInitialDelay(500);
         down_button.setBounds(WIDTH/2 - 115,420,40,25);
         down_button.setFont(new Font("Copperplate Gothic Bold",Font.BOLD,10));
         down_button.setHorizontalAlignment(SwingConstants.CENTER);
         down_button.setFocusable(false);
         down_button.addActionListener(this);
+        down_button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (!down_holdTimer.isRunning()) {down_holdTimer.start();}
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                down_holdTimer.stop();
+            }
+        });
         this.add(down_button);
 
         default_button.setBounds(WIDTH/2-50,420,120,25);

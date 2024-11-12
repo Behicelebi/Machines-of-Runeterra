@@ -1,6 +1,8 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Oyun {
 
@@ -9,6 +11,7 @@ public class Oyun {
     public static Oyuncu insan;
     public static Oyuncu bilgisayar;
     static Random random = new Random();
+    private static final Logger logger = Logger.getLogger(Oyun.class.getName());
 
     public static void main(String[] args) {
         insan = new Oyuncu(1,"Player",0);
@@ -17,7 +20,7 @@ public class Oyun {
             FileWriter writer = new FileWriter("sonuc.txt");
             writer.write("-----------\nOYUN LOGU\n-----------\n");
             writer.close();
-        }catch (IOException e){e.printStackTrace();}
+        }catch (IOException e){logger.log(Level.SEVERE, "Error opening file", e);}
         kartDagit(insan, 6);
         kartDagit(bilgisayar, 6);
         new Frame(Oyun.insan,Oyun.bilgisayar);
@@ -95,7 +98,7 @@ public class Oyun {
             fileWriter.write(content);
         } catch (IOException e) {
             System.out.println("Dosyaya yazarken hata olustu");
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Error appending to file", e);
         }
     }
 }
