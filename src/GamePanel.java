@@ -223,8 +223,8 @@ public class GamePanel extends JPanel implements ActionListener {
     public void draw(Graphics g){
         g.setColor(Color.white);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
-        g.drawString(bilgisayar.oyuncuAdi + " : " + bilgisayar.skor,20,HEIGHT/2-140); //BURASI
-        g.drawString(insan.oyuncuAdi + " : " + insan.skor,20,HEIGHT/2+150);           //BURASI
+        insan.SkorGoster(g);
+        bilgisayar.SkorGoster(g);
         if(Oyun.roundNum <= Oyun.toplamHamleSayisi){
             g.drawString("ROUND " + Oyun.roundNum,20,HEIGHT/2+5);
         }

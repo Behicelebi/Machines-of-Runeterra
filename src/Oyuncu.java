@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -26,7 +27,10 @@ public class Oyuncu {
         this.skor = 0;
     }
 
-    public void SkorGoster(){}
+    public void SkorGoster(Graphics g){
+        if(oyuncuID==0){g.drawString(oyuncuAdi + " : " + skor,20,700/2-140);}
+        else if (oyuncuID==1){g.drawString(oyuncuAdi + " : " + skor,20,700/2+150);}
+    }
     public void kartSec(int a, int b){
         if(oyuncuID==0){
             int store1=-1, store2=-1;
