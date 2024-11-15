@@ -12,12 +12,13 @@ public class Menu extends JPanel implements ActionListener {
     JButton up_button = new JButton(">"), down_button = new JButton("<"), default_button = new JButton("Set Default");
 
     Menu(int WIDTH, int HEIGHT, Oyuncu insan, Oyuncu bilgisayar){
+        Color backg = new Color(6,64,43);
         this.WIDTH = WIDTH;
         this.HEIGHT = HEIGHT;
         this.insan = insan;
         this.bilgisayar = bilgisayar;
         this.setPreferredSize(new Dimension(this.WIDTH,this.HEIGHT));
-        this.setBackground(Color.BLACK);
+        this.setBackground(backg);
         this.setFocusable(true);
         this.setLayout(null);
 

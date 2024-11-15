@@ -22,12 +22,13 @@ public class GamePanel extends JPanel implements ActionListener {
     Point dragOffset;
 
     GamePanel(int WIDTH, int HEIGHT, Oyuncu insan, Oyuncu bilgisayar){
+        Color backg = new Color(6,64,43);
         this.insan = insan;
         this.bilgisayar = bilgisayar;
         this.WIDTH = WIDTH;
         this.HEIGHT = HEIGHT;
         this.setPreferredSize(new Dimension(this.WIDTH,this.HEIGHT));
-        this.setBackground(Color.black);
+        this.setBackground(backg);
         this.setFocusable(true);
         this.setLayout(null);
 
@@ -278,12 +279,12 @@ public class GamePanel extends JPanel implements ActionListener {
                 else if(insan_toplam == bilgisayar_toplam) {
                     int x = (WIDTH - metrics.stringWidth("DRAW !")) / 2;
                     int y = ((HEIGHT - metrics.getHeight()) / 2) + metrics.getAscent();
-                    g.drawString(" WINS !", x, y);
+                    g.drawString(" DRAW !", x, y);
                 }
                 else {
                     int x = (WIDTH - metrics.stringWidth(bilgisayar.oyuncuAdi + " WINS !")) / 2;
                     int y = ((HEIGHT - metrics.getHeight()) / 2) + metrics.getAscent();
-                    g.drawString("DRAW !", x, y);
+                    g.drawString(bilgisayar.oyuncuAdi + " WINS !", x, y);
                 }
             }else {
                 if (insan.skor > bilgisayar.skor) {
