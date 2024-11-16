@@ -34,17 +34,22 @@ public class Obus extends KaraSinifi{
     }
 
     @Override
-    public void DurumGuncelle(Oyuncu insan, Oyuncu bilgisayar, int i, int seviye_puani){
-        int bilgisayar_vurus = Oyun.SaldiriHesapla(bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)),insan.kartListesi.get(insan.placed_cards.get(i)));
-        System.out.println((i+1) + ". kutuda olan " + insan.oyuncuAdi + "'nun Obus kartinin dayanikliligi " + insan.kartListesi.get(insan.placed_cards.get(i)).dayaniklilik + " den " + bilgisayar_vurus + " kadar hasar yiyerek " + (insan.kartListesi.get(insan.placed_cards.get(i)).dayaniklilik - bilgisayar_vurus) + " oldu.");
-        insan.kartListesi.get(insan.placed_cards.get(i)).dayaniklilik -= bilgisayar_vurus;
-        if(insan.kartListesi.get(insan.placed_cards.get(i)).dayaniklilik <= 0){
+    public void DurumGuncelle(Oyuncu hasarAlan, Oyuncu hasarVeren, int i, int seviye_puani){
+        int verilenHasar = Oyun.SaldiriHesapla(hasarVeren.kartListesi.get(hasarVeren.placed_cards.get(i)),hasarAlan.kartListesi.get(hasarAlan.placed_cards.get(i)));
+        System.out.println((i+1) + ". kutuda olan " + hasarAlan.oyuncuAdi + "'nun Obus kartinin dayanikliligi " + hasarAlan.kartListesi.get(hasarAlan.placed_cards.get(i)).dayaniklilik + " den " + verilenHasar + " kadar hasar yiyerek " + (hasarAlan.kartListesi.get(hasarAlan.placed_cards.get(i)).dayaniklilik - verilenHasar) + " oldu.");
+        if(verilenHasar >= hasarAlan.kartListesi.get(hasarAlan.placed_cards.get(i)).dayaniklilik){
+            Oyun.dosyaYaz("--->> " + (i+1) + ". kutuda olan " + hasarAlan.oyuncuAdi + "'in Obus karti " + verilenHasar + " kadar hasar yiyerek yok edildi !\n");
+        }else{
+            Oyun.dosyaYaz("--->> " + (i+1) + ". kutuda olan " + hasarAlan.oyuncuAdi + "'in Obus kartinin dayanikliligi " + hasarAlan.kartListesi.get(hasarAlan.placed_cards.get(i)).dayaniklilik + " den " + verilenHasar + " kadar hasar yiyerek " + (hasarAlan.kartListesi.get(hasarAlan.placed_cards.get(i)).dayaniklilik - verilenHasar) + " oldu.\n");
+        }
+        hasarAlan.kartListesi.get(hasarAlan.placed_cards.get(i)).dayaniklilik -= verilenHasar;
+        if(hasarAlan.kartListesi.get(hasarAlan.placed_cards.get(i)).dayaniklilik <= 0){
             if(seviye_puani <= 10){
-                bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).seviyePuani += 10;
-                bilgisayar.skor += 10;
+                hasarVeren.kartListesi.get(hasarVeren.placed_cards.get(i)).seviyePuani += 10;
+                hasarVeren.skor += 10;
             }else{
-                bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).seviyePuani += seviye_puani;
-                bilgisayar.skor += seviye_puani;
+                hasarVeren.kartListesi.get(hasarVeren.placed_cards.get(i)).seviyePuani += seviye_puani;
+                hasarVeren.skor += seviye_puani;
             }
         }
     }

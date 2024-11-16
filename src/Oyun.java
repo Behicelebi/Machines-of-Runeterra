@@ -1,5 +1,6 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +19,7 @@ public class Oyun {
         bilgisayar = new Oyuncu(0,"Computer",0);
         try{
             FileWriter writer = new FileWriter("sonuc.txt");
-            writer.write("-----------\nOYUN LOGU\n-----------\n");
+            writer.write(">>-------------------------------------------------GAME LOG----------------------------------------------------<<\n");
             writer.close();
         }catch (IOException e){logger.log(Level.SEVERE, "Error opening file", e);}
         kartDagit(insan, 6);
@@ -52,37 +53,36 @@ public class Oyun {
             if (oyuncu.skor >= 20){ select = random.nextInt(6); }
             else { select = random.nextInt(3); }
             SavasAraclari Select = null;
-            //Printler debug için eklendi.
             switch(select){
                 case 0:
                     Select = new Ucak(0, 10, 20);
                     if(roundNum != 1)
-                        dosyaYaz("\n" + oyuncu.oyuncuAdi + "'a verilen kart: Ucak\n");
+                        dosyaYaz("\n--->> " + oyuncu.oyuncuAdi + "'a verilen kart: Ucak\n");
                     break;
                 case 1:
                     Select = new Obus(0, 10, 20);
                     if(roundNum != 1)
-                        dosyaYaz("\n" + oyuncu.oyuncuAdi + "'a verilen kart: Obüs\n");
+                        dosyaYaz("\n--->> " + oyuncu.oyuncuAdi + "'a verilen kart: Obüs\n");
                     break;
                 case 2:
                     Select = new Firkateyn(0, 10, 25);
                     if(roundNum != 1)
-                        dosyaYaz("\n" + oyuncu.oyuncuAdi + "'a verilen kart: Fırkateyn\n");
+                        dosyaYaz("\n--->> " + oyuncu.oyuncuAdi + "'a verilen kart: Fırkateyn\n");
                     break;
                 case 3:
                     Select = new Siha(0, 10, 15);
                     if(roundNum != 1)
-                        dosyaYaz("\n" + oyuncu.oyuncuAdi + "'a verilen kart: Siha\n");
+                        dosyaYaz("\n--->> " + oyuncu.oyuncuAdi + "'a verilen kart: Siha\n");
                     break;
                 case 4:
                     Select = new KFS(0, 10, 10);
                     if(roundNum != 1)
-                        dosyaYaz("\n" + oyuncu.oyuncuAdi + "'a verilen kart: KFS\n");
+                        dosyaYaz("\n--->> " + oyuncu.oyuncuAdi + "'a verilen kart: KFS\n");
                     break;
                 case 5:
                     Select = new Sida(0, 10, 15);
                     if(roundNum != 1)
-                        dosyaYaz("\n" + oyuncu.oyuncuAdi + "'a verilen kart: Sida\n");
+                        dosyaYaz("\n--->> " + oyuncu.oyuncuAdi + "'a verilen kart: Sida\n");
                     break;
                 default:
                     break;

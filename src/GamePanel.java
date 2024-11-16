@@ -275,27 +275,32 @@ public class GamePanel extends JPanel implements ActionListener {
                     int x = (WIDTH - metrics.stringWidth(insan.oyuncuAdi + " WINS !")) / 2;
                     int y = ((HEIGHT - metrics.getHeight()) / 2) + metrics.getAscent();
                     g.drawString(insan.oyuncuAdi + " WINS !", x, y);
+                    Oyun.dosyaYaz("\n------->> " + insan.oyuncuAdi + " WINS !");
                 }
                 else if(insan_toplam == bilgisayar_toplam) {
                     int x = (WIDTH - metrics.stringWidth("DRAW !")) / 2;
                     int y = ((HEIGHT - metrics.getHeight()) / 2) + metrics.getAscent();
                     g.drawString(" DRAW !", x, y);
+                    Oyun.dosyaYaz("\n------->> DRAW !");
                 }
                 else {
                     int x = (WIDTH - metrics.stringWidth(bilgisayar.oyuncuAdi + " WINS !")) / 2;
                     int y = ((HEIGHT - metrics.getHeight()) / 2) + metrics.getAscent();
                     g.drawString(bilgisayar.oyuncuAdi + " WINS !", x, y);
+                    Oyun.dosyaYaz("\n------->> " + bilgisayar.oyuncuAdi + " WINS !");
                 }
             }else {
                 if (insan.skor > bilgisayar.skor) {
                     int x = (WIDTH - metrics.stringWidth(insan.oyuncuAdi + " WINS !")) / 2;
                     int y = ((HEIGHT - metrics.getHeight()) / 2) + metrics.getAscent();
                     g.drawString(insan.oyuncuAdi + " WINS !", x, y);
+                    Oyun.dosyaYaz("\n------->> " + insan.oyuncuAdi + " WINS !");
                 }
                 else {
                     int x = (WIDTH - metrics.stringWidth(bilgisayar.oyuncuAdi + " WINS !")) / 2;
                     int y = ((HEIGHT - metrics.getHeight()) / 2) + metrics.getAscent();
                     g.drawString(bilgisayar.oyuncuAdi + " WINS !", x, y);
+                    Oyun.dosyaYaz("\n------->> " + bilgisayar.oyuncuAdi + " WINS !");
                 }
             }
         }
@@ -355,8 +360,8 @@ public class GamePanel extends JPanel implements ActionListener {
                 }
                 if(finalI>=2 && finalI != 3){
                     tur=false;
-                    System.out.println("ROUND " + Oyun.roundNum + " Starting ------------------------------------------------------------------------------\n");
-                    Oyun.dosyaYaz("\nROUND " + Oyun.roundNum + " Starting ------------------------------------------------------------------------------\n\n");
+                    System.out.println("------->> ROUND " + Oyun.roundNum + " Starting >>------------------------------------------------------------------------------------\n");
+                    Oyun.dosyaYaz("\n------->> ROUND " + Oyun.roundNum + " Starting >>------------------------------------------------------------------------------------\n\n");
                     ArrayList<Integer> insan_temp_sp = new ArrayList<>();
                     ArrayList<Integer> bilgisayar_temp_sp = new ArrayList<>();
                     for (int i = 0; i < 3; i++) {insan_temp_sp.add(insan.kartListesi.get(insan.placed_cards.get(i)).seviyePuani);}
@@ -494,6 +499,7 @@ public class GamePanel extends JPanel implements ActionListener {
                             bilgisayar.temp_disabled_cards.set(i,bilgisayar.disabled_cards.get(i));
                         }
                     }
+                    Oyun.dosyaYaz("\n------->> ROUND " + Oyun.roundNum + " Ending >>--------------------------------------------------------------------------------------\n");
 
                     if(!gameOver){
                         Oyun.roundNum++;
