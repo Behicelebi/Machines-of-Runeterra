@@ -13,10 +13,11 @@ public class Firkateyn extends DenizSinifi{
     public Firkateyn(int seviyePuani, int vurus, int dayaniklilik) {
         super(seviyePuani, vurus, dayaniklilik);
         try {
-            texture = ImageIO.read(new File("Files/KFS.png"));
+            texture = ImageIO.read(new File("Files/Firkateyn.png"));
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "Error loading texture: Files/KFS.png", e);
+            logger.log(Level.SEVERE, "Error loading texture: Files/Firkateyn.png", e);
         }
+        verilenHasar = vurus;
     }
 
     public String sinif() {
@@ -35,7 +36,7 @@ public class Firkateyn extends DenizSinifi{
 
     @Override
     public void DurumGuncelle(Oyuncu hasarAlan, Oyuncu hasarVeren, int i, int seviye_puani){
-        int verilenHasar = Oyun.SaldiriHesapla(hasarVeren.kartListesi.get(hasarVeren.placed_cards.get(i)),hasarAlan.kartListesi.get(hasarAlan.placed_cards.get(i)));
+        verilenHasar = Oyun.SaldiriHesapla(hasarVeren.kartListesi.get(hasarVeren.placed_cards.get(i)),hasarAlan.kartListesi.get(hasarAlan.placed_cards.get(i)));
         System.out.println((i+1) + ". kutuda olan " + hasarAlan.oyuncuAdi + "'nun Firkateyn kartinin dayanikliligi " + hasarAlan.kartListesi.get(hasarAlan.placed_cards.get(i)).dayaniklilik + " den " + verilenHasar + " kadar hasar yiyerek " + (hasarAlan.kartListesi.get(hasarAlan.placed_cards.get(i)).dayaniklilik - verilenHasar) + " oldu.");
         if(verilenHasar >= hasarAlan.kartListesi.get(hasarAlan.placed_cards.get(i)).dayaniklilik){
             Oyun.dosyaYaz("--->> " + (i+1) + ". kutuda olan " + hasarAlan.oyuncuAdi + "'in Firkateyn karti " + verilenHasar + " kadar hasar yiyerek yok edildi !\n");

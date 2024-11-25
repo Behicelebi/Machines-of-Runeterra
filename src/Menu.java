@@ -1,26 +1,37 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Menu extends JPanel implements ActionListener {
     int WIDTH,HEIGHT;
     JTextField textField = new JTextField();
     Oyuncu insan, bilgisayar;
     JButton up_button = new JButton(">"), down_button = new JButton("<"), default_button = new JButton("Set Default");
+    public Image background;
+    private static final Logger logger = Logger.getLogger(GamePanel.class.getName());
 
     Menu(int WIDTH, int HEIGHT, Oyuncu insan, Oyuncu bilgisayar){
-        Color backg = new Color(6,64,43);
         this.WIDTH = WIDTH;
         this.HEIGHT = HEIGHT;
         this.insan = insan;
         this.bilgisayar = bilgisayar;
         this.setPreferredSize(new Dimension(this.WIDTH,this.HEIGHT));
-        this.setBackground(backg);
         this.setFocusable(true);
         this.setLayout(null);
+
+        try {
+            background = ImageIO.read(new File("Files/MenuBG.png"));
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Error loading texture: Files/MenuBG.png", e);
+        }
 
         JLabel bilgisayar_label = new JLabel("Machines of Runeterra");
         bilgisayar_label.setHorizontalAlignment(JLabel.CENTER);
@@ -96,6 +107,7 @@ public class Menu extends JPanel implements ActionListener {
         draw(g);
     }
     public void draw(Graphics g){
+        g.drawImage(background,0,0,this);
         g.setColor(Color.white);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
         g.drawString("Enter a player name !", WIDTH/2 - 80,280);

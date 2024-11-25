@@ -3,6 +3,7 @@ public abstract class SavasAraclari {
     int seviyePuani;
     int vurus;
     int dayaniklilik;
+    int verilenHasar;
 
     public SavasAraclari(int seviyePuani, int vurus, int dayaniklilik){
         this.seviyePuani = seviyePuani;

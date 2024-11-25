@@ -1,11 +1,16 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class GamePanel extends JPanel implements ActionListener {
     int WIDTH,HEIGHT;
@@ -21,17 +26,29 @@ public class GamePanel extends JPanel implements ActionListener {
     boolean tur = false;
     boolean isAdded_insan = false,isAdded_pc = false,gameOver=false,gonnaSetTrue=false,gonnaSetTrue_pc=false;
     Point dragOffset;
+    public Image closed_texture;
+    public Image background;
+    private static final Logger logger = Logger.getLogger(GamePanel.class.getName());
 
     GamePanel(int WIDTH, int HEIGHT, Oyuncu insan, Oyuncu bilgisayar){
-        Color backg = new Color(6,64,43);
         this.insan = insan;
         this.bilgisayar = bilgisayar;
         this.WIDTH = WIDTH;
         this.HEIGHT = HEIGHT;
         this.setPreferredSize(new Dimension(this.WIDTH,this.HEIGHT));
-        this.setBackground(backg);
         this.setFocusable(true);
         this.setLayout(null);
+
+        try {
+            closed_texture = ImageIO.read(new File("Files/CardBack.png"));
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Error loading texture: Files/CardBack.png", e);
+        }
+        try {
+            background = ImageIO.read(new File("Files/GameBG.png"));
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Error loading texture: Files/GameBG.png", e);
+        }
 
         int kartbosluk=150;
         int bosluk = (WIDTH - (3*150 - 70))/2;
@@ -167,6 +184,7 @@ public class GamePanel extends JPanel implements ActionListener {
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
         g.drawString("SP: " + temp.seviyePuani, cards.get(i).x + 20,cards.get(i).y+75);
         g.drawString("HP: " + temp.dayaniklilik, cards.get(i).x + 20,cards.get(i).y+55);
+        g.drawString("AT: " + temp.verilenHasar, cards.get(i).x + 20,cards.get(i).y+35);
     }
     public void drawTextsSiha(Siha temp, int i, Graphics g, ArrayList<Rectangle> cards, Oyuncu oyuncu){
         if (temp.texture != null) {g.drawImage(temp.texture,cards.get(i).x,cards.get(i).y, this);}
@@ -180,6 +198,7 @@ public class GamePanel extends JPanel implements ActionListener {
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
         g.drawString("SP: " + temp.seviyePuani, cards.get(i).x + 20,cards.get(i).y+75);
         g.drawString("HP: " + temp.dayaniklilik, cards.get(i).x + 20,cards.get(i).y+55);
+        g.drawString("AT: " + temp.verilenHasar, cards.get(i).x + 20,cards.get(i).y+35);
     }
     public void drawTextsObus(Obus temp, int i, Graphics g, ArrayList<Rectangle> cards, Oyuncu oyuncu){
         if (temp.texture != null) {g.drawImage(temp.texture,cards.get(i).x,cards.get(i).y, this);}
@@ -193,6 +212,7 @@ public class GamePanel extends JPanel implements ActionListener {
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
         g.drawString("SP: " + temp.seviyePuani, cards.get(i).x + 20,cards.get(i).y+75);
         g.drawString("HP: " + temp.dayaniklilik, cards.get(i).x + 20,cards.get(i).y+55);
+        g.drawString("AT: " + temp.verilenHasar, cards.get(i).x + 20,cards.get(i).y+35);
     }
     public void drawTextsKFS(KFS temp, int i, Graphics g, ArrayList<Rectangle> cards, Oyuncu oyuncu){
         if (temp.texture != null) {g.drawImage(temp.texture,cards.get(i).x,cards.get(i).y, this);}
@@ -206,6 +226,7 @@ public class GamePanel extends JPanel implements ActionListener {
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
         g.drawString("SP: " + temp.seviyePuani, cards.get(i).x + 20,cards.get(i).y+75);
         g.drawString("HP: " + temp.dayaniklilik, cards.get(i).x + 20,cards.get(i).y+55);
+        g.drawString("AT: " + temp.verilenHasar, cards.get(i).x + 20,cards.get(i).y+35);
     }
     public void drawTextsFirkateyn(Firkateyn temp, int i, Graphics g, ArrayList<Rectangle> cards, Oyuncu oyuncu){
         if (temp.texture != null) {g.drawImage(temp.texture,cards.get(i).x,cards.get(i).y, this);}
@@ -219,6 +240,7 @@ public class GamePanel extends JPanel implements ActionListener {
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
         g.drawString("SP: " + temp.seviyePuani, cards.get(i).x + 20,cards.get(i).y+75);
         g.drawString("HP: " + temp.dayaniklilik, cards.get(i).x + 20,cards.get(i).y+55);
+        g.drawString("AT: " + temp.verilenHasar, cards.get(i).x + 20,cards.get(i).y+35);
     }
     public void drawTextsSida(Sida temp, int i, Graphics g, ArrayList<Rectangle> cards, Oyuncu oyuncu){
         if (temp.texture != null) {g.drawImage(temp.texture,cards.get(i).x,cards.get(i).y, this);}
@@ -232,9 +254,11 @@ public class GamePanel extends JPanel implements ActionListener {
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
         g.drawString("SP: " + temp.seviyePuani, cards.get(i).x + 20,cards.get(i).y+75);
         g.drawString("HP: " + temp.dayaniklilik, cards.get(i).x + 20,cards.get(i).y+55);
+        g.drawString("AT: " + temp.verilenHasar, cards.get(i).x + 20,cards.get(i).y+35);
     }
     public void draw(Graphics g){
         Graphics2D g2 = (Graphics2D) g;
+        g.drawImage(background,0,0,this);
         g.setColor(Color.white);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
         insan.SkorGoster(g);
@@ -253,10 +277,27 @@ public class GamePanel extends JPanel implements ActionListener {
             else if (insan.kartListesi.get(i) instanceof KFS temp){drawTextsKFS(temp, i, g, insan_kartlar, insan);}
             else if (insan.kartListesi.get(i) instanceof Firkateyn temp){drawTextsFirkateyn(temp, i, g, insan_kartlar, insan);}
             else if (insan.kartListesi.get(i) instanceof Sida temp){drawTextsSida(temp, i, g, insan_kartlar, insan);}
-            g.setColor(Color.green);
-            g.drawRect(insan_kartlar.get(i).x,insan_kartlar.get(i).y,insan_kartlar.get(i).width,insan_kartlar.get(i).height);
         }
+
         for (int i = 0; i < bilgisayar.kartListesi.size(); i++) {
+            boolean test = false;
+            for (int j = 0; j < 3; j++) {
+                if (bilgisayar.placed_cards.get(j) == i) {
+                    test = true;
+                    break;
+                }
+            }
+            if(test){
+                if(bilgisayar.kartListesi.get(i) instanceof Ucak temp){drawTextsUcak(temp, i, g, bilgisayar_kartlar, bilgisayar);}
+                else if (bilgisayar.kartListesi.get(i) instanceof Siha temp){drawTextsSiha(temp, i, g, bilgisayar_kartlar, bilgisayar);}
+                else if (bilgisayar.kartListesi.get(i) instanceof Obus temp){drawTextsObus(temp, i, g, bilgisayar_kartlar, bilgisayar);}
+                else if (bilgisayar.kartListesi.get(i) instanceof KFS temp){drawTextsKFS(temp, i, g, bilgisayar_kartlar, bilgisayar);}
+                else if (bilgisayar.kartListesi.get(i) instanceof Firkateyn temp){drawTextsFirkateyn(temp, i, g, bilgisayar_kartlar, bilgisayar);}
+                else if (bilgisayar.kartListesi.get(i) instanceof Sida temp){drawTextsSida(temp, i, g, bilgisayar_kartlar, bilgisayar);}
+            }else{
+                g.drawImage(closed_texture,bilgisayar_kartlar.get(i).x,bilgisayar_kartlar.get(i).y, this);
+            }
+        /*
             g.setColor(Color.white);
             if(bilgisayar.kartListesi.get(i) instanceof Ucak temp){drawTextsUcak(temp, i, g, bilgisayar_kartlar, bilgisayar);}
             else if (bilgisayar.kartListesi.get(i) instanceof Siha temp){drawTextsSiha(temp, i, g, bilgisayar_kartlar, bilgisayar);}
@@ -264,8 +305,7 @@ public class GamePanel extends JPanel implements ActionListener {
             else if (bilgisayar.kartListesi.get(i) instanceof KFS temp){drawTextsKFS(temp, i, g, bilgisayar_kartlar, bilgisayar);}
             else if (bilgisayar.kartListesi.get(i) instanceof Firkateyn temp){drawTextsFirkateyn(temp, i, g, bilgisayar_kartlar, bilgisayar);}
             else if (bilgisayar.kartListesi.get(i) instanceof Sida temp){drawTextsSida(temp, i, g, bilgisayar_kartlar, bilgisayar);}
-            g.setColor(Color.green);
-            g.drawRect(bilgisayar_kartlar.get(i).x,bilgisayar_kartlar.get(i).y,bilgisayar_kartlar.get(i).width,bilgisayar_kartlar.get(i).height);
+        */
         }
         if(placed_error){
             g.setColor(Color.red);
@@ -351,7 +391,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void turn(){
         bilgisayar.kartSec(0,0);
-        java.util.Timer timer = new Timer();
+        Timer timer = new Timer();
         TimerTask task = new TimerTask(){
             int finalI = -1;
             @Override
@@ -372,47 +412,61 @@ public class GamePanel extends JPanel implements ActionListener {
                         if(insan.kartListesi.get(insan.placed_cards.get(i)) instanceof Ucak temp){
                             temp.DurumGuncelle(insan,bilgisayar,i,insan_temp_sp.get(i));
                             temp.KartPuaniGoster();
+                            bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).verilenHasar = temp.verilenHasar;
                         } else if(insan.kartListesi.get(insan.placed_cards.get(i)) instanceof Siha temp){
                             temp.DurumGuncelle(insan,bilgisayar,i,insan_temp_sp.get(i));
                             temp.KartPuaniGoster();
+                            bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).verilenHasar = temp.verilenHasar;
                         } else if (insan.kartListesi.get(insan.placed_cards.get(i)) instanceof Obus temp) {
                             temp.DurumGuncelle(insan,bilgisayar,i,insan_temp_sp.get(i));
                             temp.KartPuaniGoster();
+                            bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).verilenHasar = temp.verilenHasar;
                         } else if (insan.kartListesi.get(insan.placed_cards.get(i)) instanceof KFS temp) {
                             temp.DurumGuncelle(insan,bilgisayar,i,insan_temp_sp.get(i));
                             temp.KartPuaniGoster();
+                            bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).verilenHasar = temp.verilenHasar;
                         } else if (insan.kartListesi.get(insan.placed_cards.get(i)) instanceof Firkateyn temp) {
                             temp.DurumGuncelle(insan,bilgisayar,i,insan_temp_sp.get(i));
                             temp.KartPuaniGoster();
+                            bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).verilenHasar = temp.verilenHasar;
                         } else if (insan.kartListesi.get(insan.placed_cards.get(i)) instanceof Sida temp) {
                             temp.DurumGuncelle(insan,bilgisayar,i,insan_temp_sp.get(i));
                             temp.KartPuaniGoster();
+                            bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).verilenHasar = temp.verilenHasar;
                         }
                     }
                     for (int i = 0; i < 3; i++) {
                         if(bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)) instanceof Ucak temp){
                             temp.DurumGuncelle(bilgisayar,insan,i,bilgisayar_temp_sp.get(i));
                             temp.KartPuaniGoster();
+                            insan.kartListesi.get(insan.placed_cards.get(i)).verilenHasar = temp.verilenHasar;
                         } else if(bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)) instanceof Siha temp){
                             temp.DurumGuncelle(bilgisayar,insan,i,bilgisayar_temp_sp.get(i));
                             temp.KartPuaniGoster();
+                            insan.kartListesi.get(insan.placed_cards.get(i)).verilenHasar = temp.verilenHasar;
                         } else if (bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)) instanceof Obus temp) {
                             temp.DurumGuncelle(bilgisayar,insan,i,bilgisayar_temp_sp.get(i));
                             temp.KartPuaniGoster();
+                            insan.kartListesi.get(insan.placed_cards.get(i)).verilenHasar = temp.verilenHasar;
                         } else if (bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)) instanceof KFS temp) {
                             temp.DurumGuncelle(bilgisayar,insan,i,bilgisayar_temp_sp.get(i));
                             temp.KartPuaniGoster();
+                            insan.kartListesi.get(insan.placed_cards.get(i)).verilenHasar = temp.verilenHasar;
                         } else if (bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)) instanceof Firkateyn temp) {
                             temp.DurumGuncelle(bilgisayar,insan,i,bilgisayar_temp_sp.get(i));
                             temp.KartPuaniGoster();
+                            insan.kartListesi.get(insan.placed_cards.get(i)).verilenHasar = temp.verilenHasar;
                         } else if (bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)) instanceof Sida temp) {
                             temp.DurumGuncelle(bilgisayar,insan,i,bilgisayar_temp_sp.get(i));
                             temp.KartPuaniGoster();
+                            insan.kartListesi.get(insan.placed_cards.get(i)).verilenHasar = temp.verilenHasar;
                         }
                     }
                 }
                 if(finalI >= 3) {
                     for (int i = 0; i < 3; i++) {
+                        insan.kartListesi.get(insan.placed_cards.get(i)).verilenHasar = insan.kartListesi.get(insan.placed_cards.get(i)).vurus;
+                        bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).verilenHasar = bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).vurus;
                         insan.disabled_cards.set(insan.placed_cards.get(i),false);
                         bilgisayar.disabled_cards.set(bilgisayar.placed_cards.get(i),false);
                     }
@@ -449,6 +503,7 @@ public class GamePanel extends JPanel implements ActionListener {
                             }
                         }
                     }
+
                     for (int i = 0; i < 3; i++) {
                         insan.kartSec(i,-1);
                         bilgisayar.placed_cards.set(i, -1);

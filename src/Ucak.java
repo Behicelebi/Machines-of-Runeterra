@@ -17,6 +17,7 @@ public class Ucak extends HavaSinifi {
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Error loading texture: Files/Ucak.png", e);
         }
+        verilenHasar = vurus;
     }
 
     public String sinif() {
@@ -35,7 +36,7 @@ public class Ucak extends HavaSinifi {
 
     @Override
     public void DurumGuncelle(Oyuncu hasarAlan, Oyuncu hasarVeren, int i, int seviye_puani) {
-        int verilenHasar = Oyun.SaldiriHesapla(hasarVeren.kartListesi.get(hasarVeren.placed_cards.get(i)), hasarAlan.kartListesi.get(hasarAlan.placed_cards.get(i)));
+        verilenHasar = Oyun.SaldiriHesapla(hasarVeren.kartListesi.get(hasarVeren.placed_cards.get(i)), hasarAlan.kartListesi.get(hasarAlan.placed_cards.get(i)));
         System.out.println((i + 1) + ". kutuda olan " + hasarAlan.oyuncuAdi + "'nun Ucak kartinin dayanikliligi " + hasarAlan.kartListesi.get(hasarAlan.placed_cards.get(i)).dayaniklilik + " den " + verilenHasar + " kadar hasar yiyerek " + (hasarAlan.kartListesi.get(hasarAlan.placed_cards.get(i)).dayaniklilik - verilenHasar) + " oldu.");
         if(verilenHasar >= hasarAlan.kartListesi.get(hasarAlan.placed_cards.get(i)).dayaniklilik){
             Oyun.dosyaYaz("--->> " + (i+1) + ". kutuda olan " + hasarAlan.oyuncuAdi + "'in Ucak karti " + verilenHasar + " kadar hasar yiyerek yok edildi !\n");
