@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Timer;
@@ -31,6 +32,17 @@ public class GamePanel extends JPanel implements ActionListener {
         this.setBackground(backg);
         this.setFocusable(true);
         this.setLayout(null);
+
+        int kartbosluk=150;
+        int bosluk = (WIDTH - (3*150 - 70))/2;
+        if(bosluk<25){
+            bosluk=25;
+            while(25 + bilgisayar.kartListesi.size()*kartbosluk - (kartbosluk-80) >= WIDTH - 25){kartbosluk--;}
+        }
+        for (int i = 0; i < 6; i++) {
+            Rectangle button = new Rectangle(((i%3)*kartbosluk)+bosluk,(HEIGHT/2)-(150-(i/3*180)),80,120);
+            play_boxes.add(button);
+        }
 
         setCardPositions();
 
@@ -222,6 +234,7 @@ public class GamePanel extends JPanel implements ActionListener {
         g.drawString("HP: " + temp.dayaniklilik, cards.get(i).x + 20,cards.get(i).y+55);
     }
     public void draw(Graphics g){
+        Graphics2D g2 = (Graphics2D) g;
         g.setColor(Color.white);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
         insan.SkorGoster(g);
@@ -231,7 +244,7 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         for (int i = 0; i < 6; i++) {
             g.setColor(Color.white);
-            g.drawRect(play_boxes.get(i).x,play_boxes.get(i).y,play_boxes.get(i).width,play_boxes.get(i).height);
+            g2.draw(new RoundRectangle2D.Double(play_boxes.get(i).x,play_boxes.get(i).y,play_boxes.get(i).width,play_boxes.get(i).height, 10, 10));
         }
         for (int i = 0; i < insan.kartListesi.size(); i++) {
             if(insan.kartListesi.get(i) instanceof Ucak temp){drawTextsUcak(temp, i, g, insan_kartlar, insan);}
@@ -333,17 +346,6 @@ public class GamePanel extends JPanel implements ActionListener {
             Rectangle button = new Rectangle((i*kartbosluk)+bosluk,30,80,120);
             bilgisayar_kartlar.add(button);
             temp_location_pc.add(new Point(button.x,button.y));
-        }
-
-        kartbosluk = 150;
-        bosluk = (WIDTH - (3*150 - 70))/2;
-        if(bosluk<25){
-            bosluk=25;
-            while(25 + bilgisayar.kartListesi.size()*kartbosluk - (kartbosluk-80) >= WIDTH - 25){kartbosluk--;}
-        }
-        for (int i = 0; i < 6; i++) {
-            Rectangle button = new Rectangle(((i%3)*kartbosluk)+bosluk,(HEIGHT/2)-(150-(i/3*180)),80,120);
-            play_boxes.add(button);
         }
     }
 
