@@ -180,11 +180,11 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         g.setColor(Color.white);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
-        g.drawString(temp.altsinif(),cards.get(i).x,cards.get(i).y);
+        //g.drawString(temp.altsinif(),cards.get(i).x,cards.get(i).y);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
-        g.drawString("SP: " + temp.seviyePuani, cards.get(i).x + 20,cards.get(i).y+75);
-        g.drawString("HP: " + temp.dayaniklilik, cards.get(i).x + 20,cards.get(i).y+55);
-        g.drawString("AT: " + temp.verilenHasar, cards.get(i).x + 20,cards.get(i).y+35);
+        g.drawString("" + temp.seviyePuani, cards.get(i).x + 10,cards.get(i).y+21);
+        g.drawString("" + temp.dayaniklilik, cards.get(i).x + 57,cards.get(i).y+96);
+        g.drawString("" + temp.verilenHasar, cards.get(i).x + 9,cards.get(i).y+96);
     }
     public void drawTextsSiha(Siha temp, int i, Graphics g, ArrayList<Rectangle> cards, Oyuncu oyuncu){
         if (temp.texture != null) {g.drawImage(temp.texture,cards.get(i).x,cards.get(i).y, this);}
@@ -194,11 +194,11 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         g.setColor(Color.white);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
-        g.drawString(temp.altsinif(),cards.get(i).x,cards.get(i).y);
+        //g.drawString(temp.altsinif(),cards.get(i).x,cards.get(i).y);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
-        g.drawString("SP: " + temp.seviyePuani, cards.get(i).x + 20,cards.get(i).y+75);
-        g.drawString("HP: " + temp.dayaniklilik, cards.get(i).x + 20,cards.get(i).y+55);
-        g.drawString("AT: " + temp.verilenHasar, cards.get(i).x + 20,cards.get(i).y+35);
+        g.drawString("" + temp.seviyePuani, cards.get(i).x + 10,cards.get(i).y+21);
+        g.drawString("" + temp.dayaniklilik, cards.get(i).x + 57,cards.get(i).y+96);
+        g.drawString("" + temp.verilenHasar, cards.get(i).x + 9,cards.get(i).y+96);
     }
     public void drawTextsObus(Obus temp, int i, Graphics g, ArrayList<Rectangle> cards, Oyuncu oyuncu){
         if (temp.texture != null) {g.drawImage(temp.texture,cards.get(i).x,cards.get(i).y, this);}
@@ -208,11 +208,11 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         g.setColor(Color.white);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
-        g.drawString(temp.altsinif(),cards.get(i).x,cards.get(i).y);
+        //g.drawString(temp.altsinif(),cards.get(i).x,cards.get(i).y);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
-        g.drawString("SP: " + temp.seviyePuani, cards.get(i).x + 20,cards.get(i).y+75);
-        g.drawString("HP: " + temp.dayaniklilik, cards.get(i).x + 20,cards.get(i).y+55);
-        g.drawString("AT: " + temp.verilenHasar, cards.get(i).x + 20,cards.get(i).y+35);
+        g.drawString("" + temp.seviyePuani, cards.get(i).x + 10,cards.get(i).y+21);
+        g.drawString("" + temp.dayaniklilik, cards.get(i).x + 57,cards.get(i).y+96);
+        g.drawString("" + temp.verilenHasar, cards.get(i).x + 9,cards.get(i).y+96);
     }
     public void drawTextsKFS(KFS temp, int i, Graphics g, ArrayList<Rectangle> cards, Oyuncu oyuncu){
         if (temp.texture != null) {g.drawImage(temp.texture,cards.get(i).x,cards.get(i).y, this);}
@@ -222,11 +222,11 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         g.setColor(Color.white);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
-        g.drawString(temp.altsinif(),cards.get(i).x,cards.get(i).y);
+        //g.drawString(temp.altsinif(),cards.get(i).x,cards.get(i).y);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
-        g.drawString("SP: " + temp.seviyePuani, cards.get(i).x + 20,cards.get(i).y+75);
-        g.drawString("HP: " + temp.dayaniklilik, cards.get(i).x + 20,cards.get(i).y+55);
-        g.drawString("AT: " + temp.verilenHasar, cards.get(i).x + 20,cards.get(i).y+35);
+        g.drawString("" + temp.seviyePuani, cards.get(i).x + 10,cards.get(i).y+21);
+        g.drawString("" + temp.dayaniklilik, cards.get(i).x + 57,cards.get(i).y+96);
+        g.drawString("" + temp.verilenHasar, cards.get(i).x + 9,cards.get(i).y+96);
     }
     public void drawTextsFirkateyn(Firkateyn temp, int i, Graphics g, ArrayList<Rectangle> cards, Oyuncu oyuncu){
         if (temp.texture != null) {g.drawImage(temp.texture,cards.get(i).x,cards.get(i).y, this);}
@@ -236,11 +236,11 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         g.setColor(Color.white);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
-        g.drawString(temp.altsinif(),cards.get(i).x,cards.get(i).y);
+        //g.drawString(temp.altsinif(),cards.get(i).x,cards.get(i).y);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
-        g.drawString("SP: " + temp.seviyePuani, cards.get(i).x + 20,cards.get(i).y+75);
-        g.drawString("HP: " + temp.dayaniklilik, cards.get(i).x + 20,cards.get(i).y+55);
-        g.drawString("AT: " + temp.verilenHasar, cards.get(i).x + 20,cards.get(i).y+35);
+        g.drawString("" + temp.seviyePuani, cards.get(i).x + 10,cards.get(i).y+21);
+        g.drawString("" + temp.dayaniklilik, cards.get(i).x + 57,cards.get(i).y+96);
+        g.drawString("" + temp.verilenHasar, cards.get(i).x + 9,cards.get(i).y+96);
     }
     public void drawTextsSida(Sida temp, int i, Graphics g, ArrayList<Rectangle> cards, Oyuncu oyuncu){
         if (temp.texture != null) {g.drawImage(temp.texture,cards.get(i).x,cards.get(i).y, this);}
@@ -250,11 +250,15 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         g.setColor(Color.white);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
-        g.drawString(temp.altsinif(),cards.get(i).x,cards.get(i).y);
+        //g.drawString(temp.altsinif(),cards.get(i).x,cards.get(i).y);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
-        g.drawString("SP: " + temp.seviyePuani, cards.get(i).x + 20,cards.get(i).y+75);
+        /*g.drawString("SP: " + temp.seviyePuani, cards.get(i).x + 20,cards.get(i).y+75);
         g.drawString("HP: " + temp.dayaniklilik, cards.get(i).x + 20,cards.get(i).y+55);
         g.drawString("AT: " + temp.verilenHasar, cards.get(i).x + 20,cards.get(i).y+35);
+        Debug icin birakildi. */
+        g.drawString("" + temp.seviyePuani, cards.get(i).x + 10,cards.get(i).y+21);
+        g.drawString("" + temp.dayaniklilik, cards.get(i).x + 57,cards.get(i).y+96);
+        g.drawString("" + temp.verilenHasar, cards.get(i).x + 9,cards.get(i).y+96);
     }
     public void draw(Graphics g){
         Graphics2D g2 = (Graphics2D) g;
@@ -268,7 +272,7 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         for (int i = 0; i < 6; i++) {
             g.setColor(Color.white);
-            g2.draw(new RoundRectangle2D.Double(play_boxes.get(i).x,play_boxes.get(i).y,play_boxes.get(i).width,play_boxes.get(i).height, 10, 10));
+            g2.draw(new RoundRectangle2D.Double(play_boxes.get(i).x,play_boxes.get(i).y,play_boxes.get(i).width-3,play_boxes.get(i).height-3, 25, 25));
         }
         for (int i = 0; i < insan.kartListesi.size(); i++) {
             if(insan.kartListesi.get(i) instanceof Ucak temp){drawTextsUcak(temp, i, g, insan_kartlar, insan);}
