@@ -113,7 +113,8 @@ public class Menu extends JPanel implements ActionListener {
         g.drawString("Enter a player name !", WIDTH/2 - 80,280);
         g.drawString("Total round amount",WIDTH/2 - 75,360);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,20));
-        g.drawString("" + (Oyun.toplamHamleSayisi+00),WIDTH/2-5 ,400);
+        String ortalanmis = String.format("%02d", Oyun.toplamHamleSayisi);
+        g.drawString(ortalanmis,WIDTH/2-5 ,400);
     }
 
     @Override

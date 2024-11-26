@@ -1,5 +1,6 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.sound.sampled.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
@@ -75,6 +76,7 @@ public class GamePanel extends JPanel implements ActionListener {
             public void mousePressed(MouseEvent e) {
                 for (int i=0; i<insan_kartlar.size(); i++) {
                     if (insan_kartlar.get(i).contains(e.getPoint()) && !tur && insan.disabled_cards.get(i) && !gameOver) {
+                        //playSound("Files/cardSelect1.wav");
                         selectedRect = i;
                         dragOffset = new Point(e.getX() - insan_kartlar.get(i).x, e.getY() - insan_kartlar.get(i).y);
                     }
@@ -86,6 +88,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 for (int j=0; j<insan_kartlar.size(); j++) {
                     for (int i=3; i<6; i++) {
                         if (play_boxes.get(i).contains(e.getPoint()) && j==selectedRect && insan.placed_cards.get(i-3) == -1) {
+                            playSound("Files/cardSelect1.wav");
                             insan_kartlar.get(j).x = play_boxes.get(i).x;
                             insan_kartlar.get(j).y = play_boxes.get(i).y;
                             placed_error = false;
@@ -167,90 +170,107 @@ public class GamePanel extends JPanel implements ActionListener {
             }
         });
     }
+    public void playSound(String filePath) {
+        try {
+            File soundFile = new File(filePath);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            clip.start();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+            logger.log(Level.SEVERE, "Error loading sound: " + filePath, ex);
+        }
+    }
+
+    public void stopSound(String filePath){
+        try {
+            File soundFile = new File(filePath);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            clip.stop();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+            logger.log(Level.SEVERE, "Error loading sound: " + filePath, ex);
+        }
+    }
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         draw(g);
     }
-    public void drawTextsUcak(Ucak temp, int i, Graphics g, ArrayList<Rectangle> cards, Oyuncu oyuncu){
+    public void drawTextsUcak(Ucak temp, int i, Graphics g, Graphics2D g2, ArrayList<Rectangle> cards, Oyuncu oyuncu){
         if (temp.texture != null) {g.drawImage(temp.texture,cards.get(i).x,cards.get(i).y, this);}
         if(!oyuncu.disabled_cards.get(i)){
-            g.setColor(new Color(128, 128, 128, 128));
-            g.fillRect(cards.get(i).x,cards.get(i).y,cards.get(i).width,cards.get(i).height);
+            g2.setColor(new Color(255, 128, 128, 128));
+            g2.fill(new RoundRectangle2D.Double(cards.get(i).x,cards.get(i).y,cards.get(i).width,cards.get(i).height, 25, 25));
         }
         g.setColor(Color.white);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
-        //g.drawString(temp.altsinif(),cards.get(i).x,cards.get(i).y);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
         g.drawString("" + temp.seviyePuani, cards.get(i).x + 10,cards.get(i).y+21);
         g.drawString("" + temp.dayaniklilik, cards.get(i).x + 57,cards.get(i).y+96);
         g.drawString("" + temp.verilenHasar, cards.get(i).x + 9,cards.get(i).y+96);
     }
-    public void drawTextsSiha(Siha temp, int i, Graphics g, ArrayList<Rectangle> cards, Oyuncu oyuncu){
+    public void drawTextsSiha(Siha temp, int i, Graphics g, Graphics2D g2, ArrayList<Rectangle> cards, Oyuncu oyuncu){
         if (temp.texture != null) {g.drawImage(temp.texture,cards.get(i).x,cards.get(i).y, this);}
         if(!oyuncu.disabled_cards.get(i)){
-            g.setColor(new Color(128, 128, 128, 128));
-            g.fillRect(cards.get(i).x,cards.get(i).y,cards.get(i).width,cards.get(i).height);
+            g2.setColor(new Color(255, 128, 128, 128));
+            g2.fill(new RoundRectangle2D.Double(cards.get(i).x,cards.get(i).y,cards.get(i).width,cards.get(i).height, 25, 25));
         }
         g.setColor(Color.white);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
-        //g.drawString(temp.altsinif(),cards.get(i).x,cards.get(i).y);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
         g.drawString("" + temp.seviyePuani, cards.get(i).x + 10,cards.get(i).y+21);
         g.drawString("" + temp.dayaniklilik, cards.get(i).x + 57,cards.get(i).y+96);
         g.drawString("" + temp.verilenHasar, cards.get(i).x + 9,cards.get(i).y+96);
     }
-    public void drawTextsObus(Obus temp, int i, Graphics g, ArrayList<Rectangle> cards, Oyuncu oyuncu){
+    public void drawTextsObus(Obus temp, int i, Graphics g, Graphics2D g2, ArrayList<Rectangle> cards, Oyuncu oyuncu){
         if (temp.texture != null) {g.drawImage(temp.texture,cards.get(i).x,cards.get(i).y, this);}
         if(!oyuncu.disabled_cards.get(i)){
-            g.setColor(new Color(128, 128, 128, 128));
-            g.fillRect(cards.get(i).x,cards.get(i).y,cards.get(i).width,cards.get(i).height);
+            g2.setColor(new Color(255, 128, 128, 128));
+            g2.fill(new RoundRectangle2D.Double(cards.get(i).x,cards.get(i).y,cards.get(i).width,cards.get(i).height, 25, 25));
         }
         g.setColor(Color.white);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
-        //g.drawString(temp.altsinif(),cards.get(i).x,cards.get(i).y);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
         g.drawString("" + temp.seviyePuani, cards.get(i).x + 10,cards.get(i).y+21);
         g.drawString("" + temp.dayaniklilik, cards.get(i).x + 57,cards.get(i).y+96);
         g.drawString("" + temp.verilenHasar, cards.get(i).x + 9,cards.get(i).y+96);
     }
-    public void drawTextsKFS(KFS temp, int i, Graphics g, ArrayList<Rectangle> cards, Oyuncu oyuncu){
+    public void drawTextsKFS(KFS temp, int i, Graphics g, Graphics2D g2, ArrayList<Rectangle> cards, Oyuncu oyuncu){
         if (temp.texture != null) {g.drawImage(temp.texture,cards.get(i).x,cards.get(i).y, this);}
         if(!oyuncu.disabled_cards.get(i)){
-            g.setColor(new Color(128, 128, 128, 128));
-            g.fillRect(cards.get(i).x,cards.get(i).y,cards.get(i).width,cards.get(i).height);
+            g2.setColor(new Color(255, 128, 128, 128));
+            g2.fill(new RoundRectangle2D.Double(cards.get(i).x,cards.get(i).y,cards.get(i).width,cards.get(i).height, 25, 25));
         }
         g.setColor(Color.white);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
-        //g.drawString(temp.altsinif(),cards.get(i).x,cards.get(i).y);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
         g.drawString("" + temp.seviyePuani, cards.get(i).x + 10,cards.get(i).y+21);
         g.drawString("" + temp.dayaniklilik, cards.get(i).x + 57,cards.get(i).y+96);
         g.drawString("" + temp.verilenHasar, cards.get(i).x + 9,cards.get(i).y+96);
     }
-    public void drawTextsFirkateyn(Firkateyn temp, int i, Graphics g, ArrayList<Rectangle> cards, Oyuncu oyuncu){
+    public void drawTextsFirkateyn(Firkateyn temp, int i, Graphics g, Graphics2D g2, ArrayList<Rectangle> cards, Oyuncu oyuncu){
         if (temp.texture != null) {g.drawImage(temp.texture,cards.get(i).x,cards.get(i).y, this);}
         if(!oyuncu.disabled_cards.get(i)){
-            g.setColor(new Color(128, 128, 128, 128));
-            g.fillRect(cards.get(i).x,cards.get(i).y,cards.get(i).width,cards.get(i).height);
+            g2.setColor(new Color(255, 128, 128, 128));
+            g2.fill(new RoundRectangle2D.Double(cards.get(i).x,cards.get(i).y,cards.get(i).width,cards.get(i).height, 25, 25));
         }
         g.setColor(Color.white);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
-        //g.drawString(temp.altsinif(),cards.get(i).x,cards.get(i).y);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
         g.drawString("" + temp.seviyePuani, cards.get(i).x + 10,cards.get(i).y+21);
         g.drawString("" + temp.dayaniklilik, cards.get(i).x + 57,cards.get(i).y+96);
         g.drawString("" + temp.verilenHasar, cards.get(i).x + 9,cards.get(i).y+96);
     }
-    public void drawTextsSida(Sida temp, int i, Graphics g, ArrayList<Rectangle> cards, Oyuncu oyuncu){
+    public void drawTextsSida(Sida temp, int i, Graphics g, Graphics2D g2, ArrayList<Rectangle> cards, Oyuncu oyuncu){
         if (temp.texture != null) {g.drawImage(temp.texture,cards.get(i).x,cards.get(i).y, this);}
         if(!oyuncu.disabled_cards.get(i)){
-            g.setColor(new Color(128, 128, 128, 128));
-            g.fillRect(cards.get(i).x,cards.get(i).y,cards.get(i).width,cards.get(i).height);
+            g2.setColor(new Color(255, 128, 128, 128));
+            g2.fill(new RoundRectangle2D.Double(cards.get(i).x,cards.get(i).y,cards.get(i).width,cards.get(i).height, 25, 25));
         }
         g.setColor(Color.white);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
-        //g.drawString(temp.altsinif(),cards.get(i).x,cards.get(i).y);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,10));
         /*g.drawString("SP: " + temp.seviyePuani, cards.get(i).x + 20,cards.get(i).y+75);
         g.drawString("HP: " + temp.dayaniklilik, cards.get(i).x + 20,cards.get(i).y+55);
@@ -275,12 +295,12 @@ public class GamePanel extends JPanel implements ActionListener {
             g2.draw(new RoundRectangle2D.Double(play_boxes.get(i).x,play_boxes.get(i).y,play_boxes.get(i).width-3,play_boxes.get(i).height-3, 25, 25));
         }
         for (int i = 0; i < insan.kartListesi.size(); i++) {
-            if(insan.kartListesi.get(i) instanceof Ucak temp){drawTextsUcak(temp, i, g, insan_kartlar, insan);}
-            else if (insan.kartListesi.get(i) instanceof Siha temp){drawTextsSiha(temp, i, g, insan_kartlar, insan);}
-            else if (insan.kartListesi.get(i) instanceof Obus temp){drawTextsObus(temp, i, g, insan_kartlar, insan);}
-            else if (insan.kartListesi.get(i) instanceof KFS temp){drawTextsKFS(temp, i, g, insan_kartlar, insan);}
-            else if (insan.kartListesi.get(i) instanceof Firkateyn temp){drawTextsFirkateyn(temp, i, g, insan_kartlar, insan);}
-            else if (insan.kartListesi.get(i) instanceof Sida temp){drawTextsSida(temp, i, g, insan_kartlar, insan);}
+            if(insan.kartListesi.get(i) instanceof Ucak temp){drawTextsUcak(temp, i, g, g2, insan_kartlar, insan);}
+            else if (insan.kartListesi.get(i) instanceof Siha temp){drawTextsSiha(temp, i, g, g2, insan_kartlar, insan);}
+            else if (insan.kartListesi.get(i) instanceof Obus temp){drawTextsObus(temp, i, g, g2, insan_kartlar, insan);}
+            else if (insan.kartListesi.get(i) instanceof KFS temp){drawTextsKFS(temp, i, g, g2, insan_kartlar, insan);}
+            else if (insan.kartListesi.get(i) instanceof Firkateyn temp){drawTextsFirkateyn(temp, i, g, g2, insan_kartlar, insan);}
+            else if (insan.kartListesi.get(i) instanceof Sida temp){drawTextsSida(temp, i, g, g2, insan_kartlar, insan);}
         }
 
         for (int i = 0; i < bilgisayar.kartListesi.size(); i++) {
@@ -292,12 +312,12 @@ public class GamePanel extends JPanel implements ActionListener {
                 }
             }
             if(test){
-                if(bilgisayar.kartListesi.get(i) instanceof Ucak temp){drawTextsUcak(temp, i, g, bilgisayar_kartlar, bilgisayar);}
-                else if (bilgisayar.kartListesi.get(i) instanceof Siha temp){drawTextsSiha(temp, i, g, bilgisayar_kartlar, bilgisayar);}
-                else if (bilgisayar.kartListesi.get(i) instanceof Obus temp){drawTextsObus(temp, i, g, bilgisayar_kartlar, bilgisayar);}
-                else if (bilgisayar.kartListesi.get(i) instanceof KFS temp){drawTextsKFS(temp, i, g, bilgisayar_kartlar, bilgisayar);}
-                else if (bilgisayar.kartListesi.get(i) instanceof Firkateyn temp){drawTextsFirkateyn(temp, i, g, bilgisayar_kartlar, bilgisayar);}
-                else if (bilgisayar.kartListesi.get(i) instanceof Sida temp){drawTextsSida(temp, i, g, bilgisayar_kartlar, bilgisayar);}
+                if(bilgisayar.kartListesi.get(i) instanceof Ucak temp){drawTextsUcak(temp, i, g, g2, bilgisayar_kartlar, bilgisayar);}
+                else if (bilgisayar.kartListesi.get(i) instanceof Siha temp){drawTextsSiha(temp, i, g, g2, bilgisayar_kartlar, bilgisayar);}
+                else if (bilgisayar.kartListesi.get(i) instanceof Obus temp){drawTextsObus(temp, i, g, g2, bilgisayar_kartlar, bilgisayar);}
+                else if (bilgisayar.kartListesi.get(i) instanceof KFS temp){drawTextsKFS(temp, i, g, g2, bilgisayar_kartlar, bilgisayar);}
+                else if (bilgisayar.kartListesi.get(i) instanceof Firkateyn temp){drawTextsFirkateyn(temp, i, g, g2, bilgisayar_kartlar, bilgisayar);}
+                else if (bilgisayar.kartListesi.get(i) instanceof Sida temp){drawTextsSida(temp, i, g, g2, bilgisayar_kartlar, bilgisayar);}
             }else{
                 g.drawImage(closed_texture,bilgisayar_kartlar.get(i).x,bilgisayar_kartlar.get(i).y, this);
             }
@@ -400,6 +420,7 @@ public class GamePanel extends JPanel implements ActionListener {
             int finalI = -1;
             @Override
             public void run() {
+                playSound("Files/cardSelect1.wav");
                 if(finalI>=0 && finalI != 3){
                     bilgisayar_kartlar.get(bilgisayar.placed_cards.get(finalI)).x = play_boxes.get(finalI).x;
                     bilgisayar_kartlar.get(bilgisayar.placed_cards.get(finalI)).y = play_boxes.get(finalI).y;
