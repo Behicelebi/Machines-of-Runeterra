@@ -434,57 +434,45 @@ public class GamePanel extends JPanel implements ActionListener {
                     for (int i = 0; i < 3; i++) {insan_temp_sp.add(insan.kartListesi.get(insan.placed_cards.get(i)).seviyePuani);}
                     for (int i = 0; i < 3; i++) {bilgisayar_temp_sp.add(bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).seviyePuani);}
                     for (int i = 0; i < 3; i++) {
-                        if(insan.kartListesi.get(insan.placed_cards.get(i)) instanceof Ucak temp){
-                            temp.DurumGuncelle(insan,bilgisayar,i,insan_temp_sp.get(i));
-                            temp.KartPuaniGoster();
-                            bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).verilenHasar = temp.verilenHasar;
-                        } else if(insan.kartListesi.get(insan.placed_cards.get(i)) instanceof Siha temp){
-                            temp.DurumGuncelle(insan,bilgisayar,i,insan_temp_sp.get(i));
-                            temp.KartPuaniGoster();
-                            bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).verilenHasar = temp.verilenHasar;
-                        } else if (insan.kartListesi.get(insan.placed_cards.get(i)) instanceof Obus temp) {
-                            temp.DurumGuncelle(insan,bilgisayar,i,insan_temp_sp.get(i));
-                            temp.KartPuaniGoster();
-                            bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).verilenHasar = temp.verilenHasar;
-                        } else if (insan.kartListesi.get(insan.placed_cards.get(i)) instanceof KFS temp) {
-                            temp.DurumGuncelle(insan,bilgisayar,i,insan_temp_sp.get(i));
-                            temp.KartPuaniGoster();
-                            bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).verilenHasar = temp.verilenHasar;
-                        } else if (insan.kartListesi.get(insan.placed_cards.get(i)) instanceof Firkateyn temp) {
-                            temp.DurumGuncelle(insan,bilgisayar,i,insan_temp_sp.get(i));
-                            temp.KartPuaniGoster();
-                            bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).verilenHasar = temp.verilenHasar;
-                        } else if (insan.kartListesi.get(insan.placed_cards.get(i)) instanceof Sida temp) {
-                            temp.DurumGuncelle(insan,bilgisayar,i,insan_temp_sp.get(i));
-                            temp.KartPuaniGoster();
-                            bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).verilenHasar = temp.verilenHasar;
-                        }
-                    }
-                    for (int i = 0; i < 3; i++) {
                         if(bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)) instanceof Ucak temp){
                             temp.DurumGuncelle(bilgisayar,insan,i,bilgisayar_temp_sp.get(i));
                             temp.KartPuaniGoster();
-                            insan.kartListesi.get(insan.placed_cards.get(i)).verilenHasar = temp.verilenHasar;
                         } else if(bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)) instanceof Siha temp){
                             temp.DurumGuncelle(bilgisayar,insan,i,bilgisayar_temp_sp.get(i));
                             temp.KartPuaniGoster();
-                            insan.kartListesi.get(insan.placed_cards.get(i)).verilenHasar = temp.verilenHasar;
                         } else if (bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)) instanceof Obus temp) {
                             temp.DurumGuncelle(bilgisayar,insan,i,bilgisayar_temp_sp.get(i));
                             temp.KartPuaniGoster();
-                            insan.kartListesi.get(insan.placed_cards.get(i)).verilenHasar = temp.verilenHasar;
                         } else if (bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)) instanceof KFS temp) {
                             temp.DurumGuncelle(bilgisayar,insan,i,bilgisayar_temp_sp.get(i));
                             temp.KartPuaniGoster();
-                            insan.kartListesi.get(insan.placed_cards.get(i)).verilenHasar = temp.verilenHasar;
                         } else if (bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)) instanceof Firkateyn temp) {
                             temp.DurumGuncelle(bilgisayar,insan,i,bilgisayar_temp_sp.get(i));
                             temp.KartPuaniGoster();
-                            insan.kartListesi.get(insan.placed_cards.get(i)).verilenHasar = temp.verilenHasar;
                         } else if (bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)) instanceof Sida temp) {
                             temp.DurumGuncelle(bilgisayar,insan,i,bilgisayar_temp_sp.get(i));
                             temp.KartPuaniGoster();
-                            insan.kartListesi.get(insan.placed_cards.get(i)).verilenHasar = temp.verilenHasar;
+                        }
+                    }
+                    for (int i = 0; i < 3; i++) {
+                        if(insan.kartListesi.get(insan.placed_cards.get(i)) instanceof Ucak temp){
+                            temp.DurumGuncelle(insan,bilgisayar,i,insan_temp_sp.get(i));
+                            temp.KartPuaniGoster();
+                        } else if(insan.kartListesi.get(insan.placed_cards.get(i)) instanceof Siha temp){
+                            temp.DurumGuncelle(insan,bilgisayar,i,insan_temp_sp.get(i));
+                            temp.KartPuaniGoster();
+                        } else if (insan.kartListesi.get(insan.placed_cards.get(i)) instanceof Obus temp) {
+                            temp.DurumGuncelle(insan,bilgisayar,i,insan_temp_sp.get(i));
+                            temp.KartPuaniGoster();
+                        } else if (insan.kartListesi.get(insan.placed_cards.get(i)) instanceof KFS temp) {
+                            temp.DurumGuncelle(insan,bilgisayar,i,insan_temp_sp.get(i));
+                            temp.KartPuaniGoster();
+                        } else if (insan.kartListesi.get(insan.placed_cards.get(i)) instanceof Firkateyn temp) {
+                            temp.DurumGuncelle(insan,bilgisayar,i,insan_temp_sp.get(i));
+                            temp.KartPuaniGoster();
+                        } else if (insan.kartListesi.get(insan.placed_cards.get(i)) instanceof Sida temp) {
+                            temp.DurumGuncelle(insan,bilgisayar,i,insan_temp_sp.get(i));
+                            temp.KartPuaniGoster();
                         }
                     }
                 }
@@ -621,7 +609,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 repaint();
             }
         };
-        timer.scheduleAtFixedRate(task, 0, 1000);
+        timer.scheduleAtFixedRate(task, 0, 5000);
     }
 
     @Override
