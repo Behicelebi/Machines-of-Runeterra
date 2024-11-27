@@ -76,7 +76,6 @@ public class GamePanel extends JPanel implements ActionListener {
             public void mousePressed(MouseEvent e) {
                 for (int i=0; i<insan_kartlar.size(); i++) {
                     if (insan_kartlar.get(i).contains(e.getPoint()) && !tur && insan.disabled_cards.get(i) && !gameOver) {
-                        //playSound("Files/cardSelect1.wav");
                         selectedRect = i;
                         dragOffset = new Point(e.getX() - insan_kartlar.get(i).x, e.getY() - insan_kartlar.get(i).y);
                     }
@@ -321,15 +320,6 @@ public class GamePanel extends JPanel implements ActionListener {
             }else{
                 g.drawImage(closed_texture,bilgisayar_kartlar.get(i).x,bilgisayar_kartlar.get(i).y, this);
             }
-        /*
-            g.setColor(Color.white);
-            if(bilgisayar.kartListesi.get(i) instanceof Ucak temp){drawTextsUcak(temp, i, g, bilgisayar_kartlar, bilgisayar);}
-            else if (bilgisayar.kartListesi.get(i) instanceof Siha temp){drawTextsSiha(temp, i, g, bilgisayar_kartlar, bilgisayar);}
-            else if (bilgisayar.kartListesi.get(i) instanceof Obus temp){drawTextsObus(temp, i, g, bilgisayar_kartlar, bilgisayar);}
-            else if (bilgisayar.kartListesi.get(i) instanceof KFS temp){drawTextsKFS(temp, i, g, bilgisayar_kartlar, bilgisayar);}
-            else if (bilgisayar.kartListesi.get(i) instanceof Firkateyn temp){drawTextsFirkateyn(temp, i, g, bilgisayar_kartlar, bilgisayar);}
-            else if (bilgisayar.kartListesi.get(i) instanceof Sida temp){drawTextsSida(temp, i, g, bilgisayar_kartlar, bilgisayar);}
-        */
         }
         if(placed_error){
             g.setColor(Color.red);
@@ -609,7 +599,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 repaint();
             }
         };
-        timer.scheduleAtFixedRate(task, 0, 5000);
+        timer.scheduleAtFixedRate(task, 0, 1000);
     }
 
     @Override
