@@ -39,6 +39,7 @@ public class GamePanel extends JPanel implements ActionListener {
         this.setPreferredSize(new Dimension(this.WIDTH,this.HEIGHT));
         this.setFocusable(true);
         this.setLayout(null);
+        //playSound("Files/menuMusic.wav");
 
         try {
             closed_texture = ImageIO.read(new File("Files/CardBack.png"));
@@ -76,6 +77,7 @@ public class GamePanel extends JPanel implements ActionListener {
             public void mousePressed(MouseEvent e) {
                 for (int i=0; i<insan_kartlar.size(); i++) {
                     if (insan_kartlar.get(i).contains(e.getPoint()) && !tur && insan.disabled_cards.get(i) && !gameOver) {
+                        playSound("Files/pickCard.wav");
                         selectedRect = i;
                         dragOffset = new Point(e.getX() - insan_kartlar.get(i).x, e.getY() - insan_kartlar.get(i).y);
                     }
@@ -87,7 +89,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 for (int j=0; j<insan_kartlar.size(); j++) {
                     for (int i=3; i<6; i++) {
                         if (play_boxes.get(i).contains(e.getPoint()) && j==selectedRect && insan.placed_cards.get(i-3) == -1) {
-                            playSound("Files/cardSelect1.wav");
+                            playSound("Files/returnCard.wav");
                             insan_kartlar.get(j).x = play_boxes.get(i).x;
                             insan_kartlar.get(j).y = play_boxes.get(i).y;
                             placed_error = false;
@@ -169,6 +171,7 @@ public class GamePanel extends JPanel implements ActionListener {
             }
         });
     }
+
     public void playSound(String filePath) {
         try {
             File soundFile = new File(filePath);
@@ -181,7 +184,7 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
 
-    public void stopSound(String filePath){
+    public void stopSound(String filePath){ //Şuanda kullanılmıyor ama kullanımı olabileceğinden d
         try {
             File soundFile = new File(filePath);
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
@@ -405,19 +408,19 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void turn(){
         bilgisayar.kartSec(0,0);
+        playSound("Files/swipeCard.wav");
         Timer timer = new Timer();
         TimerTask task = new TimerTask(){
             int finalI = -1;
             @Override
             public void run() {
-                playSound("Files/cardSelect1.wav");
                 if(finalI>=0 && finalI != 3){
+                    playSound("Files/returnCard.wav");
                     bilgisayar_kartlar.get(bilgisayar.placed_cards.get(finalI)).x = play_boxes.get(finalI).x;
                     bilgisayar_kartlar.get(bilgisayar.placed_cards.get(finalI)).y = play_boxes.get(finalI).y;
                 }
                 if(finalI>=2 && finalI != 3){
                     tur=false;
-                    System.out.println("------->> ROUND " + Oyun.roundNum + " Starting >>------------------------------------------------------------------------------------\n");
                     Oyun.dosyaYaz("\n------->> ROUND " + Oyun.roundNum + " Starting >>------------------------------------------------------------------------------------\n\n");
                     ArrayList<Integer> insan_temp_sp = new ArrayList<>();
                     ArrayList<Integer> bilgisayar_temp_sp = new ArrayList<>();
@@ -467,6 +470,7 @@ public class GamePanel extends JPanel implements ActionListener {
                     }
                 }
                 if(finalI >= 3) {
+                    playSound("Files/playCard.wav");
                     for (int i = 0; i < 3; i++) {
                         insan.kartListesi.get(insan.placed_cards.get(i)).verilenHasar = insan.kartListesi.get(insan.placed_cards.get(i)).vurus;
                         bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).verilenHasar = bilgisayar.kartListesi.get(bilgisayar.placed_cards.get(i)).vurus;
@@ -567,7 +571,6 @@ public class GamePanel extends JPanel implements ActionListener {
                         if(insan.kartListesi.size()<3){
                             if(insan.kartListesi.size()==2){
                                 Oyun.kartDagit(insan, 1);
-                                System.out.println("Bu son round oyuncu tarafi ekstradan kart aldı!");
                                 Oyun.dosyaYaz("Bu son round oyuncu tarafi ekstradan kart aldı!\n");
                                 isAdded_insan = true;
                             }
@@ -581,8 +584,7 @@ public class GamePanel extends JPanel implements ActionListener {
                         if(bilgisayar.kartListesi.size()<3){
                             if(bilgisayar.kartListesi.size()==2){
                                 Oyun.kartDagit(bilgisayar, 1);
-                                System.out.println("Bu son round bilgisayar tarafi ekstradan kart aldı!");
-                                Oyun.dosyaYaz("");
+                                Oyun.dosyaYaz("Bu son round bilgisayar tarafi ekstradan kart aldı!");
                                 isAdded_pc = true;
                             }
                         }
@@ -600,6 +602,7 @@ public class GamePanel extends JPanel implements ActionListener {
             }
         };
         timer.scheduleAtFixedRate(task, 0, 1000);
+
     }
 
     @Override

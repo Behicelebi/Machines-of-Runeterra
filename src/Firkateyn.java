@@ -37,7 +37,6 @@ public class Firkateyn extends DenizSinifi{
     @Override
     public void DurumGuncelle(Oyuncu hasarAlan, Oyuncu hasarVeren, int i, int seviye_puani){
         hasarVeren.kartListesi.get(hasarVeren.placed_cards.get(i)).verilenHasar = Oyun.SaldiriHesapla(hasarVeren.kartListesi.get(hasarVeren.placed_cards.get(i)),hasarAlan.kartListesi.get(hasarAlan.placed_cards.get(i)));
-        System.out.println((i+1) + ". kutuda olan " + hasarAlan.oyuncuAdi + "'nun Firkateyn kartinin dayanikliligi " + hasarAlan.kartListesi.get(hasarAlan.placed_cards.get(i)).dayaniklilik + " den " + hasarVeren.kartListesi.get(hasarVeren.placed_cards.get(i)).verilenHasar + " kadar hasar yiyerek " + (hasarAlan.kartListesi.get(hasarAlan.placed_cards.get(i)).dayaniklilik - hasarVeren.kartListesi.get(hasarVeren.placed_cards.get(i)).verilenHasar) + " oldu.");
         if(hasarVeren.kartListesi.get(hasarVeren.placed_cards.get(i)).verilenHasar >= hasarAlan.kartListesi.get(hasarAlan.placed_cards.get(i)).dayaniklilik){
             Oyun.dosyaYaz("--->> " + (i+1) + ". kutuda olan " + hasarAlan.oyuncuAdi + "'in Firkateyn karti " + hasarVeren.kartListesi.get(hasarVeren.placed_cards.get(i)).verilenHasar + " kadar hasar yiyerek yok edildi !\n");
         }else{
@@ -57,7 +56,7 @@ public class Firkateyn extends DenizSinifi{
 
     @Override
     public void KartPuaniGoster(){
-        System.out.println("Bu Firkateyn kartinin seviye puani: " + seviyePuani + "\n");
+        Oyun.dosyaYaz("Bu Firkateyn kartinin seviye puani: " + seviyePuani + "\n");
     }
 }
 
