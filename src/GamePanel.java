@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements ActionListener {
         this.setPreferredSize(new Dimension(this.WIDTH,this.HEIGHT));
         this.setFocusable(true);
         this.setLayout(null);
-        //playSound("Files/menuMusic.wav");
+
 
         try {
             closed_texture = ImageIO.read(new File("Files/CardBack.png"));
@@ -62,8 +62,6 @@ public class GamePanel extends JPanel implements ActionListener {
             Rectangle button = new Rectangle(((i%3)*kartbosluk)+bosluk,(HEIGHT/2)-(150-(i/3*180)),80,120);
             play_boxes.add(button);
         }
-
-        setCardPositions();
 
         ready = new JButton("READY");
         ready.setBounds(1070,335,100,30);
@@ -172,28 +170,22 @@ public class GamePanel extends JPanel implements ActionListener {
         });
     }
 
-    public void playSound(String filePath) {
+    public Clip playSound(String filePath) {
         try {
             File soundFile = new File(filePath);
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
             Clip clip = AudioSystem.getClip();
             clip.open(audioStream);
             clip.start();
+            return clip;
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
             logger.log(Level.SEVERE, "Error loading sound: " + filePath, ex);
+            return null;
         }
     }
 
-    public void stopSound(String filePath){ //Şuanda kullanılmıyor ama kullanımı olabileceğinden d
-        try {
-            File soundFile = new File(filePath);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioStream);
-            clip.stop();
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
-            logger.log(Level.SEVERE, "Error loading sound: " + filePath, ex);
-        }
+    public void stopSound(Clip clip){ //Şuanda kullanılmıyor ama kullanımı olabileceğinden d
+        clip.stop();
     }
 
     public void paintComponent(Graphics g){
@@ -203,7 +195,7 @@ public class GamePanel extends JPanel implements ActionListener {
     public void drawTextsUcak(Ucak temp, int i, Graphics g, Graphics2D g2, ArrayList<Rectangle> cards, Oyuncu oyuncu){
         if (temp.texture != null) {g.drawImage(temp.texture,cards.get(i).x,cards.get(i).y, this);}
         if(!oyuncu.disabled_cards.get(i)){
-            g2.setColor(new Color(255, 128, 128, 128));
+            g2.setColor(new Color(255, 120, 120, 75));
             g2.fill(new RoundRectangle2D.Double(cards.get(i).x,cards.get(i).y,cards.get(i).width,cards.get(i).height, 25, 25));
         }
         g.setColor(Color.white);
@@ -216,7 +208,7 @@ public class GamePanel extends JPanel implements ActionListener {
     public void drawTextsSiha(Siha temp, int i, Graphics g, Graphics2D g2, ArrayList<Rectangle> cards, Oyuncu oyuncu){
         if (temp.texture != null) {g.drawImage(temp.texture,cards.get(i).x,cards.get(i).y, this);}
         if(!oyuncu.disabled_cards.get(i)){
-            g2.setColor(new Color(255, 128, 128, 128));
+            g2.setColor(new Color(255, 120, 120, 75));
             g2.fill(new RoundRectangle2D.Double(cards.get(i).x,cards.get(i).y,cards.get(i).width,cards.get(i).height, 25, 25));
         }
         g.setColor(Color.white);
@@ -229,7 +221,7 @@ public class GamePanel extends JPanel implements ActionListener {
     public void drawTextsObus(Obus temp, int i, Graphics g, Graphics2D g2, ArrayList<Rectangle> cards, Oyuncu oyuncu){
         if (temp.texture != null) {g.drawImage(temp.texture,cards.get(i).x,cards.get(i).y, this);}
         if(!oyuncu.disabled_cards.get(i)){
-            g2.setColor(new Color(255, 128, 128, 128));
+            g2.setColor(new Color(255, 120, 120, 75));
             g2.fill(new RoundRectangle2D.Double(cards.get(i).x,cards.get(i).y,cards.get(i).width,cards.get(i).height, 25, 25));
         }
         g.setColor(Color.white);
@@ -242,7 +234,7 @@ public class GamePanel extends JPanel implements ActionListener {
     public void drawTextsKFS(KFS temp, int i, Graphics g, Graphics2D g2, ArrayList<Rectangle> cards, Oyuncu oyuncu){
         if (temp.texture != null) {g.drawImage(temp.texture,cards.get(i).x,cards.get(i).y, this);}
         if(!oyuncu.disabled_cards.get(i)){
-            g2.setColor(new Color(255, 128, 128, 128));
+            g2.setColor(new Color(255, 120, 120, 75));
             g2.fill(new RoundRectangle2D.Double(cards.get(i).x,cards.get(i).y,cards.get(i).width,cards.get(i).height, 25, 25));
         }
         g.setColor(Color.white);
@@ -255,7 +247,7 @@ public class GamePanel extends JPanel implements ActionListener {
     public void drawTextsFirkateyn(Firkateyn temp, int i, Graphics g, Graphics2D g2, ArrayList<Rectangle> cards, Oyuncu oyuncu){
         if (temp.texture != null) {g.drawImage(temp.texture,cards.get(i).x,cards.get(i).y, this);}
         if(!oyuncu.disabled_cards.get(i)){
-            g2.setColor(new Color(255, 128, 128, 128));
+            g2.setColor(new Color(255, 120, 120, 75));
             g2.fill(new RoundRectangle2D.Double(cards.get(i).x,cards.get(i).y,cards.get(i).width,cards.get(i).height, 25, 25));
         }
         g.setColor(Color.white);
@@ -268,7 +260,7 @@ public class GamePanel extends JPanel implements ActionListener {
     public void drawTextsSida(Sida temp, int i, Graphics g, Graphics2D g2, ArrayList<Rectangle> cards, Oyuncu oyuncu){
         if (temp.texture != null) {g.drawImage(temp.texture,cards.get(i).x,cards.get(i).y, this);}
         if(!oyuncu.disabled_cards.get(i)){
-            g2.setColor(new Color(255, 128, 128, 128));
+            g2.setColor(new Color(255, 120, 120, 75));
             g2.fill(new RoundRectangle2D.Double(cards.get(i).x,cards.get(i).y,cards.get(i).width,cards.get(i).height, 25, 25));
         }
         g.setColor(Color.white);

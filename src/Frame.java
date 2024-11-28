@@ -1,3 +1,4 @@
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,15 +10,21 @@ public class Frame extends JFrame implements ActionListener {
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int screenWidth = (int)screenSize.getWidth()/2-(WIDTH/2);
     int screenHeight = (int)screenSize.getHeight()/2-(HEIGHT/2);
+    Oyuncu insan;
+    Oyuncu bilgisayar;
 
     GamePanel gamePanel;
+    Clip menuMusic;
     Menu menu;
 
     JButton button = new JButton("PLAY");
 
     Frame(Oyuncu insan, Oyuncu bilgisayar){
+        this.insan = insan;
+        this.bilgisayar = bilgisayar;
         menu = new Menu(WIDTH,HEIGHT,insan,bilgisayar);
         gamePanel = new GamePanel(WIDTH,HEIGHT,insan,bilgisayar);
+        menuMusic = gamePanel.playSound("Files/menuMusic.wav");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Machines of Runeterra");
         this.setResizable(false);
@@ -37,6 +44,11 @@ public class Frame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Frame frame = this;
         if(e.getSource()==button){
+            gamePanel.stopSound(menuMusic);
+            gamePanel.playSound("Files/gameMusic.wav");
+            Oyun.kartDagit(insan, 6);
+            Oyun.kartDagit(bilgisayar, 6);
+            gamePanel.setCardPositions();
             gamePanel.insan.oyuncuAdi = menu.textField.getText();
             frame.getContentPane().remove(menu);
             frame.getContentPane().add(gamePanel);

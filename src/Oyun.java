@@ -5,7 +5,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Oyun {
-
     public static int toplamHamleSayisi = 5;
     public static int roundNum = 1;
     public static Oyuncu insan;
@@ -21,8 +20,6 @@ public class Oyun {
             writer.write(">>-------------------------------------------------GAME LOG----------------------------------------------------<<\n");
             writer.close();
         }catch (IOException e){logger.log(Level.SEVERE, "Error opening file", e);}
-        kartDagit(insan, 6);
-        kartDagit(bilgisayar, 6);
         new Frame(Oyun.insan,Oyun.bilgisayar);
     }
 
