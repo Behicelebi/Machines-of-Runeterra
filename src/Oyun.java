@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 public class Oyun {
     public static int toplamHamleSayisi = 5;
+    public static int baslangicSeviye = 0;
     public static int roundNum = 1;
     public static Oyuncu insan;
     public static Oyuncu bilgisayar;
@@ -51,32 +52,32 @@ public class Oyun {
             SavasAraclari Select = null;
             switch(select){
                 case 0:
-                    Select = new Ucak(0, 10, 20);
+                    Select = new Ucak(baslangicSeviye, 10, 20);
                     if(roundNum != 1)
                         dosyaYaz("\n--->> " + oyuncu.oyuncuAdi + "'a verilen kart: Ucak\n");
                     break;
                 case 1:
-                    Select = new Obus(0, 10, 20);
+                    Select = new Obus(baslangicSeviye, 10, 20);
                     if(roundNum != 1)
                         dosyaYaz("\n--->> " + oyuncu.oyuncuAdi + "'a verilen kart: Obüs\n");
                     break;
                 case 2:
-                    Select = new Firkateyn(0, 10, 25);
+                    Select = new Firkateyn(baslangicSeviye, 10, 25);
                     if(roundNum != 1)
                         dosyaYaz("\n--->> " + oyuncu.oyuncuAdi + "'a verilen kart: Fırkateyn\n");
                     break;
                 case 3:
-                    Select = new Siha(0, 10, 15);
+                    Select = new Siha(baslangicSeviye, 10, 15);
                     if(roundNum != 1)
                         dosyaYaz("\n--->> " + oyuncu.oyuncuAdi + "'a verilen kart: Siha\n");
                     break;
                 case 4:
-                    Select = new KFS(0, 10, 10);
+                    Select = new KFS(baslangicSeviye, 10, 10);
                     if(roundNum != 1)
                         dosyaYaz("\n--->> " + oyuncu.oyuncuAdi + "'a verilen kart: KFS\n");
                     break;
                 case 5:
-                    Select = new Sida(0, 10, 15);
+                    Select = new Sida(baslangicSeviye, 10, 15);
                     if(roundNum != 1)
                         dosyaYaz("\n--->> " + oyuncu.oyuncuAdi + "'a verilen kart: Sida\n");
                     break;

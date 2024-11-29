@@ -15,6 +15,7 @@ public class Menu extends JPanel implements ActionListener {
     JTextField textField = new JTextField();
     Oyuncu insan, bilgisayar;
     JButton up_button = new JButton(">"), down_button = new JButton("<"), default_button = new JButton("Set Default");
+    JButton up_button1 = new JButton(">"), down_button1 = new JButton("<"), default_button1 = new JButton("Set Default");
     public Image background;
     private static final Logger logger = Logger.getLogger(GamePanel.class.getName());
 
@@ -48,6 +49,8 @@ public class Menu extends JPanel implements ActionListener {
         textField.setText(insan.oyuncuAdi);
         this.add(textField);
 
+
+        //ROUND
         Timer up_holdTimer = new Timer(100, e -> {
             Oyun.toplamHamleSayisi++;
             repaint();
@@ -101,6 +104,62 @@ public class Menu extends JPanel implements ActionListener {
         default_button.setFocusable(false);
         default_button.addActionListener(this);
         this.add(default_button);
+
+
+        //SP
+        Timer up_holdTimer1 = new Timer(100, e -> {
+            Oyun.baslangicSeviye++;
+            repaint();
+        });
+        up_holdTimer.setInitialDelay(500);
+        up_button1.setBounds(WIDTH/2 + 95,530,40,25);
+        up_button1.setFont(new Font("Copperplate Gothic Bold",Font.BOLD,10));
+        up_button1.setHorizontalAlignment(SwingConstants.CENTER);
+        up_button1.setFocusable(false);
+        up_button1.addActionListener(this);
+        up_button1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (!up_holdTimer1.isRunning()) {up_holdTimer1.start();}
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                up_holdTimer1.stop();
+            }
+        });
+        this.add(up_button1);
+
+        Timer down_holdTimer1 = new Timer(100, e -> {
+            if(Oyun.baslangicSeviye>1){
+                Oyun.baslangicSeviye--;
+                repaint();
+            }
+        });
+        down_holdTimer.setInitialDelay(500);
+        down_button1.setBounds(WIDTH/2 - 115,530,40,25);
+        down_button1.setFont(new Font("Copperplate Gothic Bold",Font.BOLD,10));
+        down_button1.setHorizontalAlignment(SwingConstants.CENTER);
+        down_button1.setFocusable(false);
+        down_button1.addActionListener(this);
+        down_button1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (!down_holdTimer1.isRunning()) {down_holdTimer1.start();}
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                down_holdTimer1.stop();
+            }
+        });
+        this.add(down_button1);
+
+        default_button1.setBounds(WIDTH/2-50,530,120,25);
+        default_button1.setFont(new Font("Copperplate Gothic Bold",Font.BOLD,12));
+        default_button1.setFocusable(false);
+        default_button1.addActionListener(this);
+        this.add(default_button1);
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -112,9 +171,12 @@ public class Menu extends JPanel implements ActionListener {
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
         g.drawString("Enter a player name !", WIDTH/2 - 80,280);
         g.drawString("Total round amount",WIDTH/2 - 75,360);
+        g.drawString("The starting level points",WIDTH/2 - 95,470);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,20));
         String ortalanmis = String.format("%02d", Oyun.toplamHamleSayisi);
         g.drawString(ortalanmis,WIDTH/2-5 ,400);
+        String ortalanmis1 = String.format("%02d", Oyun.baslangicSeviye);
+        g.drawString(ortalanmis1,WIDTH/2-5 ,510);
     }
 
     @Override
@@ -129,6 +191,19 @@ public class Menu extends JPanel implements ActionListener {
             }
         } else if (e.getSource() == default_button) {
             Oyun.toplamHamleSayisi = 5;
+            repaint();
+        }
+
+        if(e.getSource() == up_button1){
+            Oyun.baslangicSeviye++;
+            repaint();
+        } else if (e.getSource() == down_button1) {
+            if(Oyun.baslangicSeviye>0){
+                Oyun.baslangicSeviye--;
+                repaint();
+            }
+        } else if (e.getSource() == default_button1) {
+            Oyun.baslangicSeviye = 0;
             repaint();
         }
     }
