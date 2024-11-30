@@ -56,7 +56,7 @@ public class Firkateyn extends DenizSinifi{
 
     @Override
     public void KartPuaniGoster(){
-        Oyun.dosyaYaz("Bu Firkateyn kartinin seviye puani: " + seviyePuani + "\n");
+        Oyun.dosyaYaz("--> Bu Firkateyn kartinin seviye puani: " + seviyePuani + "\n\n");
     }
 }
 

@@ -60,7 +60,7 @@ public class Sida extends DenizSinifi{
 
     @Override
     public void KartPuaniGoster(){
-        Oyun.dosyaYaz("Bu Sida kartinin seviye puani: " + seviyePuani + "\n");
+        Oyun.dosyaYaz("--> Bu Sida kartinin seviye puani: " + seviyePuani + "\n\n");
     }
 }
 

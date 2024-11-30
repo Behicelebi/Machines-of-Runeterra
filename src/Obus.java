@@ -56,6 +56,6 @@ public class Obus extends KaraSinifi{
 
     @Override
     public void KartPuaniGoster(){
-        Oyun.dosyaYaz("Bu Obus kartinin seviye puani: " + seviyePuani + "\n");
+        Oyun.dosyaYaz("--> Bu Obus kartinin seviye puani: " + seviyePuani + "\n\n");
     }
 }

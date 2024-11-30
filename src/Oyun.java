@@ -55,31 +55,43 @@ public class Oyun {
                     Select = new Ucak(baslangicSeviye, 10, 20);
                     if(roundNum != 1)
                         dosyaYaz("\n--->> " + oyuncu.oyuncuAdi + "'a verilen kart: Ucak\n");
+                    else
+                        dosyaYaz("Ucak ");
                     break;
                 case 1:
                     Select = new Obus(baslangicSeviye, 10, 20);
                     if(roundNum != 1)
                         dosyaYaz("\n--->> " + oyuncu.oyuncuAdi + "'a verilen kart: Obüs\n");
+                    else
+                        dosyaYaz("Obüs ");
                     break;
                 case 2:
                     Select = new Firkateyn(baslangicSeviye, 10, 25);
                     if(roundNum != 1)
                         dosyaYaz("\n--->> " + oyuncu.oyuncuAdi + "'a verilen kart: Fırkateyn\n");
+                    else
+                        dosyaYaz("Firkateyn ");
                     break;
                 case 3:
                     Select = new Siha(baslangicSeviye, 10, 15);
                     if(roundNum != 1)
                         dosyaYaz("\n--->> " + oyuncu.oyuncuAdi + "'a verilen kart: Siha\n");
+                    else
+                        dosyaYaz("Siha ");
                     break;
                 case 4:
                     Select = new KFS(baslangicSeviye, 10, 10);
                     if(roundNum != 1)
                         dosyaYaz("\n--->> " + oyuncu.oyuncuAdi + "'a verilen kart: KFS\n");
+                    else
+                        dosyaYaz("KFS ");
                     break;
                 case 5:
                     Select = new Sida(baslangicSeviye, 10, 15);
                     if(roundNum != 1)
                         dosyaYaz("\n--->> " + oyuncu.oyuncuAdi + "'a verilen kart: Sida\n");
+                    else
+                        dosyaYaz("Sida ");
                     break;
                 default:
                     break;

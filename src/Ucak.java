@@ -56,6 +56,6 @@ public class Ucak extends HavaSinifi {
 
     @Override
     public void KartPuaniGoster() {
-        Oyun.dosyaYaz("Bu Ucak kartinin seviye puani: " + seviyePuani + "\n");
+        Oyun.dosyaYaz("--> Bu Ucak kartinin seviye puani: " + seviyePuani + "\n\n");
     }
 }

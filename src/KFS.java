@@ -60,6 +60,6 @@ public class KFS extends KaraSinifi{
 
     @Override
     public void KartPuaniGoster(){
-        Oyun.dosyaYaz("Bu KFS kartinin seviye puani: " + seviyePuani + "\n");
+        Oyun.dosyaYaz("--> Bu KFS kartinin seviye puani: " + seviyePuani + "\n\n");
     }
 }

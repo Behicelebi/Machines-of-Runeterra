@@ -60,6 +60,6 @@ public class Siha extends HavaSinifi{
 
     @Override
     public void KartPuaniGoster(){
-        Oyun.dosyaYaz("Bu Siha kartinin seviye puani: " + seviyePuani + "\n");
+        Oyun.dosyaYaz("--> Bu Siha kartinin seviye puani: " + seviyePuani + "\n\n");
     }
 }

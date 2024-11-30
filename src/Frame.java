@@ -44,10 +44,13 @@ public class Frame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Frame frame = this;
         if(e.getSource()==button){
-            gamePanel.stopSound(menuMusic);
+            menuMusic.stop();
             gamePanel.playSound("Files/gameMusic.wav");
+            Oyun.dosyaYaz("\n--> " + insan.oyuncuAdi + "'a verilen kartlar --> ");
             Oyun.kartDagit(insan, 6);
+            Oyun.dosyaYaz("\n--> " + bilgisayar.oyuncuAdi + "'a verilen kartlar --> ");
             Oyun.kartDagit(bilgisayar, 6);
+            Oyun.dosyaYaz("\n");
             gamePanel.setCardPositions();
             gamePanel.insan.oyuncuAdi = menu.textField.getText();
             frame.getContentPane().remove(menu);

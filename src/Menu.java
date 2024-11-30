@@ -39,7 +39,7 @@ public class Menu extends JPanel implements ActionListener {
         bilgisayar_label.setVerticalAlignment(JLabel.TOP);
         bilgisayar_label.setForeground(Color.white);
         bilgisayar_label.setFont(new Font("Copperplate Gothic Bold",Font.ITALIC,70));
-        bilgisayar_label.setBounds(0,50,WIDTH,100);
+        bilgisayar_label.setBounds(0,80,WIDTH,100);
         this.add(bilgisayar_label);
 
         textField.setPreferredSize(new Dimension(10,300));
@@ -50,13 +50,13 @@ public class Menu extends JPanel implements ActionListener {
         this.add(textField);
 
 
-        //ROUND
+        //Round ayarlaması için butonlar ve yazılar.
         Timer up_holdTimer = new Timer(100, e -> {
             Oyun.toplamHamleSayisi++;
             repaint();
         });
         up_holdTimer.setInitialDelay(500);
-        up_button.setBounds(WIDTH/2 + 95,420,40,25);
+        up_button.setBounds(WIDTH/2 - 155,490,40,25);
         up_button.setFont(new Font("Copperplate Gothic Bold",Font.BOLD,10));
         up_button.setHorizontalAlignment(SwingConstants.CENTER);
         up_button.setFocusable(false);
@@ -81,7 +81,7 @@ public class Menu extends JPanel implements ActionListener {
             }
         });
         down_holdTimer.setInitialDelay(500);
-        down_button.setBounds(WIDTH/2 - 115,420,40,25);
+        down_button.setBounds(WIDTH/2 - 365,490,40,25);
         down_button.setFont(new Font("Copperplate Gothic Bold",Font.BOLD,10));
         down_button.setHorizontalAlignment(SwingConstants.CENTER);
         down_button.setFocusable(false);
@@ -99,20 +99,20 @@ public class Menu extends JPanel implements ActionListener {
         });
         this.add(down_button);
 
-        default_button.setBounds(WIDTH/2-50,420,120,25);
+        default_button.setBounds(WIDTH/2 - 300,490,120,25);
         default_button.setFont(new Font("Copperplate Gothic Bold",Font.BOLD,12));
         default_button.setFocusable(false);
         default_button.addActionListener(this);
         this.add(default_button);
 
 
-        //SP
+        //Seviye Puanı ayarlaması için butonlar ve yazılar
         Timer up_holdTimer1 = new Timer(100, e -> {
             Oyun.baslangicSeviye++;
             repaint();
         });
         up_holdTimer.setInitialDelay(500);
-        up_button1.setBounds(WIDTH/2 + 95,530,40,25);
+        up_button1.setBounds(WIDTH/2 + 345,490,40,25);
         up_button1.setFont(new Font("Copperplate Gothic Bold",Font.BOLD,10));
         up_button1.setHorizontalAlignment(SwingConstants.CENTER);
         up_button1.setFocusable(false);
@@ -137,7 +137,7 @@ public class Menu extends JPanel implements ActionListener {
             }
         });
         down_holdTimer.setInitialDelay(500);
-        down_button1.setBounds(WIDTH/2 - 115,530,40,25);
+        down_button1.setBounds(WIDTH/2 + 135,490,40,25);
         down_button1.setFont(new Font("Copperplate Gothic Bold",Font.BOLD,10));
         down_button1.setHorizontalAlignment(SwingConstants.CENTER);
         down_button1.setFocusable(false);
@@ -155,7 +155,7 @@ public class Menu extends JPanel implements ActionListener {
         });
         this.add(down_button1);
 
-        default_button1.setBounds(WIDTH/2-50,530,120,25);
+        default_button1.setBounds(WIDTH/2 + 200,490,120,25);
         default_button1.setFont(new Font("Copperplate Gothic Bold",Font.BOLD,12));
         default_button1.setFocusable(false);
         default_button1.addActionListener(this);
@@ -170,13 +170,13 @@ public class Menu extends JPanel implements ActionListener {
         g.setColor(Color.white);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,15));
         g.drawString("Enter a player name !", WIDTH/2 - 80,280);
-        g.drawString("Total round amount",WIDTH/2 - 75,360);
-        g.drawString("The starting level points",WIDTH/2 - 95,470);
+        g.drawString("Select total round amount",WIDTH/2 - 355,430);
+        g.drawString("Select starting level points",WIDTH/2 + 138,430);
         g.setFont(new Font("Copperplate Gothic Bold",Font.PLAIN,20));
         String ortalanmis = String.format("%02d", Oyun.toplamHamleSayisi);
-        g.drawString(ortalanmis,WIDTH/2-5 ,400);
+        g.drawString(ortalanmis,WIDTH/2 - 255 ,470);
         String ortalanmis1 = String.format("%02d", Oyun.baslangicSeviye);
-        g.drawString(ortalanmis1,WIDTH/2-5 ,510);
+        g.drawString(ortalanmis1,WIDTH/2 + 245 ,470);
     }
 
     @Override
