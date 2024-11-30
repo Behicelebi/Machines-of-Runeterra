@@ -51,7 +51,7 @@ public class Menu extends JPanel implements ActionListener {
 
 
         //Round ayarlaması için butonlar ve yazılar.
-        Timer up_holdTimer = new Timer(100, e -> {
+        javax.swing.Timer up_holdTimer = new javax.swing.Timer(100, e -> {
             Oyun.toplamHamleSayisi++;
             repaint();
         });
@@ -74,7 +74,7 @@ public class Menu extends JPanel implements ActionListener {
         });
         this.add(up_button);
 
-        Timer down_holdTimer = new Timer(100, e -> {
+        javax.swing.Timer down_holdTimer = new javax.swing.Timer(100, e -> {
             if(Oyun.toplamHamleSayisi>1){
                 Oyun.toplamHamleSayisi--;
                 repaint();
@@ -107,11 +107,11 @@ public class Menu extends JPanel implements ActionListener {
 
 
         //Seviye Puanı ayarlaması için butonlar ve yazılar
-        Timer up_holdTimer1 = new Timer(100, e -> {
+        javax.swing.Timer up_holdTimer1 = new javax.swing.Timer(100, e -> {
             Oyun.baslangicSeviye++;
             repaint();
         });
-        up_holdTimer.setInitialDelay(500);
+        up_holdTimer1.setInitialDelay(500);
         up_button1.setBounds(WIDTH/2 + 345,490,40,25);
         up_button1.setFont(new Font("Copperplate Gothic Bold",Font.BOLD,10));
         up_button1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -130,13 +130,13 @@ public class Menu extends JPanel implements ActionListener {
         });
         this.add(up_button1);
 
-        Timer down_holdTimer1 = new Timer(100, e -> {
+        javax.swing.Timer down_holdTimer1 = new javax.swing.Timer(100, e -> {
             if(Oyun.baslangicSeviye>1){
                 Oyun.baslangicSeviye--;
                 repaint();
             }
         });
-        down_holdTimer.setInitialDelay(500);
+        down_holdTimer1.setInitialDelay(500);
         down_button1.setBounds(WIDTH/2 + 135,490,40,25);
         down_button1.setFont(new Font("Copperplate Gothic Bold",Font.BOLD,10));
         down_button1.setHorizontalAlignment(SwingConstants.CENTER);
