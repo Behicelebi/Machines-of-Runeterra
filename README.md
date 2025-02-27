@@ -12,16 +12,7 @@ Behiç Çelebi
 Kocaeli Üniversitesi, Bilgisayar Mühendisliği
 Email: celebibehic@gmail.com
 
-## İçindekiler
-Özet
-Giriş
-Yöntem
-Sınıf Yapıları
-Oyun Algoritması
-UML Diyagramı ve Tablo
-Kullanılan Teknolojiler ve Araçlar
-Sonuç
-Katkılar
+
 
 ## Özet
 Bu rapor, savaş araçları kart oyununun tasarımını ve uygulamasını açıklamaktadır. Oyun, oyuncunun bilgisayara karşı stratejik hamleler yaptığı bir yapıdadır. UML diyagramları ve tablolar ile desteklenen proje, nesne yönelimli programlama kavramlarının pratikte uygulanabilirliğini vurgulamaktadır.
