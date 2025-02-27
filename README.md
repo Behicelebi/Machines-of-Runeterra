@@ -121,7 +121,7 @@ Kaynakça
  </tr>
  <tr>
   <td><img src="https://github.com/Behicelebi/Machines-of-Runeterra/blob/master/screenshots/demo1.jpg"></td>
-  <td><img src="https://github.com/Behicelebi/Machines-of-Runeterra/blob/master/screenshots/demo1.jpg"></td>
-  <td><img src="https://github.com/Behicelebi/Machines-of-Runeterra/blob/master/screenshots/demo1.jpg"></td>
+  <td><img src="https://github.com/Behicelebi/Machines-of-Runeterra/blob/master/screenshots/demo2.jpg"></td>
+  <td><img src="https://github.com/Behicelebi/Machines-of-Runeterra/blob/master/screenshots/demo3.jpg"></td>
  </tr>
 </table>
