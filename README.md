@@ -22,8 +22,8 @@ UML Diyagramı ve Tablo
 Kullanılan Teknolojiler ve Araçlar
 Sonuç
 Katkılar
-Kaynakça
-Özet
+
+## Özet
 Bu rapor, savaş araçları kart oyununun tasarımını ve uygulamasını açıklamaktadır. Oyun, oyuncunun bilgisayara karşı stratejik hamleler yaptığı bir yapıdadır. UML diyagramları ve tablolar ile desteklenen proje, nesne yönelimli programlama kavramlarının pratikte uygulanabilirliğini vurgulamaktadır.
 
 ## Giriş
@@ -42,10 +42,15 @@ Oyun Algoritması
 ## Oyun dinamik bir yapıya sahiptir:
 
  Başlangıç Aşaması: Oyuncu ve bilgisayara kartlar dağıtılır.
+ 
  Hamle Mekanizması: Seçilen kartlar karşılaştırılır.
+ 
  Saldırı ve Seviye Hesaplama: Kartların avantajları dikkate alınarak hesaplamalar yapılır.
+ 
  Oyun Bitişi: Skorlar karşılaştırılır.
- UML Diyagramı ve Tablo
+ 
+UML Diyagramı ve Tablo
+
 Sınıflar ve ilişkiler UML diyagramında gösterilmiştir. Araçların özellikleri ise tablolarla özetlenmiştir.
 
 ## Kullanılan Teknolojiler ve Araçlar
