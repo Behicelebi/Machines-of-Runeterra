@@ -111,3 +111,17 @@ Kaynakça
 [2] Java Documentation https://docs.oracle.com/javase/
 
 [3] Design Patterns Explained https://refactoring.guru/design-patterns
+
+## Screenshots
+<table>
+ <tr>
+  <td>demo1</td>
+  <td>demo2</td>
+  <td>demo3</td>
+ </tr>
+ <tr>
+  <td><img src="https://github.com/Behicelebi/Machines-of-Runeterra/blob/master/screenshots/demo1.jpg"></td>
+  <td><img src="https://github.com/Behicelebi/Machines-of-Runeterra/blob/master/screenshots/demo1.jpg"></td>
+  <td><img src="https://github.com/Behicelebi/Machines-of-Runeterra/blob/master/screenshots/demo1.jpg"></td>
+ </tr>
+</table>
