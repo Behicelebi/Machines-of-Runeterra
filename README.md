@@ -7,6 +7,7 @@ Bu proje, programlama ve nesneye yönelik programlama (NYP) ilkelerini öğretme
 Murat Emre Biçici
 Kocaeli Üniversitesi, Bilgisayar Mühendisliği
 Email: muratemrebicici@gmail.com
+
 Behiç Çelebi
 Kocaeli Üniversitesi, Bilgisayar Mühendisliği
 Email: celebibehic@gmail.com
