@@ -37,13 +37,14 @@ Hava, Kara ve Deniz Sınıfları (Abstract): Spesifik özellikler içerir.
 Alt Sınıflar: Uçak, Siha, Obüs gibi araç türlerini tanımlar.
 Oyuncu ve Oyun Sınıfları: Oyuncu bilgilerini ve oyunun ana yapısını içerir.
 Oyun Algoritması
-Oyun dinamik bir yapıya sahiptir:
 
-### Başlangıç Aşaması: Oyuncu ve bilgisayara kartlar dağıtılır.
-### Hamle Mekanizması: Seçilen kartlar karşılaştırılır.
-### Saldırı ve Seviye Hesaplama: Kartların avantajları dikkate alınarak hesaplamalar yapılır.
-### Oyun Bitişi: Skorlar karşılaştırılır.
-### UML Diyagramı ve Tablo
+## Oyun dinamik bir yapıya sahiptir:
+
+ Başlangıç Aşaması: Oyuncu ve bilgisayara kartlar dağıtılır.
+ Hamle Mekanizması: Seçilen kartlar karşılaştırılır.
+ Saldırı ve Seviye Hesaplama: Kartların avantajları dikkate alınarak hesaplamalar yapılır.
+ Oyun Bitişi: Skorlar karşılaştırılır.
+ UML Diyagramı ve Tablo
 Sınıflar ve ilişkiler UML diyagramında gösterilmiştir. Araçların özellikleri ise tablolarla özetlenmiştir.
 
 ## Kullanılan Teknolojiler ve Araçlar
